@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Scope | Global, Function, Block Scope | let vs var in Block Scope | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .scope-box {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 5px solid #f5b042;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🎯 <span>Scope in JavaScript</span> | Global, Function, Block Scope</h1>
+    <div class="sub">📦 let vs var in block scope | Hoisting & Scope Boundaries | Server Room Example — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Global Scope -->
+    <div class="topic-card">
+      <div class="topic-title">🌍 1. Global Scope</div>
+      <div class="eng-section">
+        <p>A variable declared <strong>outside all functions and blocks</strong> has <strong>Global Scope</strong>. Such variables can be accessed from anywhere in the program (inside functions, inside blocks, anywhere).</p>
+        <div class="code-demo">
+          let a = 100;   // Global variable
+
+          function fun() {
+              console.log(a);   // Accessible inside function
+          }
+
+          console.log(a);   // Accessible outside
+          fun();            // Both print 100
+        </div>
+        <div class="scope-box">
+          ✅ <strong>Global Scope:</strong> Variables declared at the topmost level, outside any function or block. Accessible everywhere.
+        </div>
+        <p>Both <span class="inline-code">let</span> and <span class="inline-code">var</span> behave similarly in global scope.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Global Scope:</strong> అన్ని functions మరియు blocks కి <strong>outside</strong> లో declare చేసిన variables. ఇవి program లో ఎక్కడైనా accessible (functions, blocks, everywhere). Global scope లో <span class="inline-code">let</span> మరియు <span class="inline-code">var</span> ఒకేలా పనిచేస్తాయి.</p>
+      </div>
+    </div>
+
+    <!-- 2: Function Scope -->
+    <div class="topic-card">
+      <div class="topic-title">📦 2. Function Scope</div>
+      <div class="eng-section">
+        <p>Variables declared <strong>inside a function</strong> have <strong>Function Scope</strong>. They are accessible only within that function, not outside.</p>
+        <div class="code-demo">
+          function fun() {
+              let a = 100;   // Function-scoped variable
+              console.log(a); // Works: 100
+          }
+
+          fun();
+          console.log(a);     // ❌ ReferenceError: a is not defined (outside scope)
+        </div>
+        <div class="scope-box">
+          🔒 <strong>Function Scope:</strong> Variable accessible only inside the function where it is declared. Hoisting is limited to the function boundary.
+        </div>
+        <p>Both <span class="inline-code">let</span> and <span class="inline-code">var</span> behave similarly in function scope (var also stays inside function, not leaking to global).</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Function Scope:</strong> ఒక function <strong>inside</strong> declare చేసిన variables ఆ function లో మాత్రమే accessible. బయట access చేస్తే ReferenceError. Function scope లో <span class="inline-code">let</span> మరియు <span class="inline-code">var</span> రెండూ ఒకేలా function కి restricted గానే ఉంటాయి.</p>
+      </div>
+    </div>
+
+    <!-- 3: Block Scope & Server Room Example -->
+    <div class="topic-card">
+      <div class="topic-title">🔲 3. Block Scope (if, for, while, etc.)</div>
+      <div class="eng-section">
+        <p>A <strong>block</strong> is code inside <span class="inline-code">{ }</span> of if, else, for, while, do-while, try-catch. Variables declared with <span class="inline-code">let</span> inside a block have <strong>Block Scope</strong> — they are accessible only within that block.</p>
+        <div class="code-demo">
+          let temperature = 30;   // Global
+
+          if (temperature > 25) {
+              let coolingTemp = temperature - 25;   // Block-scoped
+              console.log(`Server needs cooling by ${coolingTemp}°`);
+          }
+
+          console.log(temperature);   // Works: 30 (global)
+          console.log(coolingTemp);   // ❌ ReferenceError (block scope)
+        </div>
+        <div class="scope-box">
+          💡 <strong>Block Scope:</strong> <span class="inline-code">let</span> variables declared inside a block cannot be accessed outside that block. They are hoisted but remain inside the block (TDZ applies).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Block Scope:</strong> if, else, for, while వంటి <span class="inline-code">{ }</span> లో <span class="inline-code">let</span> తో declare చేసిన variables ఆ block లో మాత్రమే accessible. బయట access చేస్తే ReferenceError. ఇదే block scope.</p>
+      </div>
+    </div>
+
+    <!-- 4: let vs var in Block Scope - Critical Difference -->
+    <div class="topic-card">
+      <div class="topic-title">⚠️ 4. let vs var in Block Scope: The Critical Difference</div>
+      <div class="eng-section">
+        <p><strong>let</strong> respects block scope. <strong>var</strong> does NOT respect block scope — it "breaches" the block and goes to the nearest function or global scope during hoisting.</p>
+        <div class="code-demo">
+          // Using let (respects block scope)
+          if (true) {
+              let x = 10;
+          }
+          console.log(x);   // ReferenceError
+
+          // Using var (breaches block scope)
+          if (true) {
+              var y = 20;
+          }
+          console.log(y);   // Works: 20 (var leaks to outer scope)
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>var in block scope:</strong> During hoisting, <span class="inline-code">var</span> breaches the block boundary and moves to the <strong>nearest outer function scope</strong> (or global if no function). This makes it unpredictable and risky.
+        </div>
+        <div class="code-demo">
+          function test() {
+              if (true) {
+                  var leaked = "I am var";
+              }
+              console.log(leaked);   // Works: "I am var" (function scope)
+          }
+          test();
+          console.log(leaked);   // ReferenceError (not global, only function scope)
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>let vs var in block scope:</strong><br>
+        • <span class="inline-code">let</span> → block scope ని respect చేస్తుంది. block బయట access చేస్తే error.<br>
+        • <span class="inline-code">var</span> → block scope ని <strong>breach</strong> చేస్తుంది (hoisting సమయంలో). ఇది nearest function scope (లేదా global) కి వెళ్తుంది. ఇది unpredictable మరియు risky. అందుకే <span class="inline-code">var</span> ని avoid చేయండి.</p>
+      </div>
+    </div>
+
+    <!-- 5: For Loop Example - let vs var -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 5. For Loop Example: let vs var in Block Scope</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Using let (block scope)
+          function printWithLet(num) {
+              for (let i = 1; i <= num; i++) {
+                  console.log(i);
+              }
+              console.log("Final i:", i);   // ReferenceError (i not accessible)
+          }
+          printWithLet(5);   // Prints 1 2 3 4 5 then error
+
+          // Using var (breaches block scope to function scope)
+          function printWithVar(num) {
+              for (var i = 1; i <= num; i++) {
+                  console.log(i);
+              }
+              console.log("Final i:", i);   // Works: 6 (i accessible in function scope)
+          }
+          printWithVar(5);   // Prints 1 2 3 4 5 then "Final i: 6"
+
+          // var still cannot breach function scope to global
+          console.log(i);   // ReferenceError (only inside function)
+        </div>
+        <div class="scope-box">
+          🧠 <strong>Key Insight:</strong> <span class="inline-code">var</span> breaches <strong>block scope</strong> (if/for/while) but NOT <strong>function scope</strong>. It moves to the nearest function scope or global.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> For loop లో <span class="inline-code">let</span> వాడితే i block scope లో restrict అవుతుంది, loop బయట access చేస్తే error. <span class="inline-code">var</span> వాడితే i function scope కి breach అవుతుంది, loop బయట కూడా access చేయవచ్చు. గమనించండి: <span class="inline-code">var</span> block scope breach చేస్తుంది కానీ function scope breach చేయదు.</p>
+      </div>
+    </div>
+
+    <!-- 6: Summary Table -->
+    <div class="topic-card">
+      <div class="topic-title">📊 6. Summary: Scope Behavior of let vs var</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Global Scope
+          let globalLet = "G1";
+          var globalVar = "G2";
+          // Both accessible everywhere
+
+          // Function Scope
+          function test() {
+              let funcLet = "F1";
+              var funcVar = "F2";
+              // Both accessible inside function only
+          }
+          // funcLet, funcVar NOT accessible outside
+
+          // Block Scope (if, for, while)
+          if (true) {
+              let blockLet = "B1";   // Only inside this block
+              var blockVar = "B2";   // Leaks to function/global scope
+          }
+          // blockLet → ReferenceError
+          // blockVar → Accessible (breached block)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Kalyan's Recommendation:</strong> <span class="inline-code">var</span> is unpredictable and risky. Always prefer <span class="inline-code">let</span> (and <span class="inline-code">const</span>) for block scoping. This avoids accidental leaks and makes code more maintainable. Modern JavaScript (ES6+) discourages <span class="inline-code">var</span>.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Global Scope:</strong> let మరియు var ఒకేలా (both accessible everywhere)<br>
+        • <strong>Function Scope:</strong> let మరియు var ఒకేలా (function లోపల మాత్రమే accessible)<br>
+        • <strong>Block Scope:</strong> let → block లోపల మాత్రమే; var → block breach చేసి outer scope (function/global) కి వెళ్తుంది.<br>
+        • <strong>Suggestion:</strong> ఎప్పుడూ <span class="inline-code">var</span> ని avoid చేయండి. <span class="inline-code">let</span> మరియు <span class="inline-code">const</span> మాత్రమే వాడండి — ఇవి predictable మరియు safe.</p>
+      </div>
+    </div>
+
+    <!-- 7: Final Advice -->
+    <div class="topic-card">
+      <div class="topic-title">🎯 7. Final Advice: Build Strong Foundations</div>
+      <div class="eng-section">
+        <div class="scope-box">
+          💬 <strong>Message from Kalyan:</strong> Many beginners jump directly to React, Vue, or Angular without understanding scope, hoisting, and closures. This leads to confusion and bugs. Master these fundamentals first. Once you understand JavaScript deeply, frameworks become easy.
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Pro Tip:</strong> Use <span class="inline-code">let</span> for variables that change, <span class="inline-code">const</span> for constants, and <span class="inline-code">var</span> — never. TypeScript (a superset of JavaScript) solves many of these problems and is highly recommended for production code.
+        </div>
+        <p>In the next class, we will explore <strong>Closures</strong> — one of the most powerful and often misunderstood concepts in JavaScript. Stay tuned!</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> చాలామంది React, Vue, Angular లోకి scope, hoisting, closures నేర్చుకోకుండానే దూరిపోతారు. ఇది confusion మరియు bugs కు దారి తీస్తుంది. ముందు JavaScript fundamentals ని perfect చేయండి. అప్పుడు frameworks సులభమవుతాయి. <span class="inline-code">let</span> మరియు <span class="inline-code">const</span> వాడండి, <span class="inline-code">var</span> ని పూర్తిగా avoid చేయండి. తర్వాతి class లో <strong>Closures</strong> నేర్చుకుందాం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Scope demystified: Global, Function, Block. Next: Closures and Advanced Scope Concepts!
+    </div>
+  </div>
+</div>
+</body>
+</html>

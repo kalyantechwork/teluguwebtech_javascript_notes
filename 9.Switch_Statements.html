@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Control Structures | Switch Statement, Grouping Cases, Ternary Operator | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🎛️ <span>Switch Statement & Ternary Operator</span> in JavaScript</h1>
+    <div class="sub">🔁 Grouping cases | Strict equality in switch | Cleaner code than if-else-if | Voting eligibility with ternary — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Why switch? When if-else-if becomes lengthy -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Why Switch? The Problem with Long if-else-if Ladders</div>
+      <div class="eng-section">
+        <p>When we have to compare the same variable against many possible values (like user roles: admin, editor, author, subscriber), using <span class="inline-code">if-else-if</span> becomes lengthy and hard to read. The <strong>switch statement</strong> provides a cleaner, more elegant alternative.</p>
+        <div class="code-demo">
+          // Long if-else-if ladder (less readable)
+          let userRole = "admin";
+          if (userRole === "admin") {
+              console.log("Full access granted");
+          } else if (userRole === "editor") {
+              console.log("Editor access granted");
+          } else if (userRole === "author") {
+              console.log("Author access granted");
+          } else {
+              console.log("Student access granted");
+          }
+        </div>
+        <div class="highlight-box">
+          ✅ Switch makes code more readable, especially when checking one variable for multiple specific values.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఒకే variable ని అనేక possible values (user roles: admin, editor, author, subscriber) తో పోల్చాల్సి వచ్చినప్పుడు, <span class="inline-code">if-else-if</span> చాలా పొడవుగా మరియు చదవడానికి కష్టంగా మారుతుంది. <strong>Switch statement</strong> దీనికి cleaner మరియు elegant alternative.</p>
+      </div>
+    </div>
+
+    <!-- 2: Switch syntax with real example (user roles) -->
+    <div class="topic-card">
+      <div class="topic-title">🔧 2. Switch Statement Syntax & User Role Example</div>
+      <div class="eng-section">
+        <p><strong>Syntax:</strong> <span class="inline-code">switch(expression) { case value1: // code; break; case value2: // code; break; default: // code; }</span></p>
+        <div class="code-demo">
+          let userRole = "admin";
+          switch (userRole) {
+              case "admin":
+                  console.log("Full access granted");
+                  break;
+              case "editor":
+                  console.log("Editor access granted");
+                  break;
+              case "author":
+                  console.log("Author access granted");
+                  break;
+              default:
+                  console.log("Student access granted");
+          }
+          // Output: Full access granted
+        </div>
+        <p><strong>Important:</strong> Without <span class="inline-code">break</span>, execution "falls through" to the next case. Always add break unless you intentionally want fall-through.</p>
+        <div class="highlight-box">
+          🔥 <strong>Switch uses strict equality (===)</strong> — both value and type must match.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">switch(expression) { case value1: // code; break; ... default: }</span>. <span class="inline-code">break</span> లేకపోతే fall-through జరుగుతుంది. Switch uses <strong>strict equality (===)</strong> — కాబట్టి value మరియు type రెండూ match అవ్వాలి.</p>
+      </div>
+    </div>
+
+    <!-- 3: Grouping cases (weekend / midweek example) -->
+    <div class="topic-card">
+      <div class="topic-title">🎯 3. Grouping Cases: Day of Week (Weekend, Monday, Midweek, Friday)</div>
+      <div class="eng-section">
+        <p>Multiple cases can share the same code block by omitting <span class="inline-code">break</span> between them and placing the code only in the last case of the group.</p>
+        <div class="code-demo">
+          let day = 3;  // 0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday
+          switch (day) {
+              case 0:     // Sunday
+              case 6:     // Saturday
+                  console.log("🎉 Happy Weekend!");
+                  break;
+              case 1:
+                  console.log("💪 Happy Monday!");
+                  break;
+              case 2:
+              case 3:
+              case 4:
+                  console.log("📅 Happy Midweek!");
+                  break;
+              case 5:
+                  console.log("🙏 Thank God It's Friday!");
+                  break;
+              default:
+                  console.log("Invalid day");
+          }
+          // Output: Happy Midweek! (since day=3)
+        </div>
+        <p>This grouping is far cleaner than multiple <span class="inline-code">if-else-if</span> conditions. It's perfect for menus, user roles, or any situation with discrete options.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఒకే code block ని multiple cases share చేసుకోవచ్చు — వాటి మధ్య <span class="inline-code">break</span> రాయకుండా చివరి case లో code రాస్తే సరిపోతుంది. ఉదా: day=0 or 6 → weekend message. ఇది if-else-if కంటే చాలా clean గా ఉంటుంది.</p>
+      </div>
+    </div>
+
+    <!-- 4: Fall-through concept and break importance -->
+    <div class="topic-card">
+      <div class="topic-title">⚠️ 4. Understanding "Fall-Through" — Always use break</div>
+      <div class="eng-section">
+        <p>Without <span class="inline-code">break</span>, once a case matches, JavaScript executes all subsequent cases (including default) regardless of matching. This is called <strong>fall-through</strong>. Sometimes intentional (like grouping), but often a bug.</p>
+        <div class="code-demo">
+          let role = "editor";
+          switch(role) {
+              case "admin":
+                  console.log("Admin");
+              case "editor":
+                  console.log("Editor"); // matches here
+              case "author":
+                  console.log("Author"); // also executes due to no break!
+              default:
+                  console.log("Default");
+          }
+          // Output: Editor, Author, Default (fall-through)
+        </div>
+        <div class="highlight-box">
+          ✅ Always add <span class="inline-code">break</span> at the end of each case's code block unless you explicitly want fall-through for grouping.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">break</span> లేకపోతే, case match అయిన తర్వాత తర్వాతి cases కూడా execute అవుతాయి — దీన్నే <strong>fall-through</strong> అంటారు. intentional grouping తప్ప, ప్రతీ case చివర <span class="inline-code">break</span> ఉంచండి.</p>
+      </div>
+    </div>
+
+    <!-- 5: Ternary Operator (conditional operator) -->
+    <div class="topic-card">
+      <div class="topic-title">❓ 5. Ternary Operator (?:) — Shortcut for if-else</div>
+      <div class="eng-section">
+        <p>The <strong>ternary operator</strong> is a concise way to write simple <span class="inline-code">if-else</span> assignments. Syntax: <span class="inline-code">condition ? expressionIfTrue : expressionIfFalse</span></p>
+        <div class="code-demo">
+          let age = 20;
+          // Long if-else
+          let message;
+          if (age >= 18) {
+              message = "Can vote";
+          } else {
+              message = "Cannot vote";
+          }
+
+          // Same logic with Ternary operator (one line!)
+          let voteMessage = (age >= 18) ? "Can vote" : "Cannot vote";
+          console.log(voteMessage); // Can vote
+        </div>
+        <div class="highlight-box">
+          💡 <strong>When to use Ternary:</strong> For simple conditional assignments. For complex logic or multiple statements, stick with if-else for readability.
+        </div>
+        <p>Ternary returns a value, so it can be used directly in assignments, function arguments, or even inside template literals.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">condition ? trueExpr : falseExpr</span> — ఇది simple if-else కి shortcut. ఉదా: <span class="inline-code">let status = (marks >= 35) ? "Pass" : "Fail";</span>. Simple assignments కి మాత్రమే వాడండి; complex logic కి if-else నే వాడటం better.</p>
+      </div>
+    </div>
+
+    <!-- 6: More practical ternary examples -->
+    <div class="topic-card">
+      <div class="topic-title">📝 6. More Ternary Examples & Best Practices</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Example 1: Greeting based on time
+          let hour = 14;
+          let greeting = (hour < 12) ? "Good morning" : "Good afternoon";
+          console.log(greeting);
+
+          // Example 2: Access level
+          let isLoggedIn = true;
+          let access = isLoggedIn ? "Dashboard" : "Login page";
+
+          // Example 3: Nested ternary (avoid if possible — hurts readability)
+          let score = 85;
+          let grade = (score >= 90) ? "A" : (score >= 75) ? "B" : "C";
+          // Better to use if-else for nested conditions
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's advice:</strong> Use ternary for simple binary decisions. For multiple conditions (like grade logic), use if-else-if or switch for clarity.
+        </div>
+        <p>In the next class, we will dive deep into <strong>Loops</strong> (for, while, do-while) — the bread and butter of programming logic.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong> Ternary operator simple if-else కి మాత్రమే వాడండి. Nested ternary (multiple ?:) వలన code చదవడం కష్టమవుతుంది — అప్పుడు if-else లేదా switch వాడటం మంచిది. తర్వాతి class లో <strong>Loops (for, while)</strong> నేర్చుకుందాం — ఇవి programming కి చాలా ముఖ్యమైనవి.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary: Switch vs if-else-if vs Ternary -->
+    <div class="topic-card">
+      <div class="topic-title">📊 7. Quick Comparison: When to use what?</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>if-else-if:</strong> When conditions are complex, involve ranges, or different variables.</li>
+          <li><strong>switch:</strong> When comparing the same variable against many discrete values (user roles, menu options, day numbers).</li>
+          <li><strong>Ternary (?:):</strong> For simple, single-line conditional assignments (true/false outcomes).</li>
+        </ul>
+        <div class="code-demo">
+          // Best practice examples
+          // Range → if-else
+          if (marks >= 90) { grade = "A"; }
+          else if (marks >= 75) { grade = "B"; }
+
+          // Discrete values → switch
+          switch (day) {
+              case 0: case 6: console.log("Weekend"); break;
+              case 5: console.log("TGIF"); break;
+          }
+
+          // Simple assignment → ternary
+          let canDrive = (age >= 18) ? "Yes" : "No";
+        </div>
+        <div class="highlight-box">
+          🎯 <strong>Remember:</strong> Clean code is maintainable code. Choose the right control structure for the situation.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>if-else-if:</strong> ranges, complex conditions కోసం.<br>
+        • <strong>switch:</strong> ఒకే variable ని multiple discrete values తో compare చేసేటప్పుడు (user roles, menu).<br>
+        • <strong>Ternary (?:):</strong> simple true/false assignments కోసం.<br>
+        • Clean code రాయడం వలన programs maintain చేయడం సులభం. ప్రాక్టీస్ చేయండి!</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Switch and Ternary made crystal clear. Next class: Loops (for, while, do-while). Keep practicing with real scenarios!
+    </div>
+  </div>
+</div>
+</body>
+</html>

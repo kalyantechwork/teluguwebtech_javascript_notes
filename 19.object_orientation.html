@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Object Orientation in JavaScript | Introduction to Objects | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .perspective-example {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🎯 <span>Object Orientation</span> in JavaScript</h1>
+    <div class="sub">📦 World is a collection of objects | Class vs Object | State (Properties) & Behavior (Methods) | Object Literal Notation — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Meaning of Orientation (Perspective) -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. What is "Orientation"? (Perspective / Way of Looking)</div>
+      <div class="eng-section">
+        <p>Orientation means <strong>way of looking</strong> or <strong>perspective</strong> (दृष्टिकोण). The same thing can be seen differently by different people.</p>
+        <div class="perspective-example">
+          🥛 A glass half-filled with water:<br>
+          • Chemist → "half liquid, half gas"<br>
+          • Optimist → "half full glass"<br>
+          • Pessimist → "half empty glass"<br>
+          • Realist → "just a glass of water"
+        </div>
+        <div class="highlight-box">
+          💡 Orientation = your perspective. Object Orientation = looking at everything in the world as a <strong>collection of objects</strong>.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Orientation అంటే <strong>way of looking</strong> లేదా <strong>perspective</strong> (దృక్పథం). ఒకే glass of water ని chemist, optimist, pessimist, realist వేర్వేరుగా చూస్తారు. Object Orientation అంటే ప్రపంచంలోని ప్రతిదాన్ని <strong>objects యొక్క collection</strong> గా చూడటం.</p>
+      </div>
+    </div>
+
+    <!-- 2: Three Rules of Object Orientation -->
+    <div class="topic-card">
+      <div class="topic-title">📐 2. Three Fundamental Rules of Object Orientation</div>
+      <div class="eng-section">
+        <p><strong>Rule 1:</strong> The world (and your program) is a <strong>collection of objects</strong>. (Glass, car, mobile, student, virus — everything is an object)</p>
+        <p><strong>Rule 2:</strong> Every object belongs to a <strong>type/category</strong>. In programming, this type is called a <strong>Class</strong>. Class is imaginary (idea), objects are real.</p>
+        <p><strong>Rule 3:</strong> Every object has two parts:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>State / Properties (HAS)</strong> — what the object has (name, color, price, mileage)</li>
+          <li><strong>Behavior / Methods (DOES)</strong> — what the object can do (start, stop, accelerate, sing, dance)</li>
+        </ul>
+        <div class="code-demo">
+          // Car object example
+          // HAS (Properties): name, cost, mileage
+          // DOES (Methods): start(), stop(), accelerate()
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Object Orientation = Perspective of looking at world as objects + every object has properties (has) and behaviors (does).</strong>
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Object Orientation యొక్క 3 నియమాలు:<br>
+        1. ప్రపంచం (మరియు మా program) <strong>objects యొక్క collection</strong>.<br>
+        2. ప్రతీ object ఒక <strong>type/category</strong> కి చెందుతుంది. Programming లో దీన్నే <strong>Class</strong> అంటారు. Class imaginary, objects real.<br>
+        3. ప్రతీ object కి రెండు భాగాలు: <strong>State/Properties (HAS)</strong> మరియు <strong>Behavior/Methods (DOES)</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 3: Creating Objects in JavaScript (Object Literal Notation) -->
+    <div class="topic-card">
+      <div class="topic-title">🛠️ 3. Creating Objects in JavaScript: Object Literal Notation</div>
+      <div class="eng-section">
+        <p>There are multiple ways to create objects in JavaScript. The most common is <strong>Object Literal Notation</strong> using <span class="inline-code">{ }</span>.</p>
+        <div class="code-demo">
+          let car = {
+              // Properties (HAS part)
+              name: "BMW",
+              cost: 75.6,
+              mileage: 8.6,
+
+              // Methods / Behaviors (DOES part)
+              start: function() {
+                  console.log("Car is starting");
+              },
+              stop: function() {
+                  console.log("Car is stopping");
+              },
+              accelerate: function() {
+                  console.log("Car is accelerating");
+              }
+          };
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Syntax:</strong> <span class="inline-code">{ key: value, key2: value2, ... }</span>. Keys can be property names or method names. Values can be strings, numbers, booleans, arrays, or functions.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript లో objects ని create చేయడానికి అనేక మార్గాలు ఉన్నాయి. అత్యంత సాధారణమైనది <strong>Object Literal Notation</strong> (<span class="inline-code">{ }</span>). ఇందులో key: value pairs ఉంటాయి. Properties (HAS) మరియు Methods (DOES) రెండూ key: value గా రాస్తాం.</p>
+      </div>
+    </div>
+
+    <!-- 4: Memory View - Stack and Heap -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 4. Memory View: Stack and Heap for Objects</div>
+      <div class="eng-section">
+        <p>When a JavaScript program runs, two memory segments are used:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Stack</strong> — stores primitive values and references (addresses)</li>
+          <li><strong>Heap</strong> — stores objects (complex structures)</li>
+        </ul>
+        <div class="code-demo">
+          // When we create an object
+          let car = { name: "BMW", cost: 75.6 };
+
+          // Memory:
+          // 1. Object is created in HEAP with an address (e.g., 0x1000)
+          // 2. The variable 'car' in STACK stores this address (reference)
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Important:</strong> The variable holds a <strong>reference</strong> (memory address) to the object, not the object itself. Multiple variables can reference the same object.
+        </div>
+        <p>This reference-based model is why objects are called <strong>reference types</strong>.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript program execute అయినప్పుడు రెండు memory segments ఉంటాయి: <strong>Stack</strong> (primitives, references) మరియు <strong>Heap</strong> (objects). Object Heap లో create అవుతుంది, దాని address (reference) Stack లో variable లో store అవుతుంది. అందుకే objects ని <strong>reference types</strong> అంటారు.</p>
+      </div>
+    </div>
+
+    <!-- 5: Accessing Object Properties and Methods -->
+    <div class="topic-card">
+      <div class="topic-title">🔍 5. Accessing Object Properties & Methods (Dot Notation)</div>
+      <div class="eng-section">
+        <p>Use the <strong>dot operator (.)</strong> to access properties and methods of an object.</p>
+        <div class="code-demo">
+          // Access properties
+          console.log(car.name);      // BMW
+          console.log(car.cost);      // 75.6
+
+          // Call methods
+          car.start();        // "Car is starting"
+          car.stop();         // "Car is stopping"
+          car.accelerate();   // "Car is accelerating"
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Syntax:</strong> <span class="inline-code">objectReference.propertyName</span> or <span class="inline-code">objectReference.methodName()</span>
+        </div>
+        <p>When a method is called, a new execution context is created on the stack, the method runs, then it's popped off.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Object properties మరియు methods ని access చేయడానికి <strong>dot operator (.)</strong> వాడతాం. ఉదా: <span class="inline-code">car.name</span> (property), <span class="inline-code">car.start()</span> (method call). Method call అయినప్పుడు stack లో new execution context create అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 6: Student Object Example (Assignment) -->
+    <div class="topic-card">
+      <div class="topic-title">📝 6. Practice: Student Object</div>
+      <div class="eng-section">
+        <p>Create a student object with the following:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Properties (HAS):</strong> name, grade, age</li>
+          <li><strong>Methods (DOES):</strong> code(), sing(), dance()</li>
+        </ul>
+        <div class="code-demo">
+          let student = {
+              name: "Rahul",
+              grade: "A",
+              age: 20,
+
+              code: function() {
+                  console.log("Student is coding");
+              },
+              sing: function() {
+                  console.log("Student is singing");
+              },
+              dance: function() {
+                  console.log("Student is dancing");
+              }
+          };
+
+          console.log(student.name);   // Rahul
+          student.code();              // Student is coding
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Assignment for you:</strong> Draw the memory diagram (Stack & Heap) for this student object. Identify which part is in Stack and which is in Heap.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> మీరు ఒక student object ని create చేయండి: properties (name, grade, age) మరియు methods (code, sing, dance). దీనికి memory diagram (Stack & Heap) draw చేయండి. ఇది object orientation ని బాగా understand చేసుకోవడానికి సహాయపడుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 7: Ways to Create Objects (Preview) -->
+    <div class="topic-card">
+      <div class="topic-title">📚 7. Different Ways to Create Objects in JavaScript</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Object Literal:</strong> <span class="inline-code">{ key: value }</span> (most common, used in JSON)</li>
+          <li><strong>new Object() Constructor:</strong> <span class="inline-code">let obj = new Object();</span></li>
+          <li><strong>Constructor Function:</strong> <span class="inline-code">function Car(name) { this.name = name; }</span></li>
+          <li><strong>ES6 Classes:</strong> <span class="inline-code">class Car { constructor(name) { this.name = name; } }</span></li>
+        </ul>
+        <div class="highlight-box">
+          💡 <strong>JSON (JavaScript Object Notation)</strong> is based on object literal syntax and is the most popular data exchange format on the internet.
+        </div>
+        <p>We will explore classes and constructor functions in depth in upcoming classes.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript లో objects ని create చేయడానికి అనేక మార్గాలు: Object Literal, new Object(), Constructor Function, ES6 Classes. JSON (JavaScript Object Notation) అనేది object literal syntax పై ఆధారపడి ఉంటుంది మరియు internet లో అత్యంత ప్రజాదరణ పొందిన data exchange format.</p>
+      </div>
+    </div>
+
+    <!-- 8: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 8. Summary</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Object Orientation</strong> = perspective of looking at everything as a collection of objects.</li>
+          <li>Every object has <strong>properties (HAS)</strong> and <strong>methods (DOES)</strong>.</li>
+          <li>In JavaScript, objects are created using <strong>object literals</strong> <span class="inline-code">{ }</span> with key-value pairs.</li>
+          <li>Objects are stored in <strong>Heap memory</strong>; variables store <strong>references</strong> (addresses) in Stack.</li>
+          <li>Use <strong>dot notation (.)</strong> to access properties and methods.</li>
+          <li>Functions inside objects are called <strong>methods</strong>.</li>
+        </ul>
+        <div class="highlight-box">
+          🎯 <strong>Next Class:</strong> Functions are also objects in JavaScript! We'll explore this fascinating concept and dive deeper into object-oriented programming.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • Object Orientation = ప్రపంచాన్ని objects గా చూడటం.<br>
+        • ప్రతీ object కి properties (HAS) మరియు methods (DOES) ఉంటాయి.<br>
+        • JavaScript లో objects ని <strong>object literals</strong> <span class="inline-code">{ }</span> తో create చేస్తాం.<br>
+        • Objects Heap లో store అవుతాయి; variables Stack లో references store చేస్తాయి.<br>
+        • <strong>Dot notation (.)</strong> తో properties/methods access చేస్తాం.<br>
+        • Functions inside objects ని <strong>methods</strong> అంటారు.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Object Orientation basics: perspective, properties, methods, memory. Next: Functions are objects, classes, and advanced OOP!
+    </div>
+  </div>
+</div>
+</body>
+</html>

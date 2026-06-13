@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Advanced Pattern Programming in JavaScript | Hollow Square, Diagonals, Center Lines | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .pattern-visual {
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 1rem;
+      text-align: center;
+      font-family: monospace;
+      font-weight: bold;
+      margin: 1rem 0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🎨 <span>Advanced Pattern Programming</span> in JavaScript</h1>
+    <div class="sub">⭐ Hollow Square | Diagonals | Center Lines | Math.floor() for center | Building logic with nested loops — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Recap - Simple Square Pattern -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Recap: Simple Square Pattern (Nested Loops)</div>
+      <div class="eng-section">
+        <p>In the previous class, we created a solid square pattern using nested loops:</p>
+        <div class="code-demo">
+          let n = 5;
+          for (let i = 1; i <= n; i++) {
+              let row = "";
+              for (let j = 1; j <= n; j++) {
+                  row += "* ";
+              }
+              console.log(row);
+          }
+          // Output: 5x5 solid star square
+        </div>
+        <p>Now we want to create a <strong>hollow square</strong> — stars only on borders, spaces inside.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> మునుపటి class లో solid square pattern ని nested loops తో create చేశాం. ఇప్పుడు <strong>hollow square</strong> create చేయాలి — borders మీద మాత్రమే stars, లోపల spaces ఉండాలి.</p>
+      </div>
+    </div>
+
+    <!-- 2: Hollow Square Logic -->
+    <div class="topic-card">
+      <div class="topic-title">🔲 2. Hollow Square: Stars on Borders Only</div>
+      <div class="eng-section">
+        <p>Conditions for printing star (instead of space):</p>
+        <ul style="margin-left: 1.8rem; margin-bottom: 1rem;">
+          <li><strong>First row</strong> (i === 1)</li>
+          <li><strong>Last row</strong> (i === n)</li>
+          <li><strong>First column</strong> (j === 1)</li>
+          <li><strong>Last column</strong> (j === n)</li>
+        </ul>
+        <p>If any condition is true → print star, else print space.</p>
+        <div class="code-demo">
+          let n = 8;
+          for (let i = 1; i <= n; i++) {
+              let row = "";
+              for (let j = 1; j <= n; j++) {
+                  if (i === 1 || i === n || j === 1 || j === n) {
+                      row += "* ";
+                  } else {
+                      row += "  "; // two spaces for alignment
+                  }
+              }
+              console.log(row);
+          }
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Note:</strong> Using <span class="inline-code">n</span> dynamically makes the pattern scalable. Change n to 10, and you get a 10x10 hollow square.
+        </div>
+        <p>We can also print <strong>row numbers</strong> inside instead of stars:</p>
+        <div class="code-demo">
+          // Replace "*" with i (row number)
+          if (i === 1 || i === n || j === 1 || j === n) {
+              row += i + " ";
+          } else {
+              row += "  ";
+          }
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Hollow square కోసం conditions: first row (i===1), last row (i===n), first column (j===1), last column (j===n). ఏదైనా condition true అయితే star print చేయాలి, లేకపోతే space. <span class="inline-code">n</span> ని dynamic గా ఉంచడం వలన pattern scalable అవుతుంది. Stars స్థానంలో row numbers (i) ని కూడా print చేయవచ్చు.</p>
+      </div>
+    </div>
+
+    <!-- 3: Understanding Zero-based vs One-based indexing -->
+    <div class="topic-card">
+      <div class="topic-title">🔢 3. Zero-based Indexing (0 to n-1)</div>
+      <div class="eng-section">
+        <p>We can also write loops starting from <strong>0</strong> instead of 1. Then conditions change: first row = 0, last row = n-1.</p>
+        <div class="code-demo">
+          let n = 11;
+          for (let i = 0; i < n; i++) {      // i from 0 to 10
+              let row = "";
+              for (let j = 0; j < n; j++) {  // j from 0 to 10
+                  if (i === 0 || i === n-1 || j === 0 || j === n-1) {
+                      row += "* ";
+                  } else {
+                      row += "  ";
+                  }
+              }
+              console.log(row);
+          }
+        </div>
+        <p>Both approaches work. Choose whichever is comfortable. In competitive programming, zero-based is common.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Loops ని 0 నుండి కూడా start చేయవచ్చు (i = 0 to n-1). అప్పుడు conditions: first row i===0, last row i===n-1, first column j===0, last column j===n-1. రెండు approaches సరైనవే.</p>
+      </div>
+    </div>
+
+    <!-- 4: Adding Center Lines (Vertical & Horizontal) -->
+    <div class="topic-card">
+      <div class="topic-title">🎯 4. Adding Center Lines: Vertical & Horizontal</div>
+      <div class="eng-section">
+        <p>To draw center lines, we need the <strong>middle index</strong>. For odd n (e.g., 11), middle is <span class="inline-code">Math.floor(n/2)</span>.</p>
+        <div class="code-demo">
+          let n = 11;
+          let center = Math.floor(n / 2);  // 5 (when n=11, 0-based center is 5)
+          for (let i = 0; i < n; i++) {
+              let row = "";
+              for (let j = 0; j < n; j++) {
+                  if (i === 0 || i === n-1 || j === 0 || j === n-1 || i === center || j === center) {
+                      row += "* ";
+                  } else {
+                      row += "  ";
+                  }
+              }
+              console.log(row);
+          }
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Important:</strong> In JavaScript, division of integers returns float. Use <span class="inline-code">Math.floor(n/2)</span> for integer division.
+        </div>
+        <p>Without Math.floor, <span class="inline-code">11/2 = 5.5</span> — no column index matches 5.5, so the line wouldn't appear!</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Center lines కోసం middle index కావాలి: <span class="inline-code">Math.floor(n/2)</span>. JavaScript లో integer division ఫలితం float వస్తుంది (11/2 = 5.5). కాబట్టి <span class="inline-code">Math.floor()</span> తో integer గా మార్చాలి. లేకపోతే center line print అవ్వదు.</p>
+      </div>
+    </div>
+
+    <!-- 5: Diagonals - Main Diagonal (i === j) -->
+    <div class="topic-card">
+      <div class="topic-title">📐 5. Main Diagonal: i === j</div>
+      <div class="eng-section">
+        <p>For the main diagonal (top-left to bottom-right), the condition is <span class="inline-code">i === j</span>.</p>
+        <div class="code-demo">
+          let n = 11;
+          let center = Math.floor(n/2);
+          for (let i = 0; i < n; i++) {
+              let row = "";
+              for (let j = 0; j < n; j++) {
+                  if (i === 0 || i === n-1 || j === 0 || j === n-1 || i === center || j === center || i === j) {
+                      row += "* ";
+                  } else {
+                      row += "  ";
+                  }
+              }
+              console.log(row);
+          }
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Main diagonal (top-left to bottom-right) కోసం condition: <span class="inline-code">i === j</span>. i మరియు j విలువలు సమానమైనచోట star వస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 6: Anti-Diagonal (i + j === n-1) -->
+    <div class="topic-card">
+      <div class="topic-title">📐 6. Anti-Diagonal: i + j === n-1</div>
+      <div class="eng-section">
+        <p>For the anti-diagonal (top-right to bottom-left), condition is <span class="inline-code">i + j === n - 1</span>.</p>
+        <div class="code-demo">
+          // Adding anti-diagonal
+          if (i === 0 || i === n-1 || j === 0 || j === n-1 || i === center || j === center || i === j || (i + j === n-1)) {
+              row += "* ";
+          }
+        </div>
+        <div class="highlight-box">
+          ✅ For n=11, n-1 = 10. So i + j = 10 gives the anti-diagonal.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Anti-diagonal (top-right to bottom-left) కోసం condition: <span class="inline-code">i + j === n-1</span>. n=11 అయితే, n-1=10. కాబట్టి i + j = 10 ఉన్నచోట stars వస్తాయి.</p>
+      </div>
+    </div>
+
+    <!-- 7: Advanced diagonals (i + j = center, i - j = center, etc.) -->
+    <div class="topic-card">
+      <div class="topic-title">🧩 7. Advanced Diagonals: Center Intersecting Lines</div>
+      <div class="eng-section">
+        <p>We can create more lines passing through the center:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>i + j = center</strong> (from top-left to center)</li>
+          <li><strong>i - j = center</strong> (from bottom-left to center)</li>
+          <li><strong>j - i = center</strong> (from top-right to center)</li>
+          <li><strong>i + j = (n-1) + center</strong> (from bottom-right to center)</li>
+        </ul>
+        <div class="code-demo">
+          let n = 15;
+          let center = Math.floor(n/2);
+          for (let i = 0; i < n; i++) {
+              let row = "";
+              for (let j = 0; j < n; j++) {
+                  if (i === 0 || i === n-1 || j === 0 || j === n-1 || 
+                      i === center || j === center || 
+                      i === j || (i + j === n-1) ||
+                      (i + j === center) || (i - j === center) ||
+                      (j - i === center) || (i + j === (n-1) + center)) {
+                      row += "* ";
+                  } else {
+                      row += "  ";
+                  }
+              }
+              console.log(row);
+          }
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Note:</strong> Pattern programming builds logical thinking. Solve at least 200-250 pattern problems to master loops and conditionals — this is the foundation for cracking coding interviews.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Center గుండా పోయే lines కోసం conditions:<br>
+        • <span class="inline-code">i + j = center</span><br>
+        • <span class="inline-code">i - j = center</span><br>
+        • <span class="inline-code">j - i = center</span><br>
+        • <span class="inline-code">i + j = (n-1) + center</span><br>
+        ఇలా conditions కలుపుతూ పోతే complex patterns వస్తాయి. Pattern programming వలన logical thinking పెరుగుతుంది — ఇది coding interviews లో చాలా ఉపయోగపడుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 8: Final summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 8. Summary & Next Steps</div>
+      <div class="eng-section">
+        <p><strong>Key takeaways from pattern programming:</strong></p>
+        <ul style="margin-left: 1.8rem;">
+          <li>Loops + Conditionals = Patterns</li>
+          <li>Hollow patterns require <strong>border conditions</strong> (first/last row, first/last column)</li>
+          <li>Diagonals use <span class="inline-code">i === j</span> and <span class="inline-code">i + j === n-1</span></li>
+          <li>Center lines need <span class="inline-code">Math.floor(n/2)</span> for odd n</li>
+          <li>Always use <span class="inline-code">Math.floor()</span> for integer division when indices are involved</li>
+        </ul>
+        <div class="highlight-box">
+          🎯 Pattern programming is not just about stars — it builds the logical muscle required for algorithms, data structures, and real-world problem solving. Keep practicing!
+        </div>
+        <p>In upcoming classes, we will move to other JavaScript topics: functions, arrays, objects, and DOM manipulation. But practice pattern problems regularly — they are brain gym for programmers.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • Loops + Conditional statements = Patterns<br>
+        • Hollow patterns కు border conditions (first/last row/column) అవసరం.<br>
+        • Diagonals: <span class="inline-code">i === j</span>, <span class="inline-code">i + j === n-1</span><br>
+        • Center కు <span class="inline-code">Math.floor(n/2)</span><br>
+        • ఇవి practice చేయడం వలన logical thinking పెరిగి, coding rounds లో మంచి ప్రయోజనం లభిస్తుంది. ఇప్పుడు మనం JavaScript లో functions, arrays, objects వంటి topics ని explore చేద్దాం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Master loops through patterns. Practice 200+ patterns to build logic. Next: Functions and Arrays in JavaScript!
+    </div>
+  </div>
+</div>
+</body>
+</html>

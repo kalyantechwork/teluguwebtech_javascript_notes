@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Functions as First-Class Citizens | Functions are Objects in JavaScript | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .first-class-criteria {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    .criteria-card {
+      flex: 1;
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #cbd5e1;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🎯 <span>Functions as First-Class Citizens</span> in JavaScript</h1>
+    <div class="sub">📦 Functions are Objects | Store in variable | Pass as argument (Higher-Order Functions, Callbacks) | Return from function | Memory (Stack & Heap) — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: What makes a value a First-Class Citizen? -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. What is a First-Class Citizen?</div>
+      <div class="eng-section">
+        <p>A value in JavaScript is called a <strong>first-class citizen</strong> if it can do these three things:</p>
+        <div class="first-class-criteria">
+          <div class="criteria-card">① <strong>Stored in a variable</strong><br>(assigned to a variable)</div>
+          <div class="criteria-card">② <strong>Passed as argument</strong><br>to a function</div>
+          <div class="criteria-card">③ <strong>Returned from a function</strong><br>as a value</div>
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Objects in JavaScript are first-class citizens.</strong> They satisfy all three conditions.
+        </div>
+        <p>In this class, we prove that <strong>functions are also objects</strong> and therefore first-class citizens in JavaScript.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఒక value ని <strong>first-class citizen</strong> అంటే అది మూడు పనులు చేయగలిగితే:<br>
+        ① variable లో store చేయగలగడం<br>
+        ② function కి argument గా pass చేయగలగడం<br>
+        ③ function నుండి return చేయగలగడం<br>
+        JavaScript లో <strong>objects first-class citizens</strong>. ఇప్పుడు <strong>functions కూడా objects</strong> అని prove చేద్దాం.</p>
+      </div>
+    </div>
+
+    <!-- 2: Objects are First-Class Citizens (Quick Proof) -->
+    <div class="topic-card">
+      <div class="topic-title">📦 2. Objects are First-Class Citizens (Quick Proof)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // 1. Store object in a variable
+          let car = { name: "BMW", cost: 75.6, mileage: 8.9 };
+
+          // 2. Pass object as argument to a function
+          function showCar(obj) {
+              console.log(obj);
+          }
+          showCar(car);   // Object passed as argument
+
+          // 3. Return object from a function
+          function getCar() {
+              return { name: "Audi", cost: 85.0 };
+          }
+          let newCar = getCar();   // Object returned from function
+        </div>
+        <div class="highlight-box">
+          ✅ Objects satisfy all three conditions → First-Class Citizens in JavaScript.
+        </div>
+        <p>Memory: Object is created in <strong>Heap</strong>, variable stores <strong>reference (address)</strong> in Stack.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Objects మూడు conditions ని satisfy చేస్తాయి:<br>
+        ① variable లో store చేయవచ్చు, ② function కి argument గా pass చేయవచ్చు, ③ function నుండి return చేయవచ్చు. Object Heap లో create అవుతుంది, variable Stack లో reference (address) store చేస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: Functions are Objects - Proof (name, length, call, apply, bind) -->
+    <div class="topic-card">
+      <div class="topic-title">⚡ 3. Proof: Functions are Objects in JavaScript</div>
+      <div class="eng-section">
+        <p>Just like objects, functions have <strong>properties</strong> (name, length) and <strong>methods</strong> (call, apply, bind). This proves functions are also objects.</p>
+        <div class="code-demo">
+          function add(a, b) {
+              console.log(a + b);
+          }
+
+          // Functions have properties (like objects)
+          console.log(add.name);   // "add"
+          console.log(add.length); // 2 (number of parameters)
+
+          // Functions have methods (call, apply, bind)
+          console.log(typeof add.call);  // "function"
+          console.log(typeof add.apply); // "function"
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Memory:</strong> When a function is created, JavaScript creates a <strong>function object</strong> in Heap with:
+          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li><strong>Properties:</strong> name, length, etc.</li>
+            <li><strong>Methods:</strong> call, apply, bind</li>
+          </ul>
+          The function name (add) is a <strong>reference variable</strong> storing the address of this function object.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Functions కి properties (<span class="inline-code">name, length</span>) మరియు methods (<span class="inline-code">call, apply, bind</span>) ఉంటాయి — ఇది functions కూడా objects అని రుజుపు చేస్తుంది. Function create అయినప్పుడు Heap లో <strong>function object</strong> create అవుతుంది. Function name (add) అనేది ఆ object కి reference.</p>
+      </div>
+    </div>
+
+    <!-- 4: Storing Functions in Variables (Multiple References) -->
+    <div class="topic-card">
+      <div class="topic-title">📝 4. Storing Functions in Variables (Multiple References)</div>
+      <div class="eng-section">
+        <p>Since functions are objects, they can have <strong>multiple references</strong>. We can assign the same function to different variables.</p>
+        <div class="code-demo">
+          function add(a, b) {
+              return a + b;
+          }
+
+          let addRef1 = add;     // Both reference the SAME function object
+          let addRef2 = add;
+
+          console.log(addRef1(10, 20)); // 30
+          console.log(addRef2(100, 200)); // 300
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Multiple references to the same function object:</strong> Just like multiple keys to the same locker. The function object is ONE in Heap, referenced by multiple variables.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Functions objects కాబట్టి వాటికి <strong>multiple references</strong> ఉండవచ్చు. ఒకే function ని వివిధ variables కి assign చేయవచ్చు. అన్ని variables ఒకే Heap object ని point చేస్తాయి. ఇది pass by reference కి ఉదాహరణ.</p>
+      </div>
+    </div>
+
+    <!-- 5: Passing Function as Argument (Higher-Order Function & Callback) -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 5. Passing Function as Argument (Higher-Order Function & Callback)</div>
+      <div class="eng-section">
+        <p>A function that takes another function as an argument is called a <strong>Higher-Order Function</strong>. The function passed as argument is called a <strong>Callback Function</strong>.</p>
+        <div class="code-demo">
+          function add(a, b) {
+              return a + b;
+          }
+
+          // Higher-Order Function (receives a function as argument)
+          function executeOperation(operation, x, y) {
+              return operation(x, y);   // calling the callback
+          }
+
+          let result = executeOperation(add, 100, 200);
+          console.log(result); // 300
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Memory:</strong> The reference (address) of the <span class="inline-code">add</span> function is passed to <span class="inline-code">operation</span> parameter. Both point to the same function object in Heap.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Higher-Order Function:</strong> మరొక function ని argument గా తీసుకునే function. <strong>Callback Function:</strong> argument గా pass చేయబడే function. Reference (address) pass అవుతుంది — ఇది pass by reference కు ఉదాహరణ.</p>
+      </div>
+    </div>
+
+    <!-- 6: Returning Function from Function -->
+    <div class="topic-card">
+      <div class="topic-title">📤 6. Returning Function from Function</div>
+      <div class="eng-section">
+        <p>A function can <strong>return another function</strong>. This is the third criteria for first-class citizenship.</p>
+        <div class="code-demo">
+          function createMultiplier(multiplier) {
+              return function(number) {
+                  return number * multiplier;
+              };
+          }
+
+          let double = createMultiplier(2);
+          let triple = createMultiplier(3);
+
+          console.log(double(5));  // 10
+          console.log(triple(5));  // 15
+        </div>
+        <div class="highlight-box">
+          ✅ Functions can be returned from other functions → this leads to powerful concepts like <strong>Closures</strong> (next class).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఒక function మరొక function ని <strong>return</strong> చేయగలదు. ఇది first-class citizenship కి మూడవ నియమాన్ని సంతృప్తి పరుస్తుంది. ఇది <strong>Closures</strong> వంటి powerful concepts కి దారి తీస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary - Higher-Order Functions & Callbacks -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: Functions as First-Class Citizens</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>First-Class Citizen</strong> = can be stored in variable, passed as argument, returned from function.</li>
+          <li><strong>Objects</strong> are first-class citizens in JavaScript.</li>
+          <li><strong>Functions</strong> are also objects (they have properties like <span class="inline-code">name, length</span> and methods like <span class="inline-code">call, apply, bind</span>).</li>
+          <li><strong>Higher-Order Function:</strong> A function that takes another function as argument OR returns a function.</li>
+          <li><strong>Callback Function:</strong> A function passed as argument to another function.</li>
+        </ul>
+        <div class="code-demo">
+          // Quick recap - all three abilities
+          // 1. Store in variable
+          let greet = function() { console.log("Hello"); };
+
+          // 2. Pass as argument
+          function run(fn) { fn(); }
+          run(greet);   // Hello
+
+          // 3. Return from function
+          function getGreeter() {
+              return function() { console.log("Hi"); };
+          }
+          let sayHi = getGreeter();
+          sayHi();      // Hi
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Understanding that functions are objects is the key to mastering JavaScript. This concept enables callbacks, promises, async/await, and functional programming patterns.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>First-Class Citizen:</strong> variable లో store, argument గా pass, function నుండి return చేయగలిగేది.<br>
+        • <strong>Objects</strong> first-class citizens.<br>
+        • <strong>Functions</strong> కూడా objects (properties: name, length; methods: call, apply, bind).<br>
+        • <strong>Higher-Order Function:</strong> function ని argument గా తీసుకునే లేదా function ని return చేసే function.<br>
+        • <strong>Callback Function:</strong> argument గా pass చేయబడే function.<br>
+        Functions are objects అనే concept ని అర్థం చేసుకోవడం JavaScript లో callbacks, promises, async/await వంటి advanced concepts ని నేర్చుకోవడానికి మూలస్తంభం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Functions as First-Class Citizens (Functions are Objects). Next: Closures (returning functions + lexical scope)!
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Scope Chain | Global, Function, Block Scope | Nested Functions | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .scope-chain-visual {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔗 <span>Scope Chain</span> in JavaScript</h1>
+    <div class="sub">📦 Global Scope | Function Scope | Block Scope | Upward Propagation | Parent cannot access child — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: What is Scope Chain? -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. What is Scope Chain?</div>
+      <div class="eng-section">
+        <p>When a variable is used, JavaScript searches for that variable in the <strong>current scope</strong>. If not found, it goes <strong>upward</strong> to the outer/parent scope. This chain of scopes is called the <strong>Scope Chain</strong>.</p>
+        <div class="highlight-box">
+          🔥 <strong>Key Rule:</strong> Scope chain propagates <strong>upwards only</strong> (from inner to outer). A parent scope CANNOT access variables of its child scope.
+        </div>
+        <div class="scope-chain-visual">
+          🌍 Global Scope ← Outer Function Scope ← Inner Function Scope ← Block Scope (if/for)
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript variable ని current scope లో search చేస్తుంది. అక్కడ దొరకకపోతే, <strong>upward</strong> గా (outer/parent scope) వెతుకుతుంది. ఈ scopes యొక్క chain నే <strong>Scope Chain</strong> అంటారు. <strong>ముఖ్య నియమం:</strong> Scope chain <strong>upwards only</strong> (inner నుండి outer కి). Parent scope child scope variables ని access చేయలేదు.</p>
+      </div>
+    </div>
+
+    <!-- 2: Example 1 - User Role & Access Check -->
+    <div class="topic-card">
+      <div class="topic-title">🔐 2. Example 1: Access Check with Scope Chain</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let username = "Sarah";
+          let userRole = "admin";
+
+          function checkAccess() {
+              let hasAccess = false;
+
+              if (userRole === "admin") {
+                  let welcomeMsg = `${username}, you have admin privileges`;
+                  hasAccess = true;
+                  console.log(welcomeMsg);
+              }
+              console.log(hasAccess);
+          }
+
+          checkAccess();  // Output: "Sarah, you have admin privileges" and true
+        </div>
+        <p><strong>Scope Chain Analysis:</strong></p>
+        <ul style="margin-left: 1.8rem;">
+          <li>Inside <span class="inline-code">if</span> block: <span class="inline-code">username</span> not found → goes up to function scope → not found → goes up to global scope → found.</li>
+          <li><span class="inline-code">userRole</span> accessed from global scope.</li>
+          <li>Outside the <span class="inline-code">if</span> block: <span class="inline-code">welcomeMsg</span> is not accessible (block scope).</li>
+        </ul>
+        <div class="highlight-box">
+          💡 The <span class="inline-code">if</span> block can access variables from its outer scopes (function and global). But function/global CANNOT access variables declared inside the <span class="inline-code">if</span> block.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">if</span> block లో <span class="inline-code">username</span> కోసం search: block scope → దొరకలేదు → function scope → దొరకలేదు → global scope → దొరికింది. <span class="inline-code">welcomeMsg</span> block scope లో create అయింది. అది function లేదా global scope లో accessible కాదు (upward propagation only).</p>
+      </div>
+    </div>
+
+    <!-- 3: Example 2 - Nested Functions (Outer and Inner) -->
+    <div class="topic-card">
+      <div class="topic-title">📁 2. Example 2: Nested Functions (Outer & Inner)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let firstName = "Kalyan";
+
+          function outerFunction() {
+              let outerVar = "I am from outer function";
+
+              function innerFunction() {
+                  let innerVar = "I am from inner function";
+
+                  console.log(innerVar);   // accessible (own scope)
+                  console.log(outerVar);   // accessible (parent scope)
+                  console.log(firstName);  // accessible (global scope)
+              }
+
+              innerFunction();  // calling inner function
+          }
+
+          outerFunction();
+        </div>
+        <p><strong>Scope Chain Visualization:</strong></p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Global Scope:</strong> firstName, outerFunction</li>
+          <li><strong>outerFunction Scope:</strong> outerVar, innerFunction (can access global)</li>
+          <li><strong>innerFunction Scope:</strong> innerVar (can access outerFunction and global)</li>
+        </ul>
+        <div class="highlight-box">
+          🔥 <strong>Nested functions:</strong> Inner function can access variables of outer function and global. Outer function CANNOT access inner function's variables (downward propagation not allowed).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Nested functions:</strong> inner function outer function మరియు global scope variables ని access చేయగలదు. కానీ outer function inner function variables ని access చేయలేదు (downward propagation లేదు). Scope chain ఎప్పుడూ upward గానే ప్రయాణిస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 4: Example 3 - Weather & Jacket Needed (Block Scope vs Function Scope) -->
+    <div class="topic-card">
+      <div class="topic-title">🌦️ 3. Example 3: Block Scope vs Function Scope (Jacket Needed)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let city = "London";
+
+          function showWeather() {
+              let temperature = 18;
+
+              if (temperature <= 20) {
+                  let jacketNeeded = true;
+                  console.log(`It's chilly in ${city}, temperature is ${temperature}°C`);
+                  console.log(`Jacket needed: ${jacketNeeded}`);
+              }
+
+              // console.log(jacketNeeded); // ❌ ReferenceError! (block scope variable)
+          }
+
+          function greet() {
+              console.log(`Welcome to ${city}`);
+          }
+
+          showWeather();  // It's chilly in London, temperature is 18°C, Jacket needed: true
+          greet();        // Welcome to London
+        </div>
+        <p><strong>Why ReferenceError?</strong> <span class="inline-code">jacketNeeded</span> is declared with <span class="inline-code">let</span> inside the <span class="inline-code">if</span> block. It is NOT accessible outside that block — even inside the same function.</p>
+        <div class="highlight-box">
+          ✅ <strong>Block Scope Rule:</strong> Variables declared with <span class="inline-code">let</span> or <span class="inline-code">const</span> inside a block (<span class="inline-code">{ }</span> of if, for, while) are ONLY accessible within that block.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">jacketNeeded</span> అనేది <span class="inline-code">if</span> block లో <span class="inline-code">let</span> తో declare చేయబడింది. కాబట్టి అది ఆ block లో మాత్రమే accessible. అదే function లో, block బయట access చేస్తే <strong>ReferenceError</strong> వస్తుంది. Block scope ని గౌరవించండి.</p>
+      </div>
+    </div>
+
+    <!-- 5: Cannot Access Inner Scope from Outer (Key Rule) -->
+    <div class="topic-card">
+      <div class="topic-title">🚫 4. Cannot Access Inner Scope from Outer</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          function outer() {
+              let outerVar = "Outer";
+
+              function inner() {
+                  let innerVar = "Inner";
+              }
+
+              // console.log(innerVar); // ❌ ReferenceError! innerVar is not accessible here
+          }
+
+          // console.log(outerVar); // ❌ ReferenceError! outerVar not accessible globally
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Golden Rule:</strong> Inner (child) can access outer (parent). Outer (parent) CANNOT access inner (child). Propagation is <strong>always upward</strong>.
+        </div>
+        <p>This is why we use <strong>return values</strong> or <strong>callbacks</strong> to communicate from inner functions back to outer scopes.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Golden Rule:</strong> Inner (child) → outer (parent) access చేయగలదు. Outer (parent) → inner (child) access చేయలేదు. Propagation <strong>always upward</strong> (upwards direction మాత్రమే). అందుకే inner function నుండి outer scope కి value pass చేయడానికి <strong>return</strong> లేదా <strong>callbacks</strong> వాడతాం.</p>
+      </div>
+    </div>
+
+    <!-- 6: Summary Table -->
+    <div class="topic-card">
+      <div class="topic-title">📊 5. Summary: Scope Chain Rules</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Global Scope:</strong> Variables declared outside any function. Accessible everywhere.</li>
+          <li><strong>Function Scope:</strong> Variables declared inside a function. Accessible within that function (and any nested functions).</li>
+          <li><strong>Block Scope:</strong> Variables declared with <span class="inline-code">let/const</span> inside <span class="inline-code">{ }</span> (if, for, while). Accessible only within that block.</li>
+          <li><strong>Scope Chain Direction:</strong> <strong>UPWARD only</strong> (inner → outer). Outer cannot access inner.</li>
+          <li><strong>Variable Resolution:</strong> JavaScript searches current scope → then outer scope → then global scope. If not found → ReferenceError.</li>
+        </ul>
+        <div class="code-demo">
+          // Quick reference
+          let globalVar = "Global";
+
+          function outer() {
+              let outerVar = "Outer";
+
+              function inner() {
+                  let innerVar = "Inner";
+                  console.log(innerVar);  // ✅ own scope
+                  console.log(outerVar);  // ✅ parent scope
+                  console.log(globalVar); // ✅ grandparent scope
+              }
+
+              inner();
+              // console.log(innerVar);   // ❌ cannot access child scope
+          }
+
+          outer();
+        </div>
+        <div class="highlight-box">
+          🎯 <strong>Kalyan's Advice:</strong> Draw scope chain mentally before writing code. Identify which variables are accessible where. This skill alone will make you a better debugger and a stronger JavaScript developer.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Global Scope:</strong> ప్రతిచోటా accessible.<br>
+        • <strong>Function Scope:</strong> ఆ function (మరియు nested functions) లోపల accessible.<br>
+        • <strong>Block Scope:</strong> <span class="inline-code">{ }</span> లోపల మాత్రమే accessible.<br>
+        • <strong>Scope Chain Direction:</strong> <strong>UPWARD only</strong> (inner → outer).<br>
+        • <strong>Variable Resolution:</strong> current scope → outer scope → global scope. దొరకకపోతే ReferenceError.<br>
+        Scope chain ని mental గా draw చేసుకోవడం అలవాటు చేసుకోండి. ఇది debugging లో చాలా ఉపయోగపడుతుంది.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Scope Chain demystified. Next: Closures (functions that remember their outer scope even after execution)!
+    </div>
+  </div>
+</div>
+</body>
+</html>

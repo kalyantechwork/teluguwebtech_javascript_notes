@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>5 Ways to Write Functions in JavaScript | Declaration, Expression, Arrow, IIFE | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .method-badge {
+      display: inline-block;
+      background: #0f5e54;
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-right: 0.5rem;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📝 <span>5 Ways to Write Functions</span> in JavaScript</h1>
+    <div class="sub">🔧 Function Declaration | Function Expression | Arrow Function | IIFE | Generator Function — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Introduction - 5 types -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Overview: Five Different Ways to Create Functions</div>
+      <div class="eng-section">
+        <p>In JavaScript, functions are first-class citizens. There are <strong>five main ways</strong> to write/create functions:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Function Declaration</strong> — most common, traditional way</li>
+          <li><strong>Function Expression</strong> — assigning an anonymous function to a variable</li>
+          <li><strong>Arrow Function</strong> — modern concise syntax (ES6)</li>
+          <li><strong>IIFE (Immediately Invoked Function Expression)</strong> — function that runs as soon as it's defined</li>
+          <li><strong>Generator Function</strong> — special function that can pause and resume (advanced, covered later)</li>
+        </ul>
+        <div class="highlight-box">
+          💡 Understanding all these forms will help you read and write modern JavaScript code with confidence.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript లో functions ని <strong>5 విధాలుగా</strong> రాయవచ్చు:<br>
+        1. <strong>Function Declaration</strong> — సాధారణ, traditional way<br>
+        2. <strong>Function Expression</strong> — anonymous function ని variable కి assign చేయడం<br>
+        3. <strong>Arrow Function</strong> — concise syntax (ES6)<br>
+        4. <strong>IIFE</strong> — define అయిన వెంటనే execute అయ్యే function<br>
+        5. <strong>Generator Function</strong> — advanced (pause/resume చేయగల function)</p>
+      </div>
+    </div>
+
+    <!-- 2: Function Declaration -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">1</span> Function Declaration</div>
+      <div class="eng-section">
+        <p>The most traditional way. Uses the <span class="inline-code">function</span> keyword, a name, parameters, and a body.</p>
+        <div class="code-demo">
+          // Function Declaration
+          function add(a, b) {
+              return a + b;
+          }
+
+          console.log(add(10, 20));  // Output: 30
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Hoisting:</strong> Function declarations are hoisted — they can be called before they are defined in the code.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Function Declaration:</strong> <span class="inline-code">function</span> keyword తో రాస్తారు. ఇవి <strong>hoisted</strong> అవుతాయి — define చేయడానికి ముందే call చేయవచ్చు. ఉదా: <span class="inline-code">function add(a,b){ return a+b; }</span></p>
+      </div>
+    </div>
+
+    <!-- 3: Function Expression -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">2</span> Function Expression</div>
+      <div class="eng-section">
+        <p>An anonymous function (no name) is created and assigned to a variable. The function is called using the variable name.</p>
+        <div class="code-demo">
+          // Function Expression
+          let add = function(a, b) {
+              return a + b;
+          };
+
+          console.log(add(10, 20));  // Output: 30
+        </div>
+        <div class="highlight-box">
+          ✅ Unlike declarations, function expressions are <strong>not hoisted</strong>. You can only call them after the assignment.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Function Expression:</strong> Anonymous function ని variable కి assign చేస్తారు. ఇవి <strong>hoisted కావు</strong> — define చేసిన తర్వాత మాత్రమే call చేయాలి. ఉదా: <span class="inline-code">let add = function(a,b){ return a+b; }</span></p>
+      </div>
+    </div>
+
+    <!-- 4: Arrow Function -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">3</span> Arrow Function (Modern ES6)</div>
+      <div class="eng-section">
+        <p>Introduced in ES6 (2015). Shorter syntax using <span class="inline-code">=&gt;</span> (arrow). No <span class="inline-code">function</span> keyword. Works great for callbacks and simple logic.</p>
+        <div class="code-demo">
+          // Arrow function - full form
+          let add = (a, b) => {
+              return a + b;
+          };
+
+          // Arrow function - concise (one-liner) - implicit return
+          let addConcise = (a, b) => a + b;
+
+          console.log(add(50, 60));   // Output: 110
+          console.log(addConcise(50, 60)); // 110
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Note:</strong> If the body has only one statement that returns a value, you can omit <span class="inline-code">{}</span> and <span class="inline-code">return</span>. This is called <strong>implicit return</strong>.
+        </div>
+        <p><strong>For beginners:</strong> Start with the full syntax (with <span class="inline-code">{ return ... }</span>) for clarity. As you gain experience, you can use the concise form.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Arrow Function (ES6):</strong> <span class="inline-code">=&gt;</span> సింటాక్స్. <span class="inline-code">function</span> keyword అవసరం లేదు. ఒకే statement ఉంటే <span class="inline-code">{}</span> మరియు <span class="inline-code">return</span> ని తొలగించవచ్చు (implicit return). ఉదా: <span class="inline-code">let add = (a,b) =&gt; a + b;</span> మొదల్లో full syntax వాడండి, అనుభవం వచ్చాక concise form వాడండి.</p>
+      </div>
+    </div>
+
+    <!-- 5: IIFE - Immediately Invoked Function Expression -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">4</span> IIFE (Immediately Invoked Function Expression)</div>
+      <div class="eng-section">
+        <p>An IIFE is a function that runs immediately after it is defined. No need to call it separately. It is a function expression wrapped in parentheses and then invoked with <span class="inline-code">()</span>.</p>
+        <div class="code-demo">
+          // IIFE - runs immediately
+          (function() {
+              console.log("I run immediately!");
+          })();
+
+          // IIFE with parameters
+          (function(name) {
+              console.log("Hello, " + name);
+          })("Kalyan");
+
+          // Arrow function IIFE
+          (() => {
+              console.log("Arrow IIFE");
+          })();
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Use cases:</strong> Creating a private scope, avoiding global variable pollution, one-time initialization code.
+        </div>
+        <p><strong>Key syntax:</strong> Wrap the function expression in <span class="inline-code">( )</span> and then add <span class="inline-code">( )</span> to invoke immediately.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>IIFE (Immediately Invoked Function Expression):</strong> Define అయిన వెంటనే execute అయ్యే function. దీనికి ప్రత్యేకంగా call చేయాల్సిన అవసరం లేదు. Syntax: <span class="inline-code">(function(){ ... })();</span>. Use cases: private scope, global namespace pollution ని avoid చేయడం, one-time initialization.</p>
+      </div>
+    </div>
+
+    <!-- 6: Generator Function (brief introduction) -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">5</span> Generator Function (Advanced)</div>
+      <div class="eng-section">
+        <p>Generator functions can be paused and resumed. They use <span class="inline-code">function*</span> syntax and the <span class="inline-code">yield</span> keyword. They return a special iterator object. We will explore them in detail when we cover advanced JavaScript and asynchronous patterns.</p>
+        <div class="code-demo">
+          // Generator function (simple preview)
+          function* generateNumbers() {
+              yield 1;
+              yield 2;
+              yield 3;
+          }
+
+          const gen = generateNumbers();
+          console.log(gen.next().value); // 1
+          console.log(gen.next().value); // 2
+        </div>
+        <div class="highlight-box">
+          🔮 <strong>Coming later:</strong> Generator functions will be covered in depth during object-oriented JavaScript and advanced async topics.
+        </div>
+        <p>For now, focus on mastering function declarations, expressions, arrow functions, and IIFE.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Generator Function:</strong> <span class="inline-code">function*</span> సింటాక్స్, <span class="inline-code">yield</span> keyword. ఇవి pause/resume అవ్వగల functions. Advanced concepts లో వివరంగా చూద్దాం. ప్రస్తుతానికి Declaration, Expression, Arrow, IIFE లను బాగా practice చేయండి.</p>
+      </div>
+    </div>
+
+    <!-- 7: Comparison Table -->
+    <div class="topic-card">
+      <div class="topic-title">📊 6. Quick Comparison: Declaration vs Expression vs Arrow vs IIFE</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // 1. Function Declaration
+          function declareAdd(a, b) { return a + b; }
+
+          // 2. Function Expression
+          const expressAdd = function(a, b) { return a + b; };
+
+          // 3. Arrow Function
+          const arrowAdd = (a, b) => a + b;
+
+          // 4. IIFE
+          (function() { console.log("IIFE runs immediately"); })();
+
+          // All work the same way when called
+          console.log(declareAdd(5, 3));   // 8
+          console.log(expressAdd(5, 3));   // 8
+          console.log(arrowAdd(5, 3));     // 8
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's advice:</strong> 
+          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li>Start with <strong>Function Declaration</strong> — it's the most readable for beginners.</li>
+            <li>Use <strong>Arrow Functions</strong> for short callbacks and simple logic.</li>
+            <li>Use <strong>IIFE</strong> when you need a one-time execution with private scope.</li>
+            <li><strong>Generator functions</strong> — master the basics first, then learn them.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Function Declaration:</strong> చాలా clear, beginners కి best.<br>
+        • <strong>Function Expression:</strong> variable కి assign చేస్తారు.<br>
+        • <strong>Arrow Function:</strong> short syntax, callbacks కి perfect.<br>
+        • <strong>IIFE:</strong> immediately execute, private scope కోసం.<br>
+        • <strong>Generator:</strong> advanced, తర్వాత నేర్చుకోండి.<br>
+        ప్రాక్టీస్ చేయండి. ఇవన్నీ JavaScript లో functions ని రాయడానికి ఉన్న విభిన్న మార్గాలు.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — 5 ways to write functions. Next: Function parameters, default values, rest parameters, and scope!
+    </div>
+  </div>
+</div>
+</body>
+</html>

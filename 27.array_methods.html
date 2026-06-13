@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Array Methods with Callbacks | map, filter, reduce, some, every, find, findIndex, sort | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .method-badge {
+      display: inline-block;
+      background: #0f5e54;
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-right: 0.5rem;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>⚡ <span>Array Methods with Callbacks</span> | map, filter, reduce, some, every, find, findIndex</h1>
+    <div class="sub">📦 Transform, filter, aggregate, search arrays using callbacks | Arrow functions | Higher-Order Functions — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: map() -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">map()</span> Transform Each Element → New Array</div>
+      <div class="eng-section">
+        <p><strong>map()</strong> creates a new array by applying a callback function to each element of the original array. The new array has the same length.</p>
+        <div class="code-demo">
+          let numbers = [1, 4, 9, 16];
+
+          // Calculate square root of each element
+          let result = numbers.map(x => Math.sqrt(x));
+          console.log(result);  // [1, 2, 3, 4]
+
+          // Original array unchanged
+          console.log(numbers); // [1, 4, 9, 16]
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Syntax:</strong> <span class="inline-code">arr.map(callback(currentValue, index, array))</span><br>
+          💡 <strong>Use case:</strong> Convert data (e.g., array of numbers to strings, extract property from objects, apply math operations).
+        </div>
+        <div class="code-demo">
+          // More examples
+          let prices = [100, 200, 300];
+          let withTax = prices.map(price => price * 1.18);
+          console.log(withTax); // [118, 236, 354]
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>map()</strong> ప్రతీ element పై callback ని apply చేసి కొత్త array ని create చేస్తుంది (length same). ఉదా: square roots, tax calculation. Original array మారదు.</p>
+      </div>
+    </div>
+
+    <!-- 2: filter() -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">filter()</span> Keep Elements That Pass a Condition</div>
+      <div class="eng-section">
+        <p><strong>filter()</strong> creates a new array with only elements that satisfy a condition (callback returns true).</p>
+        <div class="code-demo">
+          let ages = [32, 15, 19, 12];
+
+          // Keep only ages >= 18
+          let adults = ages.filter(age => age >= 18);
+          console.log(adults);  // [32, 19]
+
+          // Original array unchanged
+          console.log(ages);    // [32, 15, 19, 12]
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Callback must return true/false.</strong> True → include element, False → exclude.
+        </div>
+        <div class="code-demo">
+          let scores = [85, 67, 72, 90];
+          let above80 = scores.filter(score => score > 80);
+          console.log(above80); // [85, 90]
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>filter()</strong> condition ని satisfy చేసే elements తో కొత్త array ని create చేస్తుంది. Callback true return చేస్తే element retain అవుతుంది; false అయితే exclude అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: reduce() -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">reduce()</span> Aggregate Array into a Single Value</div>
+      <div class="eng-section">
+        <p><strong>reduce()</strong> reduces the array to a single value (sum, product, concatenation, etc.). It takes a callback and an initial value.</p>
+        <div class="code-demo">
+          let numbers = [1, 4, 9, 16];
+
+          // Sum of all elements
+          let sum = numbers.reduce((total, current) => total + current, 0);
+          console.log(sum);  // 30 (1+4+9+16)
+
+          // Product of all elements
+          let product = numbers.reduce((total, current) => total * current, 1);
+          console.log(product); // 576 (1*4*9*16)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Syntax:</strong> <span class="inline-code">arr.reduce(callback(accumulator, currentValue), initialValue)</span><br>
+          💡 <strong>Use cases:</strong> Sum, average, max/min, flatten arrays, etc.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>reduce()</strong> array ని ఒక single value గా మారుస్తుంది (sum, product). Callback రెండు arguments తీసుకుంటుంది: accumulator (aggregator) మరియు currentValue. Initial value తప్పనిసరిగా ఇవ్వాలి.</p>
+      </div>
+    </div>
+
+    <!-- 4: some() and every() -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">some() & every()</span> Check Conditions on Array</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let scores = [85, 67, 72, 90];
+
+          // some(): at least one element satisfies condition
+          let hasGradeA = scores.some(score => score > 85);
+          console.log(hasGradeA);  // true (90 > 85)
+
+          // every(): ALL elements must satisfy condition
+          let allPassed = scores.every(score => score >= 50);
+          console.log(allPassed);  // true (all >= 50)
+
+          let allAbove80 = scores.every(score => score > 80);
+          console.log(allAbove80); // false (67 and 72 are not >80)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>some()</strong> → returns true if AT LEAST ONE element passes.<br>
+          ✅ <strong>every()</strong> → returns true if EVERY element passes.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>some()</strong> — కనీసం ఒక్క element అయినా condition satisfy చేస్తే true. <strong>every()</strong> — అన్ని elements satisfy చేస్తేనే true.</p>
+      </div>
+    </div>
+
+    <!-- 5: find() and findIndex() -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">find() & findIndex()</span> Locate First Matching Element</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let scores = [85, 67, 72, 90];
+
+          // find(): returns the first element that satisfies condition
+          let firstAbove70 = scores.find(score => score > 70);
+          console.log(firstAbove70);  // 85 (first element >70)
+
+          // findIndex(): returns index of first element that satisfies condition
+          let indexAbove70 = scores.findIndex(score => score > 70);
+          console.log(indexAbove70);  // 0 (index of 85)
+
+          // When no match found
+          let above95 = scores.find(score => score > 95);
+          console.log(above95);  // undefined
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>find()</strong> → returns the element (or undefined).<br>
+          ✅ <strong>findIndex()</strong> → returns index (or -1 if not found).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>find()</strong> — మొదటి matching element ని return చేస్తుంది (లేకపోతే undefined). <strong>findIndex()</strong> — matching element యొక్క index ని return చేస్తుంది (లేకపోతే -1).</p>
+      </div>
+    </div>
+
+    <!-- 6: sort() - Basic String and Number Sorting -->
+    <div class="topic-card">
+      <div class="topic-title"><span class="method-badge">sort()</span> Sorting Arrays</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // String sorting (default - alphabetical)
+          let fruits = ["Banana", "Apple", "Pear", "Kiwi"];
+          fruits.sort();
+          console.log(fruits);  // ["Apple", "Banana", "Kiwi", "Pear"]
+
+          // Number sorting (default converts to strings → gives incorrect order!)
+          let scores = [85, 67, 72, 90];
+          scores.sort();
+          console.log(scores);  // [67, 72, 85, 90] (works here by chance)
+
+          // For numbers, use compare callback
+          let numbers = [10, 2, 30, 5];
+          numbers.sort((a, b) => a - b);  // ascending
+          console.log(numbers);  // [2, 5, 10, 30]
+
+          numbers.sort((a, b) => b - a);  // descending
+          console.log(numbers);  // [30, 10, 5, 2]
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Important:</strong> Default sort converts elements to strings. For numbers, always provide a compare function: <span class="inline-code">(a, b) => a - b</span> for ascending.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>sort()</strong> default గా strings గా convert చేసి sort చేస్తుంది. Numbers కోసం compare callback ఇవ్వాలి: <span class="inline-code">(a,b) => a - b</span> (ascending) లేదా <span class="inline-code">b - a</span> (descending).</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary Table -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Quick Reference: Array Methods with Callbacks</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let arr = [1, 2, 3, 4, 5];
+
+          // map: transform each
+          let doubled = arr.map(x => x * 2);        // [2,4,6,8,10]
+
+          // filter: keep condition
+          let evens = arr.filter(x => x % 2 === 0); // [2,4]
+
+          // reduce: aggregate
+          let sum = arr.reduce((acc, x) => acc + x, 0); // 15
+
+          // some: any element satisfies?
+          let hasEven = arr.some(x => x % 2 === 0); // true
+
+          // every: all elements satisfy?
+          let allPositive = arr.every(x => x > 0);  // true
+
+          // find: first element satisfying
+          let firstEven = arr.find(x => x % 2 === 0); // 2
+
+          // findIndex: index of first matching
+          let indexEven = arr.findIndex(x => x % 2 === 0); // 1
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Practice these methods with different arrays. They are the heart of modern JavaScript programming. Next: Advanced array methods and chaining!
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>map</strong> → ప్రతీ element ని transform చేస్తుంది.<br>
+        • <strong>filter</strong> → condition ని satisfy చేసే elements ని retain చేస్తుంది.<br>
+        • <strong>reduce</strong> → array ని single value గా మారుస్తుంది.<br>
+        • <strong>some/every</strong> → conditions check చేస్తాయి.<br>
+        • <strong>find/findIndex</strong> → first matching element/index ని కనుగొంటాయి.<br>
+        • <strong>sort</strong> → sorting (numbers కి compare function ఇవ్వాలి).<br>
+        ఇవి JavaScript లో చాలా ముఖ్యమైన methods. ప్రాక్టీస్ చేయండి!</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Array methods with callbacks: map, filter, reduce, some, every, find, findIndex, sort. Next: Chaining methods and real-world examples!
+    </div>
+  </div>
+</div>
+</body>
+</html>

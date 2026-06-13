@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>What is an API? | Application Programming Interface | Introduction | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .story-box {
+      background: #fef9e3;
+      border-left: 5px solid #f5b042;
+      padding: 1rem;
+      border-radius: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔌 <span>What is an API?</span> | Application Programming Interface | Introduction</h1>
+    <div class="sub">🌐 Hosting | IP Address | Domain Name | Endpoint | Data exchange between systems — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: The Story of Sara - From Localhost to Public Access -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. The Story of Sara: From Localhost to Public Access</div>
+      <div class="eng-section">
+        <div class="story-box">
+          🐱 <strong>Sara's Facts App:</strong> Sara built a random facts generator on her laptop (<span class="inline-code">localhost:3000</span>). Her friends loved it but couldn't access it from their homes.
+        </div>
+        <p><strong>Problem:</strong> The app was only on her computer. To make it accessible worldwide, she needed <strong>hosting</strong> — renting a server from AWS, Google Cloud, or Azure.</p>
+        <p>After hosting, she got an <strong>IP address</strong> (e.g., <span class="inline-code">192.168.1.100</span>). But IP addresses are hard to remember. So she bought a <strong>domain name</strong> (<span class="inline-code">www.catfacts.com</span>) and mapped it to the IP address via DNS.</p>
+        <div class="highlight-box">
+          ✅ <strong>Hosting + Domain = Publicly accessible web application.</strong> Anyone with the domain can now use her app.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Sara cat facts app ని తన laptop లో (<span class="inline-code">localhost:3000</span>) build చేసింది. Friends app ని access చేయలేకపోయారు. Hosting (AWS/Google Cloud) తో server ని rent చేసి, IP address తీసుకుంది. గుర్తుంచుకోవడానికి domain name (<span class="inline-code">www.catfacts.com</span>) ని కొని DNS ద్వారా IP కి map చేసింది. దీనివలన ప్రపంచంలో ఎవరైనా app ని access చేయగలరు.</p>
+      </div>
+    </div>
+
+    <!-- 2: The Problem - Sharing Data Without Sharing Code -->
+    <div class="topic-card">
+      <div class="topic-title">🔒 2. The Problem: Sharing Data Without Sharing Code</div>
+      <div class="eng-section">
+        <p>Sara's friends wanted to integrate random cat facts into their own apps. They asked for her code. But Sara didn't want to expose her backend logic, database, algorithms, or security measures.</p>
+        <div class="highlight-box">
+          🔥 <strong>Challenge:</strong> How to give data to other applications without revealing the internal implementation?
+        </div>
+        <p><strong>Real-world examples:</strong></p>
+        <ul style="margin-left: 1.8rem;">
+          <li>Google Maps → won't share satellite algorithms or routing logic.</li>
+          <li>ChatGPT → won't share model weights or training data.</li>
+          <li>Razorpay/Stripe → won't share bank contracts or fraud detection models.</li>
+        </ul>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Sara తన code (backend logic, database, algorithms) ని share చేయకూడదనుకుంది. కానీ ఆమె friends వారి apps లో cat facts integrate చేయాలనుకున్నారు. ఇదే challenge: <strong>internal implementation ని reveal చేయకుండా data ని ఎలా share చేయాలి?</strong> Google Maps, ChatGPT, Razorpay అన్నీ ఈ problem ని APIs తో solve చేస్తాయి.</p>
+      </div>
+    </div>
+
+    <!-- 3: The Solution - API Endpoint -->
+    <div class="topic-card">
+      <div class="topic-title">🔗 3. The Solution: API Endpoint</div>
+      <div class="eng-section">
+        <p>Sara created a new <strong>URL endpoint</strong> on her server: <span class="inline-code">www.catfacts.com/fact</span>. When someone visits this URL, the server executes only the code that generates a random cat fact and returns <strong>only the fact</strong> (as JSON), not the entire application.</p>
+        <div class="code-demo">
+          // API Endpoint (Server Side - hidden logic)
+          GET /fact  →  executes catFactGenerator()  →  returns { "fact": "Cats sleep 16 hours a day" }
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>An API is a contract:</strong> "You send a request to this endpoint, I'll give you data. But you'll never see my code."
+        </div>
+        <p><strong>API = Application Programming Interface</strong> — a set of rules that allows one application to talk to another without exposing internal details.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Sara ఒక కొత్త URL endpoint ని create చేసింది: <span class="inline-code">www.catfacts.com/fact</span>. ఈ URL ని visit చేస్తే, server cat fact generate చేసి, <strong>only the fact</strong> ని JSON గా return చేస్తుంది. API అనేది ఒక contract: "మీరు request పంపండి, నేను data ఇస్తాను — కానీ నా code మీరు చూడలేరు."</p>
+      </div>
+    </div>
+
+    <!-- 4: How Developers Use APIs -->
+    <div class="topic-card">
+      <div class="topic-title">🛠️ 4. How Developers Use APIs (Without Fetch Yet)</div>
+      <div class="eng-section">
+        <p>To use an API, a developer sends an HTTP request to the API endpoint. The server processes the request and sends back a response (usually in JSON).</p>
+        <div class="code-demo">
+          // Conceptual example (not actual code)
+          Request:  GET https://api.catfacts.com/fact
+          Response: { "fact": "Cats have 32 muscles in each ear", "length": 45 }
+        </div>
+        <div class="highlight-box">
+          💡 <strong>APIs power the modern web:</strong>
+          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li>Weather apps use weather APIs</li>
+            <li>Payment gateways (Razorpay, Stripe) provide payment APIs</li>
+            <li>Maps (Google Maps, Mapbox) provide mapping APIs</li>
+            <li>AI services (OpenAI, Gemini) provide AI APIs</li>
+          </ul>
+        </div>
+        <p>90% of modern software development is <strong>stitching APIs together</strong> — integrating third-party services instead of building everything from scratch.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> API ని use చేయడానికి, developer API endpoint కి HTTP request పంపుతుంది. Server response (JSON లో) ఇస్తుంది. Weather apps, payment gateways, maps, AI services — అన్నీ APIs నే use చేస్తాయి. 90% of modern software development = stitching APIs together.</p>
+      </div>
+    </div>
+
+    <!-- 5: Why APIs are Essential -->
+    <div class="topic-card">
+      <div class="topic-title">⭐ 5. Why APIs are Essential for Developers</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Separation of concerns:</strong> API providers handle complex logic; you just use the output.</li>
+          <li><strong>Speed of development:</strong> Don't reinvent the wheel — use existing APIs for payments, maps, AI, etc.</li>
+          <li><strong>Security & IP protection:</strong> Providers protect their algorithms, models, and data.</li>
+          <li><strong>Scalability:</strong> APIs can be used by thousands of applications simultaneously.</li>
+          <li><strong>Language agnostic:</strong> An API written in Python can be used by a JavaScript frontend, a Java backend, or a mobile app.</li>
+        </ul>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Understanding APIs is non-negotiable. In the next class, we'll use the <strong>fetch() function</strong> in JavaScript to make real API calls and handle JSON responses.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong> APIs వలన: separation of concerns, speed of development, security & IP protection, scalability, language agnostic. తర్వాతి class లో JavaScript <strong>fetch() function</strong> తో real API calls ఎలా చేయాలో నేర్చుకుందాం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — API introduction: hosting, IP, domain, endpoints. Next: Fetch API — making real HTTP requests and handling JSON responses!
+    </div>
+  </div>
+</div>
+</body>
+</html>

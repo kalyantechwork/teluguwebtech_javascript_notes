@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Callback Hell & Introduction to Promises | JavaScript Async | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .warning-box {
+      background: #fee2e2;
+      border-left: 5px solid #dc2626;
+      padding: 1rem;
+      border-radius: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔁 <span>Callback Hell & Introduction to Promises</span> in JavaScript</h1>
+    <div class="sub">📦 Pyramid of Doom | Promise Object | Executor Function | resolve, reject | then, catch | State (pending/fulfilled/rejected) — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: The Problem - Dependent Async Operations & Callback Hell -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. The Problem: Dependent Async Operations (Callback Hell)</div>
+      <div class="eng-section">
+        <p>When one asynchronous operation depends on another (e.g., fetch user → then fetch friends → then fetch posts → then fetch comments), nesting callbacks inside callbacks leads to <strong>Callback Hell</strong> (also called <strong>Pyramid of Doom</strong>).</p>
+        <div class="code-demo">
+          // Nested setTimeout (Callback Hell)
+          setTimeout(() => {
+              fetchUserData();
+              setTimeout(() => {
+                  fetchFriendList();
+                  setTimeout(() => {
+                      fetchPosts();
+                      setTimeout(() => {
+                          fetchComments();
+                      }, 2000);
+                  }, 2000);
+              }, 2000);
+          }, 2000);
+        </div>
+        <div class="warning-box">
+          ⚠️ <strong>Problems:</strong> Unreadable, hard to maintain, difficult error handling, poor debugging experience.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఒక asynchronous operation మరొకదానిపై depend అయినప్పుడు (user → friends → posts → comments), callbacks ని nesting చేయడం వలన <strong>Callback Hell</strong> (Pyramid of Doom) ఏర్పడుతుంది. ఇది unreadable, hard to maintain, error handling కష్టం.</p>
+      </div>
+    </div>
+
+    <!-- 2: What is a Promise? Introduction -->
+    <div class="topic-card">
+      <div class="topic-title">🎯 2. What is a Promise?</div>
+      <div class="eng-section">
+        <p>A <strong>Promise</strong> is an object that represents the eventual completion (or failure) of an asynchronous operation. It has three states:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>pending:</strong> initial state, neither fulfilled nor rejected.</li>
+          <li><strong>fulfilled:</strong> operation completed successfully.</li>
+          <li><strong>rejected:</strong> operation failed.</li>
+        </ul>
+        <div class="code-demo">
+          let promise = new Promise((resolve, reject) => {
+              // Executor function runs automatically
+          });
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Promise = Object + State (pending/fulfilled/rejected) + Executor function that calls resolve (success) or reject (failure).</strong>
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Promise</strong> అనేది asynchronous operation యొక్క eventual completion (లేదా failure) ని represent చేసే object. దీనికి మూడు states: <strong>pending</strong>, <strong>fulfilled</strong>, <strong>rejected</strong>. Executor function resolve (success) లేదా reject (failure) ని call చేస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: Creating a Promise - resolve and reject -->
+    <div class="topic-card">
+      <div class="topic-title">🛠️ 3. Creating a Promise: resolve() and reject()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Success example
+          let successPromise = new Promise((resolve, reject) => {
+              let data = { id: 101, name: "Kalyan" };
+              resolve(data);  // change state to fulfilled, pass data
+          });
+
+          // Failure example
+          let failurePromise = new Promise((resolve, reject) => {
+              let error = "Failed to fetch data";
+              reject(error);  // change state to rejected, pass error
+          });
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>resolve(value)</strong> → changes state to fulfilled and passes value to <span class="inline-code">.then()</span>.<br>
+          🔥 <strong>reject(reason)</strong> → changes state to rejected and passes reason to <span class="inline-code">.catch()</span>.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>resolve(value)</strong> → state ని fulfilled గా మార్చి, value ని <span class="inline-code">.then()</span> కి పంపుతుంది. <strong>reject(reason)</strong> → state ని rejected గా మార్చి, reason ని <span class="inline-code">.catch()</span> కి పంపుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 4: then() and catch() - Consuming Promises -->
+    <div class="topic-card">
+      <div class="topic-title">📞 4. Consuming Promises: then() and catch()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let promise = new Promise((resolve, reject) => {
+              let success = true;
+              if (success) {
+                  resolve({ message: "Operation successful", data: [1, 2, 3] });
+              } else {
+                  reject("Something went wrong!");
+              }
+          });
+
+          promise
+              .then((result) => {
+                  console.log("Success:", result);
+              })
+              .catch((error) => {
+                  console.log("Error:", error);
+              });
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>then(callback)</strong> → executes when promise is fulfilled (resolve called).<br>
+          ✅ <strong>catch(callback)</strong> → executes when promise is rejected (reject called).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>then(callback)</strong> → promise fulfilled (resolve) అయినప్పుడు execute అవుతుంది. <strong>catch(callback)</strong> → promise rejected (reject) అయినప్పుడు execute అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 5: Promise Chaining (Solution to Callback Hell) -->
+    <div class="topic-card">
+      <div class="topic-title">⛓️ 5. Promise Chaining: The Clean Solution</div>
+      <div class="eng-section">
+        <p>Instead of nesting callbacks, we can <strong>chain</strong> promises using <span class="inline-code">.then()</span>. Each <span class="inline-code">.then()</span> returns a new promise, allowing sequential asynchronous operations without nesting.</p>
+        <div class="code-demo">
+          function fetchUser() {
+              return new Promise((resolve) => {
+                  setTimeout(() => resolve("User data"), 2000);
+              });
+          }
+
+          function fetchFriends(user) {
+              return new Promise((resolve) => {
+                  setTimeout(() => resolve(`${user} → Friends list`), 2000);
+              });
+          }
+
+          function fetchPosts(friends) {
+              return new Promise((resolve) => {
+                  setTimeout(() => resolve(`${friends} → Posts`), 2000);
+              });
+          }
+
+          // Promise Chaining (No nesting!)
+          fetchUser()
+              .then((user) => fetchFriends(user))
+              .then((friends) => fetchPosts(friends))
+              .then((posts) => console.log(posts))
+              .catch((error) => console.log("Error:", error));
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Promise chaining</strong> solves callback hell. Code becomes flat, readable, and maintainable. Error handling is centralized with <span class="inline-code">.catch()</span>.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Promise chaining (<span class="inline-code">.then().then().catch()</span>) callbacks ని flatten చేస్తుంది — nesting లేదు. Code flat, readable, maintainable అవుతుంది. Error handling centralized.</p>
+      </div>
+    </div>
+
+    <!-- 6: Visual Comparison: Callback Hell vs Promise Chaining -->
+    <div class="topic-card">
+      <div class="topic-title">📊 6. Visual Comparison: Callback Hell vs Promises</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // ❌ Callback Hell (Pyramid of Doom)
+          asyncOp1(() => {
+              asyncOp2(() => {
+                  asyncOp3(() => {
+                      asyncOp4(() => {
+                          console.log("Done");
+                      }, 2000);
+                  }, 2000);
+              }, 2000);
+          }, 2000);
+
+          // ✅ Promise Chaining (Flat & Clean)
+          asyncOp1()
+              .then(() => asyncOp2())
+              .then(() => asyncOp3())
+              .then(() => asyncOp4())
+              .then(() => console.log("Done"))
+              .catch(err => console.error(err));
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Promises make asynchronous code look more like synchronous code (readable, linear).</strong>
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Callback Hell (pyramid shape) vs Promise Chaining (flat). Promises వలన asynchronous code సులభంగా చదవడానికి, maintain చేయడానికి వీలవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: Callback Hell → Promises</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Callback Hell</strong> = deeply nested callbacks (unreadable, unmaintainable).</li>
+          <li><strong>Promise</strong> = object representing async operation with state (pending/fulfilled/rejected).</li>
+          <li><strong>Executor function</strong> runs immediately; calls <span class="inline-code">resolve</span> (success) or <span class="inline-code">reject</span> (failure).</li>
+          <li><strong>.then()</strong> handles resolved value; <strong>.catch()</strong> handles rejected error.</li>
+          <li><strong>Promise Chaining</strong> flattens nested callbacks → clean, linear code.</li>
+          <li>Next: Advanced Promise methods (Promise.all, Promise.race) and async/await.</li>
+        </ul>
+        <div class="code-demo">
+          // Quick reference
+          let myPromise = new Promise((resolve, reject) => {
+              let success = true;
+              success ? resolve("Data") : reject("Error");
+          });
+
+          myPromise
+              .then(data => console.log(data))
+              .catch(err => console.log(err));
+        </div>
+        <div class="highlight-box">
+          🎯 <strong>Kalyan's Advice:</strong> Practice converting nested setTimeout callbacks into promise chains. Master promises — they are essential for modern JavaScript (APIs, databases, file systems).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Callback Hell</strong> = deeply nested callbacks (problem).<br>
+        • <strong>Promise</strong> = async operation ని represent చేసే object (pending/fulfilled/rejected).<br>
+        • Executor function → resolve (success) / reject (failure).<br>
+        • <strong>.then()</strong> → success handler; <strong>.catch()</strong> → error handler.<br>
+        • <strong>Promise Chaining</strong> → callback hell ని solve చేస్తుంది.<br>
+        • Next: Promise.all, Promise.race, async/await.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Callback Hell to Promises. Next: Advanced Promise methods and async/await!
+    </div>
+  </div>
+</div>
+</body>
+</html>

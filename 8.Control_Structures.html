@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Control Structures | Conditional Statements (if, if-else, if-else if-else) | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .flow-diagram {
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 1rem;
+      text-align: center;
+      font-family: monospace;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🎮 <span>Control Structures</span> in JavaScript</h1>
+    <div class="sub">🔀 Conditional Statements: if, if-else, if-else if-else | Real-world examples (Nightclub, E-commerce, ATM, Railway tickets) — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Why Control Structures? Non-sequential flow -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Why Control Structures? Beyond Sequential Execution</div>
+      <div class="eng-section">
+        <p>So far, our programs executed <strong>sequentially</strong> — line by line from top to bottom. But real-world logic often requires <strong>decision making</strong> and <strong>repetition</strong>. For example:</p>
+        <ul style="margin-left: 1.8rem; margin-bottom: 1rem;">
+          <li>✅ If age >= 18, allow entry to club; else deny.</li>
+          <li>✅ If cart total >= ₹10,000, offer free shipping; else charge shipping.</li>
+          <li>✅ If VIP, give VIP lounge; else regular lounge.</li>
+          <li>✅ Repeat instructions 5 times (loops).</li>
+        </ul>
+        <div class="highlight-box">
+          💡 <strong>Control Structures</strong> allow us to alter the flow of execution — either by making decisions (conditionals) or repeating blocks (loops).
+        </div>
+        <p><strong>Two main categories:</strong> Conditional Statements (if, if-else, else-if, switch, ternary) and Loops (for, while, do-while, for-in, for-of). In this class, we focus on <strong>conditionals</strong>.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఇప్పటివరకు మన programs sequential గా execute అయ్యాయి (పై నుండి కిందికి line by line). కానీ real-world లో నిర్ణయాలు తీసుకోవడం (decision making) మరియు పునరావృతం (repetition) అవసరం. ఉదా: వయస్సు >= 18 అయితే క్లబ్ లోకి అనుమతించు, లేకపోతే నిరాకరించు. దీనికి <strong>Control Structures</strong> ఉపయోగిస్తాం. ఇందులో రెండు రకాలు: Conditional Statements (if, else, switch) మరియు Loops (for, while).</p>
+      </div>
+    </div>
+
+    <!-- 2: if statement (basic) -->
+    <div class="topic-card">
+      <div class="topic-title">🔹 2. if Statement — Execute block only if condition is true</div>
+      <div class="eng-section">
+        <p>The <strong>if statement</strong> executes a block of code only if the specified condition evaluates to <span class="inline-code">true</span>. If false, the block is skipped.</p>
+        <div class="code-demo">
+          let age = 20;
+          if (age >= 18) {
+              console.log("Welcome to the club!");
+          }
+          // Output: Welcome to the club!
+        </div>
+        <p><strong>Real-world e-commerce example (Free shipping):</strong></p>
+        <div class="code-demo">
+          let cartTotal = 12000;  // ₹12,000
+          if (cartTotal >= 10000) {
+              console.log("You have qualified for FREE shipping!");
+          }
+          // Output: You have qualified for FREE shipping!
+        </div>
+        <p>If <span class="inline-code">cartTotal = 2000</span>, nothing prints because condition is false.</p>
+        <div class="highlight-box">
+          ✅ <strong>Syntax:</strong> if (condition) { // code to run when true }
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">if</span> statement: condition true అయితే మాత్రమే block execute అవుతుంది. False అయితే skip. ఉదా: <span class="inline-code">if (age >= 18) { console.log("Welcome"); }</span>. E-commerce example: cartTotal >= 10000 అయితే free shipping message చూపించు.</p>
+      </div>
+    </div>
+
+    <!-- 3: if-else statement -->
+    <div class="topic-card">
+      <div class="topic-title">🔹 3. if-else Statement — One path or the other</div>
+      <div class="eng-section">
+        <p>When you have two alternatives: if condition true, execute block1; otherwise (else) execute block2.</p>
+        <div class="code-demo">
+          let isVIP = true;
+          if (isVIP === true) {
+              console.log("Welcome to VIP Lounge!");
+          } else {
+              console.log("Welcome to Regular Lounge.");
+          }
+          // Output: Welcome to VIP Lounge!
+        </div>
+        <p><strong>ATM / Bank withdrawal example:</strong></p>
+        <div class="code-demo">
+          let balance = 1000;
+          let withdrawAmount = 700;
+          if (balance >= withdrawAmount) {
+              console.log("Transaction Successful! Please collect cash.");
+          } else {
+              console.log("Insufficient Balance. Transaction Failed.");
+          }
+          // Output: Transaction Successful! (since 1000 >= 700)
+        </div>
+        <p>If withdrawAmount = 1500, output becomes "Insufficient Balance".</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">if-else</span>: రెండు paths. Condition true అయితే if block, false అయితే else block execute అవుతుంది. ఉదా: VIP lounge vs Regular lounge. Bank withdrawal: balance >= withdrawAmount అయితే "Transaction Successful", లేకపోతే "Insufficient Balance".</p>
+      </div>
+    </div>
+
+    <!-- 4: if-else if-else ladder (multiple conditions) -->
+    <div class="topic-card">
+      <div class="topic-title">🔹 4. if-else if-else Ladder — Multiple conditions (Railway ticket example)</div>
+      <div class="eng-section">
+        <p>When you have more than two possible paths, use <strong>else if</strong> to check additional conditions. The first condition that is true executes its block, then exits the ladder.</p>
+        <div class="flow-diagram">
+          ┌─────────────────────────┐<br>
+          │ if (age < 12) → child   │<br>
+          │ else if (age >= 65) → senior │<br>
+          │ else → adult            │<br>
+          └─────────────────────────┘
+        </div>
+        <div class="code-demo">
+          let age = 14;  // Try changing: 8, 14, 70
+          if (age < 12) {
+              console.log("Child Ticket Price: ₹150");
+          } else if (age >= 65) {
+              console.log("Senior Citizen Ticket Price: ₹200");
+          } else {
+              console.log("Adult Ticket Price: ₹300");
+          }
+          // Output: Adult Ticket Price: ₹300
+        </div>
+        <p><strong>Explanation:</strong> age=14 is not <12, not >=65, so falls to else → adult price.</p>
+        <div class="code-demo">
+          // Try different ages:
+          // age = 8 → Child Ticket Price
+          // age = 70 → Senior Citizen Ticket Price
+          // age = 30 → Adult Ticket Price
+        </div>
+        <div class="highlight-box">
+          🔥 Important: Only one block executes — the first true condition. The rest are ignored.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">if-else if-else</span> ladder: మూడు లేదా అంతకంటే ఎక్కువ options ఉన్నప్పుడు వాడతాం. Railway ticket example: age < 12 → child price, age >= 65 → senior price, else → adult price. First true condition మాత్రమే execute అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 5: Nested conditions and flow control summary -->
+    <div class="topic-card">
+      <div class="topic-title">📚 5. Nested Conditions & Flow Visualization</div>
+      <div class="eng-section">
+        <p>We can also place an <span class="inline-code">if</span> or <span class="inline-code">if-else</span> inside another <span class="inline-code">if</span> block — this is called <strong>nesting</strong>. Useful for complex decision trees.</p>
+        <div class="code-demo">
+          let age = 50;
+          let hasID = true;
+          if (age >= 18) {
+              if (hasID === true) {
+                  console.log("Valid ID. Entry granted.");
+              } else {
+                  console.log("ID required. Entry denied.");
+              }
+          } else {
+              console.log("Underage. Entry denied.");
+          }
+          // Output: Valid ID. Entry granted.
+        </div>
+        <p><strong>Remember:</strong> Control structures can be combined with logical operators (&&, ||) to write concise conditions.</p>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Note:</strong> Practice writing small programs using if, if-else, and else-if. Try modifying values and predict outputs. This is the foundation of programming logic.
+        </div>
+        <p>In the next part, we will cover <strong>switch statements</strong>, <strong>ternary operator</strong> (? :), and then move to loops (for, while). Practice today's concepts thoroughly!</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఒక <span class="inline-code">if</span> block లోపల మరొక <span class="inline-code">if</span> ని ఉంచవచ్చు — దీన్ని <strong>nesting</strong> అంటారు. ఉదా: వయస్సు మరియు ID రెండూ check చేయడం. Logical operators (&&, ||) తో కలిపి కూడా వాడవచ్చు. ప్రాక్టీస్ చేయడం వలన logic building skill పెరుగుతుంది. తర్వాతి part లో switch, ternary operator, loops నేర్చుకుందాం.</p>
+      </div>
+    </div>
+
+    <!-- 6: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 6. Summary & Quick Reference</div>
+      <div class="eng-section">
+        <p><strong>Conditional Statements in JavaScript:</strong></p>
+        <ul style="margin-left: 1.8rem; margin-bottom: 1rem;">
+          <li><span class="inline-code">if (condition) { }</span> → execute only if true</li>
+          <li><span class="inline-code">if (condition) { } else { }</span> → one of two paths</li>
+          <li><span class="inline-code">if (cond1) { } else if (cond2) { } else { }</span> → multiple paths</li>
+          <li>Conditions use comparison operators (<span class="inline-code">==, ===, >, <, >=, <=, !=, !==</span>)</li>
+          <li>Braces <span class="inline-code">{ }</span> define code blocks. Indentation improves readability.</li>
+        </ul>
+        <div class="code-demo">
+          // Simple if
+          let temperature = 35;
+          if (temperature > 30) {
+              console.log("It's a hot day!");
+          }
+
+          // if-else
+          let marks = 35;
+          if (marks >= 40) {
+              console.log("Pass");
+          } else {
+              console.log("Fail");
+          }
+
+          // else-if ladder
+          let score = 85;
+          if (score >= 90) {
+              console.log("Grade A");
+          } else if (score >= 75) {
+              console.log("Grade B");
+          } else {
+              console.log("Grade C");
+          }
+        </div>
+        <div class="highlight-box">
+          🎯 <strong>Next Class:</strong> Switch statement, Ternary operator, and introduction to Loops. Keep coding and stay consistent!
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <span class="inline-code">if</span> → condition true అయితే మాత్రమే execute.<br>
+        • <span class="inline-code">if-else</span> → రెండు paths లో ఒకటి execute.<br>
+        • <span class="inline-code">if-else if-else</span> → multiple paths లో మొదటి true condition execute అవుతుంది.<br>
+        • ప్రాక్టీస్ చేయడం వలన మీరు logical programs రాయగలరు. ఉదాహరణలు: club entry, free shipping, ATM withdrawal, railway ticket pricing. ఇవన్నీ real-world scenarios. తర్వాతి class లో switch మరియు loops నేర్చుకుందాం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Control structures (Conditionals) made simple. Practice if, if-else, and else-if with different values. Next: Switch & Loops!
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Array Manipulation in JavaScript | push, pop, shift, unshift, splice, indexOf, includes | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .warning {
+      background: #fee2e2;
+      border-left: 5px solid #dc2626;
+      padding: 0.8rem;
+      border-radius: 0.8rem;
+      margin: 0.8rem 0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🛠️ <span>Array Manipulation</span> in JavaScript</h1>
+    <div class="sub">📦 push, pop, shift, unshift, splice (add/remove/replace), indexOf, lastIndexOf, includes — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Adding Elements - push (end) and unshift (beginning) -->
+    <div class="topic-card">
+      <div class="topic-title">➕ 1. Adding Elements: push() and unshift()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let arr = [10, 20, 30, 40, 50];
+
+          // Add to the END
+          arr.push(60);
+          console.log(arr);  // [10, 20, 30, 40, 50, 60]
+
+          // Add to the BEGINNING
+          arr.unshift(70);
+          console.log(arr);  // [70, 10, 20, 30, 40, 50, 60]
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>push()</strong> — adds element(s) at the end (efficient, O(1) complexity).<br>
+          ✅ <strong>unshift()</strong> — adds element(s) at the beginning (costly, shifts all elements right).
+        </div>
+        <div class="warning">
+          ⚠️ <strong>Costly operation:</strong> unshift() shifts every existing element to the right → slower for large arrays.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>push()</strong> — end లో add చేస్తుంది (efficient). <strong>unshift()</strong> — beginning లో add చేస్తుంది (costly — అన్ని elements right shift అవుతాయి).</p>
+      </div>
+    </div>
+
+    <!-- 2: Removing Elements - pop (end) and shift (beginning) -->
+    <div class="topic-card">
+      <div class="topic-title">➖ 2. Removing Elements: pop() and shift()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let arr = [10, 20, 30, 40, 50];
+
+          // Remove from the END (returns removed element)
+          let last = arr.pop();
+          console.log(last);  // 50
+          console.log(arr);   // [10, 20, 30, 40]
+
+          // Remove from the BEGINNING (returns removed element)
+          let first = arr.shift();
+          console.log(first); // 10
+          console.log(arr);   // [20, 30, 40]
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>pop()</strong> — removes last element (efficient, O(1)).<br>
+          ✅ <strong>shift()</strong> — removes first element (costly, shifts all elements left).
+        </div>
+        <div class="warning">
+          ⚠️ Both methods <strong>return the removed element</strong> and modify the original array.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>pop()</strong> — చివరి element ని తొలగిస్తుంది (efficient). <strong>shift()</strong> — మొదటి element ని తొలగిస్తుంది (costly — remaining elements left shift). రెండూ తొలగించిన element ని return చేస్తాయి.</p>
+      </div>
+    </div>
+
+    <!-- 3: splice() - The Swiss Army Knife of Arrays -->
+    <div class="topic-card">
+      <div class="topic-title">🔧 3. splice() - Add, Remove, Replace at Any Position</div>
+      <div class="eng-section">
+        <p><strong>splice(start, deleteCount, item1, item2, ...)</strong> — modifies original array.</p>
+        <div class="code-demo">
+          let arr = [10, 20, 30, 40, 50];
+
+          // 1. Remove 1 element at index 2
+          let removed = arr.splice(2, 1);
+          console.log(removed);  // [30]
+          console.log(arr);      // [10, 20, 40, 50]
+
+          // Reset array
+          arr = [10, 20, 30, 40, 50];
+
+          // 2. Remove 2 elements starting at index 2
+          removed = arr.splice(2, 2);
+          console.log(removed);  // [30, 40]
+          console.log(arr);      // [10, 20, 50]
+
+          // 3. Insert (deleteCount = 0)
+          arr = [10, 20, 30, 40, 50];
+          arr.splice(2, 0, 60);  // insert 60 at index 2
+          console.log(arr);      // [10, 20, 60, 30, 40, 50]
+
+          // 4. Replace: delete 1, insert 2 items
+          arr = [10, 20, 30, 40, 50];
+          arr.splice(2, 1, 60, 70);
+          console.log(arr);      // [10, 20, 60, 70, 40, 50]
+        </div>
+        <div class="highlight-box">
+          💡 <strong>splice() return value:</strong> An array containing the deleted elements (empty array if nothing deleted).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>splice(start, deleteCount, items...)</strong> — array ని modify చేస్తుంది. deleteCount=0 అయితే insert చేస్తుంది. deleteCount >0 అయితే remove చేస్తుంది. items pass చేస్తే replace/insert చేస్తుంది. ఇది చాలా powerful method.</p>
+      </div>
+    </div>
+
+    <!-- 4: Searching - indexOf, lastIndexOf, includes -->
+    <div class="topic-card">
+      <div class="topic-title">🔍 4. Searching: indexOf(), lastIndexOf(), includes()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let arr = [10, 20, 30, 40, 50, 30];
+
+          // Find first occurrence
+          console.log(arr.indexOf(30));     // 2 (first 30)
+
+          // Find last occurrence
+          console.log(arr.lastIndexOf(30)); // 5 (last 30)
+
+          // Check if element exists
+          console.log(arr.includes(40));    // true
+          console.log(arr.includes(100));   // false
+
+          // When element not found, indexOf returns -1
+          console.log(arr.indexOf(100));    // -1
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>indexOf(element)</strong> — returns first index or -1 if not found.<br>
+          ✅ <strong>lastIndexOf(element)</strong> — returns last index or -1.<br>
+          ✅ <strong>includes(element)</strong> — returns true/false.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>indexOf(element)</strong> — మొదటి occurrence index (లేకపోతే -1). <strong>lastIndexOf(element)</strong> — చివరి occurrence index. <strong>includes(element)</strong> — true/false (element ఉందో లేదో).</p>
+      </div>
+    </div>
+
+    <!-- 5: Cost Analysis (Efficiency) -->
+    <div class="topic-card">
+      <div class="topic-title">⏱️ 5. Efficiency Note: Which Operations are Costly?</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>push() / pop()</strong> → Fast (O(1)) — operate at the end.</li>
+          <li><strong>unshift() / shift()</strong> → Slow (O(n)) — require shifting all elements.</li>
+          <li><strong>splice()</strong> → O(n) in worst case (shifting elements).</li>
+        </ul>
+        <div class="warning">
+          💡 For large arrays, prefer push/pop over unshift/shift to maintain performance.
+        </div>
+        <div class="code-demo">
+          // Good for performance
+          arr.push(100);   // fast
+          arr.pop();       // fast
+
+          // Avoid for large arrays if possible
+          arr.unshift(0);  // slow (shifts all)
+          arr.shift();     // slow (shifts all)
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>push/pop</strong> → fast (O(1)). <strong>unshift/shift</strong> → slow (O(n)) — all elements shift. పెద్ద arrays కోసం push/pop ని prefer చేయండి.</p>
+      </div>
+    </div>
+
+    <!-- 6: Summary Table -->
+    <div class="topic-card">
+      <div class="topic-title">📖 6. Quick Reference: Array Methods</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let fruits = ["Apple", "Banana", "Mango"];
+
+          // Add/Remove
+          fruits.push("Orange");        // end add
+          fruits.pop();                 // end remove
+          fruits.unshift("Grapes");     // beginning add
+          fruits.shift();               // beginning remove
+
+          // splice
+          fruits.splice(1, 1);          // remove 1 at index 1
+          fruits.splice(1, 0, "Kiwi");  // insert at index 1
+          fruits.splice(1, 1, "Pineapple"); // replace
+
+          // Search
+          fruits.indexOf("Mango");      // index
+          fruits.lastIndexOf("Mango");
+          fruits.includes("Apple");     // true/false
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Practice these methods with different arrays. Modify, insert, delete, search — get comfortable. Next class: map, filter, reduce (functional array methods with callbacks).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Adding:</strong> push (end), unshift (beginning)<br>
+        • <strong>Removing:</strong> pop (end), shift (beginning)<br>
+        • <strong>splice:</strong> add/remove/replace at any index<br>
+        • <strong>Search:</strong> indexOf, lastIndexOf, includes<br>
+        • <strong>Efficiency:</strong> push/pop fast; unshift/shift slow.<br>
+        ప్రాక్టీస్ చేయండి. తర్వాతి class: map, filter, reduce (callbacks తో array methods).</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Array manipulation methods: push, pop, shift, unshift, splice, indexOf, includes. Next: Functional array methods with callbacks!
+    </div>
+  </div>
+</div>
+</body>
+</html>

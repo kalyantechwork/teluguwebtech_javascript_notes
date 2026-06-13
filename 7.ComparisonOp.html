@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Comparison Operators | == vs === | Type Coercion | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f1f6fa;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .comparison-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .comp-card {
+      background: #f8fafc;
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      flex: 1;
+      min-width: 200px;
+      border: 1px solid #cbd5e1;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>⚖️ <span>Comparison Operators</span> in JavaScript</h1>
+    <div class="sub">🔍 Equality (==) vs Strict Equality (===) | Type Coercion | Special cases (null, undefined, NaN) — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Introduction to comparison -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Why Comparison Operators?</div>
+      <div class="eng-section">
+        <p>Programming is all about building logic based on <strong>conditions</strong>. Often we need to compare two values: check if age equals 18, if username matches, if password is correct, etc. The result of a comparison is always a <strong>Boolean</strong> (true or false).</p>
+        <div class="code-demo">
+          let age = 18;
+          console.log(age == 18);   // true
+          let actualUser = "tapacademy";
+          let enteredUser = "tap123";
+          console.log(actualUser == enteredUser); // false
+        </div>
+        <p>JavaScript provides two main equality operators: <strong>== (equality)</strong> and <strong>=== (strict equality)</strong>. Understanding the difference is crucial.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ప్రోగ్రామింగ్ లో తరచుగా మనం రెండు విలువలను పోల్చాలి: వయస్సు 18 కి సమానమా?, username సరిపోలిందా? Comparison ఫలితం ఎప్పుడూ Boolean (true/false) లో వస్తుంది. JavaScript లో రెండు equality operators ఉన్నాయి: <strong>== (equality)</strong> మరియు <strong>=== (strict equality)</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 2: Basic comparisons (number, string, boolean) -->
+    <div class="topic-card">
+      <div class="topic-title">📊 2. Basic Comparisons: Same Types</div>
+      <div class="eng-section">
+        <p>When both operands are of the same type, both <span class="inline-code">==</span> and <span class="inline-code">===</span> work similarly — they compare values directly.</p>
+        <div class="code-demo">
+          // number with number
+          console.log(18 == 18);   // true
+          console.log(18 === 18);  // true
+
+          // string with string
+          console.log("hello" == "hello");   // true
+          console.log("hello" === "hello");  // true
+
+          // boolean with boolean
+          console.log(true == true);   // true
+          console.log(true === true);  // true
+        </div>
+        <p>The real difference appears when comparing values of <strong>different types</strong>.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> రెండు operands ఒకే type అయినప్పుడు <span class="inline-code">==</span> మరియు <span class="inline-code">===</span> రెండూ ఒకేలా పనిచేస్తాయి — values ని నేరుగా compare చేస్తాయి. వ్యత్యాసం <strong>different types</strong> ఉన్నప్పుడు తెలుస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: Loose equality (==) and type coercion -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 3. Loose Equality (==) & Type Coercion (Implicit Conversion)</div>
+      <div class="eng-section">
+        <p>The <span class="inline-code">==</span> operator performs <strong>type coercion</strong> — it automatically converts values to a common type before comparing. This is also called <strong>implicit type casting</strong>.</p>
+        <div class="highlight-box">
+          💡 <strong>Type Coercion:</strong> When comparing different types, JavaScript converts one or both values to a common type (usually Number) and then compares.
+        </div>
+        <div class="code-demo">
+          // number vs string → string converted to number
+          console.log(5 == "5");    // true  (because "5" becomes 5)
+
+          // boolean vs number → boolean converted to number (true→1, false→0)
+          console.log(true == 1);   // true
+          console.log(false == 0);  // true
+
+          // boolean vs string → string → number, then boolean → number
+          console.log(true == "1"); // true ("1" → 1, true → 1)
+        </div>
+        <p>JavaScript internally uses <span class="inline-code">Number()</span> conversion for strings and booleans when using <span class="inline-code">==</span>. This can lead to surprising results if not understood properly.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">==</span> ఆపరేటర్ <strong>type coercion</strong> (implicit conversion) చేస్తుంది — compare చేయడానికి ముందు values ని ఒక common type (సాధారణంగా Number) లోకి మారుస్తుంది. ఉదా: <span class="inline-code">5 == "5"</span> → true (ఎందుకంటే "5" ని Number(5) గా మార్చి compare చేస్తుంది). <span class="inline-code">true == 1</span> → true (true ని 1 గా మారుస్తుంది).</p>
+      </div>
+    </div>
+
+    <!-- 4: Strict equality (===) - no coercion -->
+    <div class="topic-card">
+      <div class="topic-title">🎯 4. Strict Equality (===) — No Coercion, Type Matters</div>
+      <div class="eng-section">
+        <p>The <span class="inline-code">===</span> operator compares both <strong>value AND type</strong>. If types are different, it returns <strong>false immediately</strong> — no type conversion happens.</p>
+        <div class="code-demo">
+          console.log(5 === "5");    // false (number vs string)
+          console.log(true === 1);   // false (boolean vs number)
+          console.log(null === undefined); // false (different types)
+          console.log(0 === false);  // false (number vs boolean)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Best Practice:</strong> Always prefer <span class="inline-code">===</span> over <span class="inline-code">==</span> to avoid unexpected type coercion bugs. Use <span class="inline-code">==</span> only when you intentionally want type coercion.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">===</span> ఆపరేటర్ <strong>value మరియు type</strong> రెండింటినీ compare చేస్తుంది. Types different అయితే వెంటనే false return చేస్తుంది — ఎలాంటి type conversion జరగదు. <strong>Best practice:</strong> ఎప్పుడూ <span class="inline-code">===</span> ని వాడండి, unexpected bugs ని avoid చేయడానికి.</p>
+      </div>
+    </div>
+
+    <!-- 5: Special cases (null, undefined, NaN, empty string, false) -->
+    <div class="topic-card">
+      <div class="topic-title">⚠️ 5. Special Comparisons: null, undefined, NaN, "", false</div>
+      <div class="eng-section">
+        <p>These are common tricky cases that appear in technical interviews and MCQ rounds.</p>
+        <div class="comparison-grid">
+          <div class="comp-card"><strong>null == undefined</strong> → true<br> <strong>null === undefined</strong> → false</div>
+          <div class="comp-card"><strong>"" == 0</strong> → true ("" → 0)<br> <strong>"" === 0</strong> → false</div>
+          <div class="comp-card"><strong>false == ""</strong> → true (both falsy)<br> <strong>false === ""</strong> → false</div>
+          <div class="comp-card"><strong>null == false</strong> → false<br> <strong>null === false</strong> → false</div>
+          <div class="comp-card"><strong>undefined == 0</strong> → false<br> <strong>NaN == NaN</strong> → false (always!)</div>
+          <div class="comp-card"><strong>"true" == true</strong> → false ( "true" → NaN, true → 1 )<br> <strong>"01" == 1</strong> → true</div>
+        </div>
+        <div class="code-demo">
+          console.log(null == undefined);   // true
+          console.log(null === undefined);  // false
+          console.log("" == 0);             // true (empty string → 0)
+          console.log(NaN == NaN);          // false (NaN is not equal to anything, even itself)
+          console.log(false == "");         // true (both falsy, after coercion)
+          console.log(null == false);       // false
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Key rules:</strong> null and undefined are equal only with == (not ===). NaN is never equal to NaN. Empty string converts to 0. Falsy values (false, 0, "") can be equal under coercion.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ప్రత్యేక సందర్భాలు:<br>
+        • <span class="inline-code">null == undefined</span> → true, కానీ <span class="inline-code">null === undefined</span> → false.<br>
+        • <span class="inline-code">NaN == NaN</span> → false (ఎప్పటికీ).<br>
+        • Empty string ("") ని == తో 0 తో compare చేస్తే true వస్తుంది (ఎందుకంటే "" → 0).<br>
+        • <span class="inline-code">false == ""</span> → true (రెండూ falsy values, coercion తర్వాత). ఈ cases ఇంటర్వ్యూలలో చాలా ముఖ్యమైనవి.</p>
+      </div>
+    </div>
+
+    <!-- 6: Summary table and best practices -->
+    <div class="topic-card">
+      <div class="topic-title">📖 6. Summary: == vs === and Best Practices</div>
+      <div class="eng-section">
+        <p><strong>Quick Reference:</strong></p>
+        <div class="code-demo">
+          // ==  : allows type coercion (converts types)
+          // === : does NOT allow coercion (types must match)
+
+          console.log(5 == "5");    // true  (coerced)
+          console.log(5 === "5");   // false (types differ)
+
+          console.log(true == 1);   // true
+          console.log(true === 1);  // false
+
+          console.log(null == undefined);  // true
+          console.log(null === undefined); // false
+
+          console.log("" == 0);     // true
+          console.log("" === 0);    // false
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Kalyan's Advice:</strong> Use <span class="inline-code">===</span> by default. It makes your code predictable and avoids hidden coercion bugs. Only use <span class="inline-code">==</span> when you explicitly want type conversion (e.g., checking if a value is null or undefined: <span class="inline-code">value == null</span>).
+        </div>
+        <p>Remember: Every comparison returns a Boolean (true/false). Mastering these operators will save you hours of debugging.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <span class="inline-code">==</span> → type coercion చేస్తుంది (values ని convert చేసి compare చేస్తుంది).<br>
+        • <span class="inline-code">===</span> → type coercion చేయదు (types మ్యాచ్ అవ్వాలి).<br>
+        • ఎప్పుడూ <span class="inline-code">===</span> ని వాడండి, అది safe మరియు predictable. <span class="inline-code">==</span> ని specific cases లో మాత్రమే వాడండి (ఉదా: <span class="inline-code">value == null</span>).<br>
+        • ఈ concepts తెలుసుకోవడం వలన JavaScript లో bugs చాలా తగ్గుతాయి. ప్రాక్టీస్ చేయండి!</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Comparison operators demystified. Next class: Logical operators and conditional statements. Keep coding!
+    </div>
+  </div>
+</div>
+</body>
+</html>

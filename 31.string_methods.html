@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript String Methods | split, trim, toUpperCase, toLowerCase, includes, indexOf, replace, slice, repeat | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔧 <span>String Methods in JavaScript</span> | Practical User Input Example</h1>
+    <div class="sub">📦 split, trim, toUpperCase, toLowerCase, includes, indexOf, lastIndexOf, replace, replaceAll, slice, length, endsWith, repeat, template literals — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Problem: Unformatted User Input -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. The Problem: Raw, Unformatted User Input</div>
+      <div class="eng-section">
+        <p>When users fill forms, they often leave extra spaces, mix cases, or use inconsistent formatting. We need to clean and format this data.</p>
+        <div class="code-demo">
+          let userInput = "  Alice Johnson  |  [email protected]  |  I'm a JavaScript developer and I love coffee  ";
+        </div>
+        <div class="highlight-box">
+          💡 Our goal: Extract name, email, bio; remove extra spaces; format case; validate; and create a clean profile.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Users form fill చేసేటప్పుడు extra spaces, mixed cases, inconsistent formatting వదిలేస్తారు. మనం ఈ data ని clean మరియు format చేయాలి. Goal: name, email, bio extract చేయడం, spaces తొలగించడం, case format చేయడం, validate చేయడం.</p>
+      </div>
+    </div>
+
+    <!-- 2: split() - Convert string to array -->
+    <div class="topic-card">
+      <div class="topic-title">✂️ 2. split() - Split String into Array</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let parts = userInput.split("|");
+          console.log(parts);
+          // ["  Alice Johnson  ", "  [email protected]  ", "  I'm a JavaScript developer and I love coffee  "]
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>split(separator)</strong> → returns an array of substrings. Separator can be any character or string.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>split(separator)</strong> string ని separator ఆధారంగా array of substrings గా మారుస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: trim() - Remove whitespace -->
+    <div class="topic-card">
+      <div class="topic-title">✂️ 3. trim() - Remove Leading/Trailing Whitespace</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let name = parts[0].trim();   // "Alice Johnson"
+          let email = parts[1].trim();  // "[email protected]"
+          let bio = parts[2].trim();    // "I'm a JavaScript developer and I love coffee"
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>trim()</strong> removes whitespace from both ends of a string. Does NOT change the original string (immutability).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>trim()</strong> string రెండు ends నుండి whitespace ని తొలగిస్తుంది. Original string మారదు (immutable).</p>
+      </div>
+    </div>
+
+    <!-- 4: toUpperCase() and toLowerCase() -->
+    <div class="topic-card">
+      <div class="topic-title">🔠 4. toUpperCase() and toLowerCase()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          name = name.toUpperCase();   // "ALICE JOHNSON"
+          email = email.toLowerCase(); // "[email protected]"
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>toUpperCase()</strong> → all uppercase.<br>
+          ✅ <strong>toLowerCase()</strong> → all lowercase.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>toUpperCase()</strong> → అన్ని uppercase లోకి మారుస్తుంది. <strong>toLowerCase()</strong> → అన్ని lowercase లోకి మారుస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 5: includes(), indexOf(), lastIndexOf() -->
+    <div class="topic-card">
+      <div class="topic-title">🔍 5. includes(), indexOf(), lastIndexOf()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let likesJS = bio.includes("JavaScript");      // true
+          let firstIndex = bio.indexOf("JavaScript");   // 0
+          let lastIndex = bio.lastIndexOf("JavaScript");// 0 (only one)
+          let hasCoffee = bio.includes("coffee");       // true
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>includes(substring)</strong> → returns true/false.<br>
+          ✅ <strong>indexOf(substring)</strong> → returns first index or -1.<br>
+          ✅ <strong>lastIndexOf(substring)</strong> → returns last index or -1.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>includes()</strong> → substring ఉందో లేదో true/false. <strong>indexOf()</strong> → first occurrence index (-1 if not found). <strong>lastIndexOf()</strong> → last occurrence index.</p>
+      </div>
+    </div>
+
+    <!-- 6: replace() and replaceAll() -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 6. replace() and replaceAll()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Replace first occurrence only
+          let replaced = bio.replace("JavaScript", "JS");
+          // Replace ALL occurrences
+          let replacedAll = bio.replaceAll("JavaScript", "JS");
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>replace(search, replacement)</strong> → replaces first match.<br>
+          ✅ <strong>replaceAll(search, replacement)</strong> → replaces all matches.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>replace()</strong> → first match మాత్రమే replace చేస్తుంది. <strong>replaceAll()</strong> → అన్ని matches replace చేస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 7: slice() - Extract substring -->
+    <div class="topic-card">
+      <div class="topic-title">✂️ 7. slice() - Extract Substring</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Extract profession "JS developer"
+          let profession = bio.slice(0, bio.indexOf(" and")).trim();
+          console.log(profession); // "JS developer" (after replacement)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>slice(start, end)</strong> → returns substring from start index (inclusive) to end index (exclusive). End index is optional.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>slice(start, end)</strong> → start (inclusive) నుండి end (exclusive) వరకు substring ని extract చేస్తుంది. End index optional.</p>
+      </div>
+    </div>
+
+    <!-- 8: length property (not a method) -->
+    <div class="topic-card">
+      <div class="topic-title">📏 8. length Property (not a method!)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          console.log(bio.length);  // number of characters (property, not function)
+        </div>
+        <div class="highlight-box">
+          ⚠️ <strong>Important:</strong> <span class="inline-code">length</span> is a <strong>property</strong>, not a method. Do NOT use parentheses: <span class="inline-code">str.length</span> (correct), <span class="inline-code">str.length()</span> (incorrect).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">length</span> ఒక <strong>property</strong>, method కాదు. <span class="inline-code">str.length</span> (correct), <span class="inline-code">str.length()</span> (incorrect).</p>
+      </div>
+    </div>
+
+    <!-- 9: endsWith(), repeat() and Template Literals -->
+    <div class="topic-card">
+      <div class="topic-title">📋 9. endsWith(), repeat() & Template Literals</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Email validation
+          let validEmail = email.includes("@") && email.endsWith(".com");
+
+          // Create separator line
+          let separator = "-".repeat(30);
+
+          // Template literal for formatted output
+          let finalProfile = `
+          =================================
+          USER PROFILE
+          ${separator}
+          Name: ${name}
+          Email: ${email}
+          Profession: ${profession}
+          Likes JavaScript: ${likesJS}
+          Likes Coffee: ${hasCoffee}
+          ${separator}
+          `;
+          console.log(finalProfile);
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>endsWith(substring)</strong> → true if string ends with substring.<br>
+          ✅ <strong>repeat(count)</strong> → repeats the string count times.<br>
+          ✅ <strong>Template literals (`...`)</strong> allow embedding variables with <span class="inline-code">${}</span>.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>endsWith()</strong> → string substring తో ముగిస్తే true. <strong>repeat()</strong> → string ని count సార్లు repeat చేస్తుంది. <strong>Template literals (`...`)</strong> → <span class="inline-code">${}</span> తో variables embed చేయడానికి.</p>
+      </div>
+    </div>
+
+    <!-- 10: Summary Table -->
+    <div class="topic-card">
+      <div class="topic-title">📖 10. Quick Reference: Essential String Methods</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let str = "  Hello World  ";
+
+          str.trim();           // "Hello World"
+          str.toUpperCase();    // "  HELLO WORLD  "
+          str.toLowerCase();    // "  hello world  "
+          str.includes("World") // true
+          str.indexOf("World")  // 7
+          str.slice(2, 7);      // "Hello"
+          str.replace("World", "JS"); // "  Hello JS  "
+          "abc".repeat(3);      // "abcabcabc"
+          "test".endsWith("st") // true
+          str.length;           // 14 (property)
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Practice these methods with real-world strings (user inputs, file contents, API responses). Master them — they will be used in almost every project.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • split, trim, toUpperCase, toLowerCase, includes, indexOf, lastIndexOf<br>
+        • replace, replaceAll, slice, endsWith, repeat, length (property)<br>
+        • Template literals (`...`) — variables embed చేయడానికి<br>
+        ఈ methods ని real-world strings తో ప్రాక్టీస్ చేయండి. ఇవి ప్రతీ project లో ఉపయోగపడతాయి.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — String methods with practical user input example. Next: Advanced string manipulation and regex introduction!
+    </div>
+  </div>
+</div>
+</body>
+</html>

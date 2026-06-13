@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Asynchronous JavaScript | Event Loop | Web APIs | setTimeout, setInterval | Callback Queue | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .architecture {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>⚡ <span>Asynchronous JavaScript</span> | Event Loop | Web APIs</h1>
+    <div class="sub">📦 setTimeout, setInterval, Callback Queue | Non-blocking execution | Node.js & Browser — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Recap - Synchronous Blocking Problem -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Recap: The Synchronous Blocking Problem</div>
+      <div class="eng-section">
+        <p>JavaScript is <strong>single-threaded</strong> and <strong>synchronous</strong> by default. A long-running task blocks the entire call stack, freezing the UI.</p>
+        <div class="code-demo">
+          function fetchCourseProgress() {
+              // 5 second delay (busy-wait) — BLOCKS everything!
+          }
+
+          fetchCourseProgress();  // UI freezes for 5 seconds
+          fetchLeaderboard();     // waits for previous to complete
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Single-threaded = one statement at a time. Blocking = slow tasks stop everything else.</strong>
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript డిఫాల్ట్ గా <strong>single-threaded</strong> మరియు <strong>synchronous</strong>. Long-running task call stack ని block చేస్తుంది → UI freeze అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 2: Solution - Web APIs, Callback Queue, Event Loop -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 2. Solution: Web APIs + Callback Queue + Event Loop</div>
+      <div class="eng-section">
+        <div class="architecture">
+          🧠 JavaScript Engine (Call Stack + Heap)<br>
+          +<br>
+          🌐 Web APIs (provided by Browser/Node.js): setTimeout, DOM APIs, fetch, etc.<br>
+          +<br>
+          📦 Callback Queue (FIFO)<br>
+          +<br>
+          ⚡ Event Loop (monitors stack & queue)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Web APIs</strong> allow us to offload blocking tasks. When they complete, callbacks go to the <strong>Callback Queue</strong>. The <strong>Event Loop</strong> moves them to the Call Stack when it's empty.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Web APIs (setTimeout, fetch, DOM APIs) blocking tasks ని offload చేస్తాయి. Task complete అయిన తర్వాత callback <strong>Callback Queue</strong> లోకి వెళ్తుంది. <strong>Event Loop</strong> call stack empty ఉన్నప్పుడు queue నుండి stack కి తరలిస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: setTimeout - Basic Non-blocking Example -->
+    <div class="topic-card">
+      <div class="topic-title">⏰ 3. setTimeout: Execute Later (Non-blocking)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          console.log("Start");
+          setTimeout(() => {
+              console.log("Inside setTimeout (after 2 sec)");
+          }, 2000);
+          console.log("End");
+
+          // Output:
+          // Start
+          // End
+          // (after 2 seconds) Inside setTimeout
+        </div>
+        <div class="highlight-box">
+          💡 <strong>setTimeout does NOT block!</strong> The callback is registered with Web API, timer runs outside the call stack. Meanwhile, the rest of the code executes.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>setTimeout</strong> non-blocking. Callback Web API కి register అవుతుంది, timer stack వెలుపల నడుస్తుంది. మిగిలిన code immediate గా execute అవుతుంది. Timer complete అయిన తర్వాత callback queue → event loop → call stack.</p>
+      </div>
+    </div>
+
+    <!-- 4: Event Loop in Action - Multiple setTimeout -->
+    <div class="topic-card">
+      <div class="topic-title">🎯 4. Event Loop in Action: Multiple setTimeout (Different Timers)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          setTimeout(() => console.log("Task A (5 sec)"), 5000);
+          setTimeout(() => console.log("Task B (2 sec)"), 2000);
+          console.log("Synchronous code");
+
+          // Output:
+          // Synchronous code
+          // (after 2 sec) Task B (2 sec)
+          // (after 5 sec) Task A (5 sec)
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Order depends on timer, not code position.</strong> Whichever timer finishes first gets added to the callback queue first → executes first (when stack is empty).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Multiple setTimeout లలో, ఎవరి timer ముందు complete అవుతుందో వారి callback queue లో ముందు వస్తుంది → ముందు execute అవుతుంది. Timer duration (milliseconds) execution order ని నిర్ణయిస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 5: setInterval - Repeated Execution -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 5. setInterval: Repeated Execution (with clearInterval)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let count = 0;
+          let intervalId = setInterval(() => {
+              count++;
+              console.log(`Fetching data... (${count})`);
+          }, 2000);
+
+          // Stop after 10 seconds
+          setTimeout(() => {
+              clearInterval(intervalId);
+              console.log("Stopped fetching.");
+          }, 10000);
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>setInterval</strong> executes callback repeatedly every delay milliseconds.<br>
+          ✅ <strong>clearInterval(id)</strong> stops it.<br>
+          ✅ Use <strong>setTimeout</strong> to schedule the stop after a duration.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>setInterval</strong> ప్రతీ delay milliseconds తర్వాత callback ని repeat చేస్తుంది. <strong>clearInterval(id)</strong> ద్వారా stop చేయవచ్చు. setTimeout ద్వారా కొంత సమయం తర్వాత clearInterval call చేయడం common pattern.</p>
+      </div>
+    </div>
+
+    <!-- 6: Zero Delay setTimeout (Defer Execution) -->
+    <div class="topic-card">
+      <div class="topic-title">⏱️ 6. setTimeout(fn, 0) - Defer to End of Stack</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          console.log("A");
+          setTimeout(() => console.log("B (setTimeout 0)"), 0);
+          console.log("C");
+
+          // Output: A, C, B
+        </div>
+        <div class="highlight-box">
+          💡 Even with 0ms delay, the callback is placed in the callback queue and executes <strong>after</strong> the current synchronous code finishes.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">setTimeout(fn, 0)</span> callback ని callback queue లో వేస్తుంది. Current synchronous code complete అయిన తర్వాతే execute అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: Async JavaScript Essentials</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>JavaScript is synchronous & single-threaded</strong> by nature (Call Stack only).</li>
+          <li><strong>Web APIs</strong> (setTimeout, setInterval, fetch, DOM events) provide async capabilities.</li>
+          <li>Callbacks from Web APIs go to <strong>Callback Queue</strong> (FIFO).</li>
+          <li><strong>Event Loop</strong> continuously checks: if Call Stack empty → pushes callback from queue to stack.</li>
+          <li><strong>setTimeout</strong> schedules execution after delay (non-blocking).</li>
+          <li><strong>setInterval</strong> repeats execution; <strong>clearInterval</strong> stops it.</li>
+          <li><strong>Zero-delay setTimeout</strong> defers execution until after synchronous code.</li>
+        </ul>
+        <div class="code-demo">
+          // Mental model
+          // Call Stack ← Event Loop ← Callback Queue ← Web APIs (timers, etc.)
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Practice tracing async code manually. Predict output order. Understand that setTimeout delay is MINIMUM time, not exact execution time (depends on stack).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • JavaScript synchronous + single-threaded (Call Stack only).<br>
+        • Web APIs (setTimeout, fetch) async capabilities ఇస్తాయి.<br>
+        • Callbacks → Callback Queue (FIFO).<br>
+        • Event Loop: Stack empty అయితే queue నుండి stack కి callback ని తరలిస్తుంది.<br>
+        • setTimeout → non-blocking delay.<br>
+        • setInterval → repeat; clearInterval → stop.<br>
+        • Zero-delay setTimeout → synchronous code తర్వాత execute అవుతుంది.<br>
+        Async code ని mental గా trace చేయడం ప్రాక్టీస్ చేయండి.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Asynchronous JavaScript, Event Loop, Web APIs, setTimeout, setInterval. Next: Promises and Async/Await!
+    </div>
+  </div>
+</div>
+</body>
+</html>

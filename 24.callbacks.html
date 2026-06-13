@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Callbacks | Higher-Order Functions | Functions as Arguments | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .callback-flow {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      text-align: center;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔄 <span>Callbacks in JavaScript</span> | Higher-Order Functions</h1>
+    <div class="sub">📦 Functions as Arguments | Calculator Example | Area Calculations | Asynchronous Programming Foundation — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: What is a Callback? -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. What is a Callback Function?</div>
+      <div class="eng-section">
+        <p>A <strong>callback function</strong> is a function that is <strong>passed as an argument</strong> to another function. The receiving function (called <strong>Higher-Order Function</strong>) then <strong>calls back</strong> (invokes) the callback at some point during its execution.</p>
+        <div class="callback-flow">
+          🔹 Higher-Order Function (host) ← receives callback as argument<br>
+          🔹 Then calls the callback when needed<br>
+          🔹 Callback is "called back" later
+        </div>
+        <div class="code-demo">
+          function higherOrder(callback) {
+              // do some work...
+              callback();   // calling the callback
+          }
+
+          function myCallback() {
+              console.log("I am a callback!");
+          }
+
+          higherOrder(myCallback);  // passing function as argument
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Key Insight:</strong> In JavaScript, functions are objects (first-class citizens), so they can be passed as arguments like any other value.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Callback function</strong> అంటే మరొక function కి <strong>argument గా pass చేయబడే function</strong>. ఆ function ని స్వీకరించే function ని <strong>Higher-Order Function</strong> అంటారు. అది ఆ callback ని తర్వాత "call back" చేస్తుంది. Functions first-class citizens (objects) కాబట్టి, వాటిని arguments గా pass చేయవచ్చు.</p>
+      </div>
+    </div>
+
+    <!-- 2: Why Callbacks? (Calculator Example) -->
+    <div class="topic-card">
+      <div class="topic-title">🧮 2. Practical Example: Calculator with Callbacks</div>
+      <div class="eng-section">
+        <p>Instead of creating separate functions for add, subtract, multiply and calling them individually, we can create a <strong>calculator higher-order function</strong> that accepts the operation as a callback.</p>
+        <div class="code-demo">
+          function add(a, b) { return a + b; }
+          function sub(a, b) { return a - b; }
+          function mul(a, b) { return a * b; }
+
+          // Higher-Order Function
+          function calculator(a, b, callback) {
+              return callback(a, b);
+          }
+
+          console.log(calculator(10, 20, add));   // 30
+          console.log(calculator(10, 20, sub));   // -10
+          console.log(calculator(10, 20, mul));   // 200
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Benefits:</strong> Reusability, cleaner code, and the calculator function doesn't need to know the details of each operation — it just calls the callback.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Calculator example: <span class="inline-code">calculator(10,20,add)</span> → add function callback గా pass అవుతుంది. calculator function ఆ callback ని call చేస్తుంది. ఇలా చేయడం వలన code reusable, clean, మరియు calculator function ప్రతీ operation యొక్క details తెలుసుకోనవసరం లేదు.</p>
+      </div>
+    </div>
+
+    <!-- 3: Memory / Reference Understanding -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 3. How Callbacks Work in Memory (Pass by Reference)</div>
+      <div class="eng-section">
+        <p>When we pass a function as a callback, we are passing its <strong>reference (memory address)</strong>, not a copy. The higher-order function's parameter then points to the same function object.</p>
+        <div class="code-demo">
+          function add(a, b) { return a + b; }
+
+          function calculator(a, b, callback) {
+              // callback parameter now references the SAME function as 'add'
+              return callback(a, b);
+          }
+
+          calculator(5, 3, add);  // add's reference passed to callback
+        </div>
+        <div class="highlight-box">
+          💡 This works because functions are objects stored in Heap. The variable names (<span class="inline-code">add</span>, <span class="inline-code">callback</span>) are references (Stack) pointing to the same Heap object.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Callback ని pass చేసినప్పుడు, దాని <strong>reference (memory address)</strong> ని pass చేస్తాం (copy కాదు). Higher-order function లోని parameter అదే function object ని point చేస్తుంది. ఇది pass by reference కు ఉదాహరణ. Functions Heap లో objects, variables Stack లో references ని store చేస్తాయి.</p>
+      </div>
+    </div>
+
+    <!-- 4: Area Calculator Example (Real-world) -->
+    <div class="topic-card">
+      <div class="topic-title">📐 4. Real-world Example: Area Calculator</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Callback functions for different shapes
+          function circleArea(radius) {
+              return Math.PI * radius * radius;
+          }
+
+          function squareArea(side) {
+              return side * side;
+          }
+
+          function equilateralTriangleArea(side) {
+              return (Math.sqrt(3) / 4) * side * side;
+          }
+
+          // Higher-Order Function
+          function calculateArea(value, callback) {
+              console.log(callback(value));
+          }
+
+          calculateArea(5, circleArea);           // Circle area with radius 5
+          calculateArea(5, squareArea);           // Square area with side 5
+          calculateArea(5, equilateralTriangleArea); // Triangle area with side 5
+        </div>
+        <div class="highlight-box">
+          ✅ The <span class="inline-code">calculateArea</span> function doesn't know about circles, squares, or triangles. It just receives a callback and delegates the area calculation to it. This is the power of callbacks.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">calculateArea</span> function కి circle, square, triangle గురించి ఏమీ తెలియదు. అది ఒక callback ని తీసుకొని, ఆ callback కి area calculation ని delegate చేస్తుంది. ఇది callbacks యొక్క శక్తి.</p>
+      </div>
+    </div>
+
+    <!-- 5: Common Use Cases of Callbacks -->
+    <div class="topic-card">
+      <div class="topic-title">📋 5. Where are Callbacks Used in Real JavaScript?</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Array Methods:</strong> <span class="inline-code">map()</span>, <span class="inline-code">filter()</span>, <span class="inline-code">reduce()</span>, <span class="inline-code">forEach()</span> — all accept callbacks</li>
+          <li><strong>Event Handling:</strong> <span class="inline-code">addEventListener('click', callback)</span></li>
+          <li><strong>Asynchronous Operations:</strong> setTimeout, setInterval, fetch, file reading (Node.js)</li>
+          <li><strong>HTTP Requests:</strong> AJAX, API calls (before Promises/async-await)</li>
+          <li><strong>React / Frontend Frameworks:</strong> Event handlers, effect hooks</li>
+        </ul>
+        <div class="code-demo">
+          // Array callback example
+          let numbers = [1, 2, 3, 4, 5];
+          let doubled = numbers.map(function(num) {
+              return num * 2;
+          });
+          console.log(doubled);  // [2, 4, 6, 8, 10]
+
+          // Event listener callback
+          document.getElementById("btn").addEventListener("click", function() {
+              alert("Button clicked!");
+          });
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Callbacks ని ఎక్కడ ఉపయోగిస్తాం? Array methods (map, filter, reduce), Event handling (addEventListener), Asynchronous operations (setTimeout, fetch), HTTP requests, React event handlers. ఇవి JavaScript లో చాలా సాధారణం.</p>
+      </div>
+    </div>
+
+    <!-- 6: Synchronous vs Asynchronous Callbacks -->
+    <div class="topic-card">
+      <div class="topic-title">⏱️ 6. Synchronous vs Asynchronous Callbacks</div>
+      <div class="eng-section">
+        <p><strong>Synchronous Callback:</strong> Executed immediately inside the higher-order function (e.g., calculator, array methods).</p>
+        <p><strong>Asynchronous Callback:</strong> Executed later, after some operation completes (e.g., setTimeout, event listeners, API calls).</p>
+        <div class="code-demo">
+          // Synchronous callback (executes immediately)
+          function greet(name, callback) {
+              callback(name);
+          }
+          greet("Kalyan", function(n) { console.log("Hello " + n); });
+
+          // Asynchronous callback (executes after delay)
+          setTimeout(function() {
+              console.log("This runs after 2 seconds");
+          }, 2000);
+
+          console.log("This runs immediately");
+          // Output: "This runs immediately", then after 2 seconds: "This runs after 2 seconds"
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Important:</strong> Callbacks are the foundation of asynchronous programming in JavaScript, allowing non-blocking operations.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Synchronous Callbacks:</strong> వెంటనే execute అవుతాయి (calculator, array methods). <strong>Asynchronous Callbacks:</strong> తర్వాత execute అవుతాయి (setTimeout, event listeners, API calls). Asynchronous callbacks JavaScript ని non-blocking గా చేస్తాయి.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: Callbacks in a Nutshell</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Callback:</strong> A function passed as an argument to another function.</li>
+          <li><strong>Higher-Order Function:</strong> The function that receives and calls the callback.</li>
+          <li><strong>Why Callbacks?</strong> Code reusability, abstraction, and handling asynchronous operations.</li>
+          <li><strong>Mechanism:</strong> Functions are objects → references are passed (pass by reference).</li>
+          <li><strong>Next Steps:</strong> Promises and async/await evolved from callbacks to solve "callback hell".</li>
+        </ul>
+        <div class="code-demo">
+          // Quick recap
+          function higherOrder(callback) {
+              callback();
+          }
+
+          function simpleCallback() {
+              console.log("Callback executed!");
+          }
+
+          higherOrder(simpleCallback);
+          // Output: Callback executed!
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Practice writing functions that accept callbacks. Build your own array methods like <span class="inline-code">myMap</span>, <span class="inline-code">myFilter</span>. This will deeply ingrain the concept.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Callback:</strong> మరొక function కి argument గా pass చేయబడే function.<br>
+        • <strong>Higher-Order Function:</strong> callback ని స్వీకరించి, దానిని call చేసే function.<br>
+        • <strong>Why?</strong> Code reusability, abstraction, asynchronous programming.<br>
+        • <strong>Mechanism:</strong> Functions are objects → references pass అవుతాయి (pass by reference).<br>
+        • <strong>Next:</strong> Promises & async/await — callbacks నుండి evolve అయినవి. ప్రాక్టీస్ చేయండి!</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Callbacks demystified! Next: Array methods with callbacks, then Promises and Asynchronous JavaScript.
+    </div>
+  </div>
+</div>
+</body>
+</html>

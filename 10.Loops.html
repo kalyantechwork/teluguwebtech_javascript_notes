@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Loops | For, While, Do-While | Pattern Printing Introduction | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .loop-components {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin: 1rem 0;
+      justify-content: center;
+    }
+    .comp {
+      background: white;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-weight: bold;
+      color: #0f5e54;
+      border: 1px solid #cbd5e1;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔄 <span>Loops in JavaScript</span> | For, While, Do-While</h1>
+    <div class="sub">⭐ Pattern printing | Four components of any loop | When to use which loop — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Why loops? Repetition without copy-paste -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Why Loops? The Power of Repetition</div>
+      <div class="eng-section">
+        <p>A programmer writes code <strong>once</strong> and if repetition is needed, the program repeats it automatically — not by copy-pasting. <strong>Loops</strong> allow us to execute a block of code multiple times. Common use cases: array manipulation, DOM traversal, event handling, animations, and data processing.</p>
+        <div class="highlight-box">
+          💡 Without loops, printing 500 stars would require 500 console.log statements. With a loop, just 4 lines of code!
+        </div>
+        <p>In JavaScript, we have: <strong>for loop, while loop, do-while loop, for-of loop, for-in loop</strong>. Today we focus on for, while, and do-while.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఒక programmer code ని <strong>ఒక్కసారి</strong> రాస్తాడు, repetition అవసరమైతే program దాన్ని తనంతట తానే repeat చేసుకుంటుంది — copy-paste కాదు. <strong>Loops</strong> వలన ఒక block ని multiple times execute చేయవచ్చు. ఉదా: 500 stars print చేయడానికి 500 console.log రాయాల్సిన అవసరం లేదు; ఒక్క loop చాలు.</p>
+      </div>
+    </div>
+
+    <!-- 2: Printing stars - problem with copy-paste -->
+    <div class="topic-card">
+      <div class="topic-title">⭐ 2. The Problem: Printing 5 stars vertically vs horizontally</div>
+      <div class="eng-section">
+        <p><span class="inline-code">console.log()</span> always adds a new line after printing. So multiple console.log statements print stars one below another (vertically).</p>
+        <div class="code-demo">
+          console.log("*");  // star + newline
+          console.log("*");  // another star below
+          // Output:
+          // *
+          // *
+        </div>
+        <p>To print stars <strong>horizontally</strong> (one beside another), we need a different approach: build a string and print once, or use <span class="inline-code">process.stdout.write</span> in Node.js. But for pattern programming, we will first understand loop mechanics using vertical stars.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">console.log()</span> ప్రతిసారీ new line వేస్తుంది. కాబట్టి multiple console.log statements stars ని ఒకదాని కింద ఒకటి print చేస్తాయి (vertical). Horizontal గా print చేయడానికి ప్రత్యేక పద్ధతి ఉంది. ముందు loop mechanics ని vertical stars తో అర్థం చేసుకుందాం.</p>
+      </div>
+    </div>
+
+    <!-- 3: For loop syntax and execution (4 components) -->
+    <div class="topic-card">
+      <div class="topic-title">🔁 3. For Loop — When you know number of iterations</div>
+      <div class="eng-section">
+        <p>Every loop has <strong>4 components</strong>:</p>
+        <div class="loop-components">
+          <span class="comp">① Initialization</span>
+          <span class="comp">② Condition</span>
+          <span class="comp">③ Body</span>
+          <span class="comp">④ Increment/Decrement</span>
+        </div>
+        <div class="code-demo">
+          // Print 5 stars (vertical) using for loop
+          for (let i = 1; i <= 5; i++) {
+              console.log("*");
+          }
+          // Output:
+          // *
+          // *
+          // *
+          // *
+          // *
+        </div>
+        <p><strong>Execution flow:</strong> Initialize (i=1) → Check condition (1<=5 true) → Execute body (print star) → Increment (i becomes 2) → Check condition (2<=5 true) → Execute body → ... until i=6, condition fails → loop stops.</p>
+        <div class="highlight-box">
+          ✅ For loop is ideal when you know <strong>exactly how many times</strong> to repeat (e.g., print 10 stars, process array of known length).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ప్రతీ loop లో 4 components: Initialization, Condition, Body, Increment/Decrement. <span class="inline-code">for (let i=1; i<=5; i++) { console.log("*"); }</span> — ఇది 5 stars vertical గా print చేస్తుంది. For loop ఎప్పుడు వాడతాం? మనకు <strong>ఎన్నిసార్లు repeat చేయాలో తెలిసినప్పుడు</strong> (ఉదా: 10 stars, array length).</p>
+      </div>
+    </div>
+
+    <!-- 4: While loop — condition based -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 4. While Loop — When iterations are unknown</div>
+      <div class="eng-section">
+        <p>While loop checks the condition <strong>before</strong> executing the body. If condition is false initially, body never executes.</p>
+        <div class="code-demo">
+          let i = 1;
+          while (i <= 5) {
+              console.log("*");
+              i++;
+          }
+          // Output: 5 stars vertically
+        </div>
+        <p><strong>Execution:</strong> Initialize outside → Check condition → if true, execute body → increment → check condition again → repeat until condition false.</p>
+        <div class="highlight-box">
+          💡 Use while loop when you don't know the exact number of iterations, but have a condition (e.g., keep taking user input until they type "quit").
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> While loop condition <strong>before</strong> body execute అవుతుంది. Initialization outside చేయాలి. ఎప్పుడు వాడతాం? <strong>ఎన్నిసార్లు repeat చేయాలో తెలియనప్పుడు</strong>, కానీ ఒక condition మీద ఆధారపడి ఉన్నప్పుడు (ఉదా: user "quit" అనే వరకు input తీసుకోవడం).</p>
+      </div>
+    </div>
+
+    <!-- 5: Do-while loop — executes at least once -->
+    <div class="topic-card">
+      <div class="topic-title">🔂 5. Do-While Loop — Execute first, check later</div>
+      <div class="eng-section">
+        <p>Do-while loop executes the body <strong>at least once</strong>, then checks the condition. Useful when the action must happen before evaluation.</p>
+        <div class="code-demo">
+          let i = 1;
+          do {
+              console.log("*");
+              i++;
+          } while (i <= 5);
+          // Output: 5 stars vertically
+        </div>
+        <p><strong>Difference:</strong> Even if condition is false initially, do-while runs once. While loop would skip entirely.</p>
+        <div class="code-demo">
+          let j = 10;
+          while (j <= 5) {   // condition false → never runs
+              console.log("while");
+          }
+          do {                // runs once even though condition false
+              console.log("do-while runs at least once");
+          } while (j <= 5);
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Do-while loop body ని <strong>కనీసం ఒక్కసారి</strong> execute చేస్తుంది, తర్వాత condition check చేస్తుంది. ఇది while loop కంటే భిన్నం — while లో condition false అయితే body execute అవ్వదు. ఉదా: user input తీసుకోవడానికి ముందు prompt చూపించాల్సిన సందర్భాలలో do-while ఉపయోగపడుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 6: Comparing loops side by side -->
+    <div class="topic-card">
+      <div class="topic-title">⚖️ 6. Comparison: For vs While vs Do-While</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // SAME OUTPUT using different loops
+          // For loop
+          for (let i = 1; i <= 5; i++) {
+              console.log("*");
+          }
+
+          // While loop
+          let i = 1;
+          while (i <= 5) {
+              console.log("*");
+              i++;
+          }
+
+          // Do-while loop
+          let j = 1;
+          do {
+              console.log("*");
+              j++;
+          } while (j <= 5);
+        </div>
+        <div class="highlight-box">
+          🎯 <strong>When to use which?</strong><br>
+          • <strong>For:</strong> Known number of iterations (arrays, fixed counts).<br>
+          • <strong>While:</strong> Unknown iterations but condition-based (user input, reading files until EOF).<br>
+          • <strong>Do-While:</strong> Must execute at least once (menu-driven programs, retry prompts).
+        </div>
+        <p>There are also <strong>for-of</strong> (iterating arrays/strings) and <strong>for-in</strong> (iterating object properties) — we will learn them after covering arrays and objects.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> మూడు loops ఒకే output ఇవ్వగలవు. ఎప్పుడు ఏది వాడాలి?<br>
+        • <strong>for:</strong> ఎన్నిసార్లు repeat చేయాలో తెలిస్తే (ఉదా: 10 stars).<br>
+        • <strong>while:</strong> ఎన్నిసార్లు repeat అవ్వాలో తెలియకపోయినా, ఒక condition true ఉన్నంత వరకు repeat అవ్వాల్సినప్పుడు.<br>
+        • <strong>do-while:</strong> కనీసం ఒక్కసారి అయినా execute అవ్వాల్సినప్పుడు (ఉదా: menu driven program).</p>
+      </div>
+    </div>
+
+    <!-- 7: Pattern programming introduction -->
+    <div class="topic-card">
+      <div class="topic-title">🎨 7. Introduction to Pattern Programming (Next Steps)</div>
+      <div class="eng-section">
+        <p>Pattern programming (printing stars in shapes like triangles, rectangles, pyramids) is the best way to master nested loops. For example:</p>
+        <div class="code-demo">
+          // Rectangle of 5x5 stars
+          for (let row = 1; row <= 5; row++) {
+              let line = "";
+              for (let col = 1; col <= 5; col++) {
+                  line += "*";
+              }
+              console.log(line);
+          }
+          // Output:
+          // *****
+          // *****
+          // *****
+          // *****
+          // *****
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Kalyan's Advice:</strong> Solve at least 200-250 pattern problems to build logical thinking. Loops are the heart of programming — practice with varying conditions (<=, >=, different increments).
+        </div>
+        <p>In upcoming classes, we will solve triangle patterns, pyramid patterns, number patterns, and more — solidifying your loop mastery.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Pattern programming (stars తో triangles, rectangles print చేయడం) nested loops ను master చేయడానికి best way. <strong>200-250 problems</strong> solve చేయడం వలన logical thinking వస్తుంది. Loops అనేవి programming కి ప్రాణం. తర్వాతి classes లో triangles, pyramids, number patterns solve చేస్తాం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Loops demystified: for, while, do-while. Practice printing stars, then move to patterns. Next class: Nested loops and advanced pattern programming!
+    </div>
+  </div>
+</div>
+</body>
+</html>

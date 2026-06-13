@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Type Conversion | Type Casting | Truthy & Falsy | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .truthy-table, .falsy-table {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin: 0.8rem 0;
+    }
+    .value-badge {
+      background: #e8f0fe;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #0a4b3e;
+      border: 1px solid #bdd9d0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔄 <span>Type Conversion (Type Casting)</span> in JavaScript</h1>
+    <div class="sub">🔁 Convert between Number, String, Boolean | parseInt() deep dive | Truthy vs Falsy values | Memory behavior explained — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: What is type conversion & why needed -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 1. What is Type Conversion (Type Casting)?</div>
+      <div class="eng-section">
+        <p>In JavaScript, we often need to convert one data type to another. For example: converting a <strong>Number to String</strong>, <strong>Boolean to String</strong>, <strong>String to Number</strong>, or <strong>Boolean to Number</strong>. This process is called <strong>type conversion</strong> or <strong>type casting</strong>. JavaScript provides built-in functions like <span class="inline-code">String()</span>, <span class="inline-code">Number()</span>, <span class="inline-code">Boolean()</span>, and <span class="inline-code">parseInt()</span> for this purpose.</p>
+        <div class="highlight-box">
+          ✅ Type conversion = converting a value from one data type to another (e.g., number → string, string → number, etc.)
+        </div>
+        <p>Understanding how type conversion works is crucial for technical interviews and writing bug-free code.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript లో మనం ఒక data type ని మరొక data type గా మార్చవలసి ఉంటుంది. ఉదా: Number ని String గా, Boolean ని String గా, String ని Number గా. దీన్నే <strong>type conversion</strong> లేదా <strong>type casting</strong> అంటారు. దీనికి <span class="inline-code">String()</span>, <span class="inline-code">Number()</span>, <span class="inline-code">Boolean()</span>, <span class="inline-code">parseInt()</span> వంటి built-in functions ఉన్నాయి.</p>
+      </div>
+    </div>
+
+    <!-- 2: Number to String conversion + memory behavior (copy not original) -->
+    <div class="topic-card">
+      <div class="topic-title">🔢 2. Number → String using String() & Memory Insight</div>
+      <div class="eng-section">
+        <p><strong>Convert number to string:</strong> Use <span class="inline-code">String(value)</span>.</p>
+        <div class="code-demo">
+          let a = 123;               // number
+          console.log(a, typeof a); // 123 "number"
+
+          let b = String(a);         // converts COPY of a's value to string
+          console.log(b, typeof b); // "123" "string"
+        </div>
+        <p><strong>Important memory concept:</strong> When you convert, JavaScript creates a <strong>copy</strong> of the value and converts that copy. The original variable <span class="inline-code">a</span> remains unchanged. Always store the converted result in a new variable if you need it later.</p>
+        <div class="highlight-box">
+          💡 Type conversion does NOT modify the original variable. It returns a new converted value.
+        </div>
+        <p>Same works for Boolean → String: <span class="inline-code">String(true)</span> → "true", <span class="inline-code">String(false)</span> → "false".</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Number ని String గా మార్చడానికి <span class="inline-code">String(value)</span> ఉపయోగిస్తాం. ఇది original variable ని మార్చదు, <strong>copy ని convert</strong> చేస్తుంది. Convert చేసిన value ని store చేయడానికి కొత్త variable లో ఉంచాలి. Boolean → String కూడా అలాగే పనిచేస్తుంది: <span class="inline-code">String(true)</span> → "true".</p>
+      </div>
+    </div>
+
+    <!-- 3: String → Number using Number() and parseInt() -->
+    <div class="topic-card">
+      <div class="topic-title">🔢 3. String → Number: Number() vs parseInt()</div>
+      <div class="eng-section">
+        <p><strong>Method 1: Number()</strong> — tries to convert entire string to number. If the string contains any non-numeric character (except leading whitespace), it returns <span class="inline-code">NaN</span>.</p>
+        <div class="code-demo">
+          Number("123")     // 123
+          Number("123abc")  // NaN
+          Number("  42  ")  // 42 (whitespace allowed)
+        </div>
+        <p><strong>Method 2: parseInt()</strong> — reads from left to right, extracts integer until first non-numeric character, then stops. Very useful for strings like "123abc".</p>
+        <div class="code-demo">
+          parseInt("123abc")   // 123 (stops at 'a')
+          parseInt("abc123")   // NaN (first char not numeric)
+          parseInt("  123abc") // 123 (whitespace allowed before)
+          parseInt("123 456")  // 123 (stops at space)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>parseInt() logic:</strong> Starts from left, skips whitespace, takes consecutive numeric characters, stops at first non-digit. Returns NaN if no valid number found.
+        </div>
+        <p>For decimal numbers, use <span class="inline-code">parseFloat()</span>.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> String ని Number లోకి మార్చడానికి రెండు విధానాలు:<br>
+        • <span class="inline-code">Number()</span>: పూర్తి string ని number గా మార్చడానికి ప్రయత్నిస్తుంది. అక్షరాలు (a,b, etc) వస్తే NaN ఇస్తుంది.<br>
+        • <span class="inline-code">parseInt()</span>: left నుండి right కి scan చేస్తుంది, మొదటి non-numeric character దగ్గర ఆగిపోతుంది. "123abc" → 123 ఇస్తుంది. మొదటి character non-numeric అయితే NaN వస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 4: Boolean → Number conversion -->
+    <div class="topic-card">
+      <div class="topic-title">✅ 4. Boolean → Number (true → 1, false → 0)</div>
+      <div class="eng-section">
+        <p>Converting Boolean to Number is straightforward: <span class="inline-code">Number(true)</span> → <strong>1</strong>, <span class="inline-code">Number(false)</span> → <strong>0</strong>.</p>
+        <div class="code-demo">
+          let a = true;
+          let b = Number(a);   // 1
+          console.log(b, typeof b); // 1 "number"
+
+          let c = false;
+          let d = Number(c);   // 0
+        </div>
+        <p>This is very useful in mathematical operations and conditional logic.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Boolean ని Number లోకి మార్చడం చాలా simple: <span class="inline-code">Number(true)</span> → 1, <span class="inline-code">Number(false)</span> → 0. గుర్తుంచుకోండి: true = 1, false = 0.</p>
+      </div>
+    </div>
+
+    <!-- 5: Number & String → Boolean (Truthy & Falsy) -->
+    <div class="topic-card">
+      <div class="topic-title">🎯 5. Number & String → Boolean: Truthy and Falsy values</div>
+      <div class="eng-section">
+        <p>Use <span class="inline-code">Boolean(value)</span> to convert any value to true/false.</p>
+        <p><strong>Falsy values (convert to false):</strong></p>
+        <div class="falsy-table">
+          <span class="value-badge">0</span>
+          <span class="value-badge">NaN</span>
+          <span class="value-badge">"" (empty string)</span>
+          <span class="value-badge">null</span>
+          <span class="value-badge">undefined</span>
+          <span class="value-badge">false</span>
+        </div>
+        <p><strong>Truthy values (convert to true):</strong> Everything else — any non-zero number (positive/negative), any non-empty string (including "0", "false", " "), Infinity, -Infinity, arrays, objects, etc.</p>
+        <div class="code-demo">
+          Boolean(123)      // true
+          Boolean(-5)       // true
+          Boolean(0)        // false
+          Boolean("hello")  // true
+          Boolean("")       // false
+          Boolean(" ")      // true (space is a character)
+          Boolean(NaN)      // false
+          Boolean(Infinity) // true
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Interview favorite:</strong> Truthy = any value that converts to true. Falsy = only 0, NaN, "", null, undefined, false. Memorize these!
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">Boolean(value)</span> ని ఉపయోగించి ఏ value నైనా true/false లోకి మార్చవచ్చు.<br>
+        <strong>Falsy values (false గా మారేవి):</strong> 0, NaN, "" (empty string), null, undefined, false.<br>
+        <strong>Truthy values:</strong> మిగిలినవన్నీ — non-zero numbers, non-empty strings, Infinity, arrays, objects.<br>
+        ఉదా: <span class="inline-code">Boolean(123) → true</span>, <span class="inline-code">Boolean(0) → false</span>, <span class="inline-code">Boolean("hello") → true</span>, <span class="inline-code">Boolean("") → false</span>.</p>
+      </div>
+    </div>
+
+    <!-- 6: Summary with examples and interview notes -->
+    <div class="topic-card">
+      <div class="topic-title">📋 6. Summary & Interview-Ready Cheatsheet</div>
+      <div class="eng-section">
+        <p><strong>Built-in conversion functions:</strong></p>
+        <ul style="margin-left: 1.8rem; margin-bottom: 1rem;">
+          <li><span class="inline-code">String(value)</span> → converts to string (creates copy).</li>
+          <li><span class="inline-code">Number(value)</span> → converts to number; NaN if invalid.</li>
+          <li><span class="inline-code">parseInt(string)</span> → parses integer from start until non-digit.</li>
+          <li><span class="inline-code">Boolean(value)</span> → returns true/false based on truthy/falsy.</li>
+        </ul>
+        <p><strong>Common conversions:</strong></p>
+        <div class="code-demo">
+          // Number to String
+          String(123)       // "123"
+
+          // Boolean to String
+          String(true)      // "true"
+
+          // String to Number
+          Number("123")     // 123
+          Number("123abc")  // NaN
+          parseInt("123abc")// 123
+
+          // Boolean to Number
+          Number(true)      // 1
+          Number(false)     // 0
+
+          // to Boolean
+          Boolean(1)        // true
+          Boolean(0)        // false
+          Boolean("Hello")  // true
+          Boolean("")       // false
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's note:</strong> In technical MCQ rounds, expect questions like "What is the output of Boolean('0')?" → Answer: true (because non-empty string). Or "parseInt('10abc')" → 10. Practice these daily.
+        </div>
+        <p>Understanding type conversion prevents bugs and is essential for form validation, API handling, and logical conditions in projects.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <span class="inline-code">String()</span> → దేనినైనా string గా మారుస్తుంది.<br>
+        • <span class="inline-code">Number()</span> → number గా మారుస్తుంది; invalid అయితే NaN.<br>
+        • <span class="inline-code">parseInt()</span> → left నుండి digits తీసుకుంటుంది, non-digit వద్ద ఆగుతుంది.<br>
+        • <span class="inline-code">Boolean()</span> → truthy/falsy బట్టి true/false ఇస్తుంది.<br>
+        • <strong>Falsy values:</strong> 0, NaN, "", null, undefined, false.<br>
+        • <strong>Truthy values:</strong> మిగిలినవన్నీ. ఈ concepts ఇంటర్వ్యూలలో చాలా ముఖ్యమైనవి. ప్రాక్టీస్ చేయండి!</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Type conversion made crystal clear. Next class: Operators and Type Coercion. Keep coding!
+    </div>
+  </div>
+</div>
+</body>
+</html>

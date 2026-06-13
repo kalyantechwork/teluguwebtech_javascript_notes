@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Hoisting | var vs let | Temporal Dead Zone (TDZ) | Function Hoisting | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .compare-table {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+    .compare-col {
+      flex: 1;
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid #cbd5e1;
+    }
+    .compare-col h4 {
+      margin-bottom: 0.5rem;
+      color: #0f5e54;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🎯 <span>Hoisting in JavaScript</span> | var vs let | Temporal Dead Zone (TDZ)</h1>
+    <div class="sub">📦 Declaration vs Initialization | Creation Phase vs Execution Phase | Function Hoisting — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Declaration vs Initialization -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Declaration vs Initialization</div>
+      <div class="eng-section">
+        <p>In JavaScript, creating a variable can be split into two steps:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Declaration:</strong> telling JavaScript that a variable exists (<span class="inline-code">let a;</span> or <span class="inline-code">var a;</span>)</li>
+          <li><strong>Initialization:</strong> assigning a value to the variable (<span class="inline-code">a = 100;</span>)</li>
+        </ul>
+        <div class="code-demo">
+          // Declaration and initialization in one line
+          let a = 100;
+
+          // Same thing in two lines
+          let b;      // Declaration
+          b = 200;    // Initialization
+        </div>
+        <div class="highlight-box">
+          💡 Understanding this split is essential to grasp hoisting.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript లో variable creation ని రెండు steps గా split చేయవచ్చు:<br>
+        • <strong>Declaration:</strong> variable ఉందని JavaScript కి తెలియజేయడం (<span class="inline-code">let a;</span>)<br>
+        • <strong>Initialization:</strong> variable కి value assign చేయడం (<span class="inline-code">a = 100;</span>)<br>
+        Hoisting ని అర్థం చేసుకోవడానికి ఈ split చాలా ముఖ్యం.</p>
+      </div>
+    </div>
+
+    <!-- 2: var vs let - Access before declaration -->
+    <div class="topic-card">
+      <div class="topic-title">⚠️ 2. var vs let: Accessing Before Declaration</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Using var - NO error, prints undefined
+          console.log(x);   // undefined
+          var x = 100;
+          console.log(x);   // 100
+
+          // Using let - ERROR! Cannot access before initialization
+          console.log(y);   // ReferenceError
+          let y = 200;
+        </div>
+        <p>Why does <span class="inline-code">var</span> print <span class="inline-code">undefined</span> but <span class="inline-code">let</span> throws an error? The answer is <strong>hoisting</strong>.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">var</span> తో declaration కి ముందు access చేస్తే <span class="inline-code">undefined</span> వస్తుంది. <span class="inline-code">let</span> తో అలా చేస్తే <strong>ReferenceError</strong> వస్తుంది. ఎందుకు? <strong>Hoisting</strong> వలన.</p>
+      </div>
+    </div>
+
+    <!-- 3: Hoisting explained with memory (Creation Phase vs Execution Phase) -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 3. Hoisting Explained: Creation Phase & Execution Phase</div>
+      <div class="eng-section">
+        <p>When a JavaScript program runs, the <strong>Global Execution Context (GEC)</strong> is created on the stack. The GEC has <strong>two phases</strong>:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Creation Phase (Memory Allocation):</strong> JavaScript scans for declarations, moves them to the top (hoisting), and allocates memory.</li>
+          <li><strong>Execution Phase:</strong> Code runs line by line (assignments, function calls, console.log).</li>
+        </ul>
+        <div class="code-demo">
+          // Original code
+          console.log(a);
+          var a = 100;
+          console.log(a);
+
+          // What happens during Creation Phase (hoisting)
+          var a;              // Declaration hoisted to top
+          // Execution Phase starts
+          console.log(a);     // a is undefined (var gets default value)
+          a = 100;            // initialization
+          console.log(a);     // 100
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Key Point:</strong> <span class="inline-code">var</span> variables are hoisted AND automatically initialized with <span class="inline-code">undefined</span>. <span class="inline-code">let</span> variables are hoisted but NOT initialized.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript program start అయినప్పుడు <strong>Global Execution Context (GEC)</strong> stack లో create అవుతుంది. GEC కి <strong>రెండు phases</strong>:<br>
+        • <strong>Creation Phase:</strong> Declarations ని top కి move చేస్తుంది (hoisting), memory allocate చేస్తుంది.<br>
+        • <strong>Execution Phase:</strong> Code line by line run అవుతుంది.<br>
+        <span class="inline-code">var</span> hoisted అయ్యాక <span class="inline-code">undefined</span> తో initialize అవుతుంది. <span class="inline-code">let</span> hoisted అవుతుంది కానీ initialize కాదు.</p>
+      </div>
+    </div>
+
+    <!-- 4: Temporal Dead Zone (TDZ) -->
+    <div class="topic-card">
+      <div class="topic-title">⏳ 4. Temporal Dead Zone (TDZ) with let</div>
+      <div class="eng-section">
+        <p>The <strong>Temporal Dead Zone</strong> is the region from the start of the block until the variable is initialized. In this zone, the variable exists (hoisted) but cannot be accessed.</p>
+        <div class="code-demo">
+          // TDZ starts here (from line 1)
+          console.log(x);   // ReferenceError - in TDZ
+
+          let x = 100;      // TDZ ends here (initialization)
+
+          console.log(x);   // Works fine (100)
+        </div>
+        <div class="highlight-box">
+          💡 <strong>TDZ Diagram:</strong><br>
+          [Declaration] → [TDZ starts] → ... (cannot access) ... → [Initialization] → [TDZ ends] → can access.
+        </div>
+        <p>Only <span class="inline-code">let</span> and <span class="inline-code">const</span> have TDZ. <span class="inline-code">var</span> does NOT have a TDZ.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Temporal Dead Zone (TDZ)</strong> అంటే block ప్రారంభం నుండి variable initialized అయ్యే వరకు ఉన్న region. ఈ region లో variable ఉంది (hoisted), కానీ access చేయలేము. <span class="inline-code">let</span> మరియు <span class="inline-code">const</span> కి TDZ ఉంటుంది. <span class="inline-code">var</span> కి TDZ లేదు.</p>
+      </div>
+    </div>
+
+    <!-- 5: var vs let comparison table -->
+    <div class="topic-card">
+      <div class="topic-title">📊 5. var vs let: Key Differences</div>
+      <div class="eng-section">
+        <div class="compare-table">
+          <div class="compare-col">
+            <h4>var</h4>
+            <ul>
+              <li>✅ Hoisted</li>
+              <li>✅ Initialized with <code>undefined</code> automatically</li>
+              <li>✅ No Temporal Dead Zone</li>
+              <li>❌ Can be accessed before declaration (gets undefined)</li>
+              <li>⚠️ Function-scoped</li>
+            </ul>
+          </div>
+          <div class="compare-col">
+            <h4>let</h4>
+            <ul>
+              <li>✅ Hoisted</li>
+              <li>❌ NOT initialized (remains empty/temporal dead zone)</li>
+              <li>✅ Has Temporal Dead Zone</li>
+              <li>❌ Cannot access before initialization (ReferenceError)</li>
+              <li>✅ Block-scoped</li>
+            </ul>
+          </div>
+        </div>
+        <div class="code-demo">
+          // var example
+          console.log(usingVar); // undefined (no error)
+          var usingVar = 10;
+
+          // let example
+          console.log(usingLet); // ReferenceError: Cannot access before initialization
+          let usingLet = 20;
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Always prefer <span class="inline-code">let</span> over <span class="inline-code">var</span> to avoid unexpected behavior. <span class="inline-code">var</span> can lead to subtle bugs due to hoisting and lack of TDZ.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>var vs let:</strong> var hoisted అవుతుంది, undefined తో initialize అవుతుంది, TDZ లేదు. let hoisted అవుతుంది కానీ initialize కాదు, TDZ ఉంటుంది. ఎప్పుడూ <span class="inline-code">let</span> ని prefer చేయండి — unexpected bugs ని avoid చేయడానికి.</p>
+      </div>
+    </div>
+
+    <!-- 6: Function Hoisting -->
+    <div class="topic-card">
+      <div class="topic-title">📞 6. Function Hoisting (Function Declarations)</div>
+      <div class="eng-section">
+        <p>Function <strong>declarations</strong> are fully hoisted — you can call them before they are defined.</p>
+        <div class="code-demo">
+          // Calling before declaration - WORKS!
+          greet();   // Output: "Hello, Kalyan!"
+
+          function greet() {
+              console.log("Hello, Kalyan!");
+          }
+        </div>
+        <p><strong>How it works:</strong> During creation phase, the entire function declaration is hoisted to the top. So the function is available throughout the scope.</p>
+        <div class="highlight-box">
+          🔥 <strong>Note:</strong> Function <strong>expressions</strong> (assigning function to variable) are NOT hoisted like declarations. Only function declarations are fully hoisted.
+        </div>
+        <div class="code-demo">
+          // This will NOT work
+          greetExpr();   // TypeError: greetExpr is not a function
+
+          var greetExpr = function() {
+              console.log("Expression");
+          };
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Function Declarations</strong> పూర్తిగా hoisted అవుతాయి — define చేయడానికి ముందే call చేయవచ్చు. <strong>Function Expressions</strong> (variable కి assign చేసిన function) hoisted కావు. అందుకే declarations ని వాడటం safe.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: Hoisting Essentials</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Hoisting</strong> = moving declarations to the top of their scope during the creation phase.</li>
+          <li><strong>var:</strong> Hoisted + initialized with <code>undefined</code> → accessible before declaration (but value is undefined).</li>
+          <li><strong>let & const:</strong> Hoisted but NOT initialized → Temporal Dead Zone (TDZ) → accessing before initialization throws ReferenceError.</li>
+          <li><strong>Function Declarations:</strong> Fully hoisted (can call before definition).</li>
+          <li><strong>Best Practice:</strong> Declare variables at the top of their scope. Use <code>let</code> and <code>const</code> over <code>var</code>.</li>
+        </ul>
+        <div class="code-demo">
+          // Good practice
+          let name = "Kalyan";
+          console.log(name);
+
+          // Instead of
+          console.log(age);  // undefined (confusing)
+          var age = 25;
+        </div>
+        <div class="highlight-box">
+          🎯 Understanding hoisting and TDZ will save you hours of debugging and make you a confident JavaScript developer.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Hoisting:</strong> Declarations ని top కి move చేయడం (creation phase లో).<br>
+        • <strong>var:</strong> Hoisted + undefined తో initialized → declaration కి ముందు access చేయవచ్చు (undefined వస్తుంది).<br>
+        • <strong>let/const:</strong> Hoisted but NOT initialized → TDZ ఉంటుంది → declaration కి ముందు access చేస్తే ReferenceError.<br>
+        • <strong>Function Declarations:</strong> Fully hoisted.<br>
+        • <strong>Best Practice:</strong> Variables ని scope ప్రారంభంలో declare చేయండి. <span class="inline-code">var</span> కంటే <span class="inline-code">let/const</span> ని వాడండి.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Hoisting demystified. Next: Scope, Closures, and Advanced Function Concepts!
+    </div>
+  </div>
+</div>
+</body>
+</html>

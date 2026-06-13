@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Multi-Dimensional Arrays in JavaScript | 1D, 2D, 3D Arrays | Nested Loops | Memory Visualization | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .dimension-table {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📊 <span>Multi-Dimensional Arrays</span> in JavaScript</h1>
+    <div class="sub">📦 1D, 2D, 3D Arrays | Nested Arrays | Memory (References) | Nested Loops for Traversal — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: What is Dimensionality? -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. What Does "Dimension" Mean in Arrays?</div>
+      <div class="eng-section">
+        <p><strong>Dimension = number of pieces of information required to access an element.</strong></p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>1D Array:</strong> Need 1 piece of info (index) → e.g., list of student names.</li>
+          <li><strong>2D Array:</strong> Need 2 pieces of info (row, column) → e.g., days × time (weather data).</li>
+          <li><strong>3D Array:</strong> Need 3 pieces of info (center, floor, classroom) → e.g., students per classroom.</li>
+        </ul>
+        <div class="highlight-box">
+          💡 Don't confuse with geometry! Dimension here means "how many indices do you need to specify?"
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Dimension = element ని access చేయడానికి అవసరమైన information ముక్కల సంఖ్య.</strong><br>
+        1D → ఒక్క index (student names list). 2D → రెండు indices (rows, columns) — weather data (day × time). 3D → మూడు indices (center, floor, classroom). ఇది geometry కాదు, "ఎన్ని indices కావాలి" అనేదే dimension.</p>
+      </div>
+    </div>
+
+    <!-- 2: 1D Array Example -->
+    <div class="topic-card">
+      <div class="topic-title">🔹 1. One-Dimensional Array (1D)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let students = ["Joe", "Jack", "Jim", "Jill", "Jiffy"];
+          // Access: students[index]
+          console.log(students[0]); // Joe
+          console.log(students[2]); // Jim
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Access pattern:</strong> <span class="inline-code">arr[index]</span> — one index needed.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> 1D array: ఒకే index తో access. ఉదా: students[0], students[2].</p>
+      </div>
+    </div>
+
+    <!-- 3: 2D Array - Weather Data (Days × Time) -->
+    <div class="topic-card">
+      <div class="topic-title">🔹 2. Two-Dimensional Array (2D) - Weather Data</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // 3 days, each day has 3 readings (morning, afternoon, evening)
+          let weather = [
+              [25, 30, 22],   // Day 0: morning, afternoon, evening
+              [23, 31, 24],   // Day 1
+              [26, 30, 20]    // Day 2
+          ];
+
+          // Access: weather[dayIndex][timeIndex]
+          console.log(weather[0][0]); // 25 (Day0, morning)
+          console.log(weather[1][2]); // 24 (Day1, evening)
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Memory:</strong> Outer array stores <strong>references (addresses)</strong> to inner arrays. Each inner array is a separate object in Heap.
+        </div>
+        <div class="code-demo">
+          // Nested loop to iterate 2D array
+          for (let i = 0; i < weather.length; i++) {
+              for (let j = 0; j < weather[i].length; j++) {
+                  console.log(`Day ${i}, Time ${j}: ${weather[i][j]}`);
+              }
+          }
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> 2D array = array of arrays. Weather example: 3 days × 3 times. Access: <span class="inline-code">weather[day][time]</span>. Memory లో outer array inner arrays యొక్క <strong>references (addresses)</strong> ని store చేస్తుంది. Nested loops (i, j) తో traverse చేస్తాం.</p>
+      </div>
+    </div>
+
+    <!-- 4: 3D Array - Centers × Floors × Classrooms -->
+    <div class="topic-card">
+      <div class="topic-title">🔹 3. Three-Dimensional Array (3D) - Students per Classroom</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // 2 centers, each has 2 floors, each floor has 2 classrooms
+          let students = [
+              [   // Center 0
+                  [50, 70],   // Floor 0: classroom0=50, classroom1=70
+                  [65, 87]    // Floor 1: classroom0=65, classroom1=87
+              ],
+              [   // Center 1
+                  [90, 45],   // Floor 0
+                  [80, 30]    // Floor 1
+              ]
+          ];
+
+          // Access: students[center][floor][classroom]
+          console.log(students[0][0][0]); // 50
+          console.log(students[1][1][1]); // 30
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>3D access pattern:</strong> <span class="inline-code">arr[i][j][k]</span> — three indices.
+        </div>
+        <div class="code-demo">
+          // Nested loops for 3D array
+          for (let i = 0; i < students.length; i++) {           // centers
+              for (let j = 0; j < students[i].length; j++) {    // floors
+                  for (let k = 0; k < students[i][j].length; k++) { // classrooms
+                      console.log(`Center ${i}, Floor ${j}, Classroom ${k}: ${students[i][j][k]} students`);
+                  }
+              }
+          }
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> 3D array: centers × floors × classrooms. Access: <span class="inline-code">students[center][floor][classroom]</span>. Nested loops (i, j, k) తో traverse చేస్తాం — ఎన్ని dimensions ఉంటే అన్ని loops.</p>
+      </div>
+    </div>
+
+    <!-- 5: Memory Visualization - References are Stored, Not Arrays -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 4. Critical Memory Concept: Arrays Store References</div>
+      <div class="eng-section">
+        <p>When you create a nested array (array inside array), the outer array does NOT contain the inner array directly. Instead, it stores the <strong>reference (memory address)</strong> of the inner array.</p>
+        <div class="code-demo">
+          let outer = [[10, 20], [30, 40]];
+          // outer[0] stores ADDRESS of [10,20] (not the array itself)
+          // outer[1] stores ADDRESS of [30,40]
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Why this matters:</strong> This reference-based model is crucial for understanding <strong>shallow copy vs deep copy</strong>. Copying outer array copies references, not inner arrays.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Nested array లో, outer array inner array ని నేరుగా store చేయదు — దాని <strong>reference (memory address)</strong> ని store చేస్తుంది. ఇది <strong>shallow copy vs deep copy</strong> ని అర్థం చేసుకోవడానికి చాలా ముఖ్యం. Copying outer array అంటే references ని copy చేయడం, inner arrays ని కాదు.</p>
+      </div>
+    </div>
+
+    <!-- 6: Traversal with Dynamic Length (Irregular Arrays) -->
+    <div class="topic-card">
+      <div class="topic-title">📐 5. Traversing Irregular Multi-Dimensional Arrays</div>
+      <div class="eng-section">
+        <p>Inner arrays can have different lengths. Always use <span class="inline-code">array[i].length</span> for dynamic traversal.</p>
+        <div class="code-demo">
+          let jagged = [
+              [1, 2],           // length 2
+              [3, 4, 5, 6],     // length 4
+              [7, 8, 9]         // length 3
+          ];
+
+          for (let i = 0; i < jagged.length; i++) {
+              for (let j = 0; j < jagged[i].length; j++) {
+                  console.log(jagged[i][j]);
+              }
+          }
+          // Outputs all elements: 1,2,3,4,5,6,7,8,9
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Best practice:</strong> Always use <span class="inline-code">arr[i].length</span> inside the inner loop — it automatically adapts to different inner array sizes.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Inner arrays different lengths ఉండొచ్చు. Dynamic గా traverse చేయడానికి ఎప్పుడూ <span class="inline-code">arr[i].length</span> వాడండి. ఇది inner array size ని అనుసరిస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary Table -->
+    <div class="topic-card">
+      <div class="topic-title">📖 6. Quick Reference: Multi-Dimensional Arrays</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>1D:</strong> <span class="inline-code">[10, 20, 30]</span> → access: <span class="inline-code">arr[i]</span></li>
+          <li><strong>2D:</strong> <span class="inline-code">[[10,20],[30,40]]</span> → access: <span class="inline-code">arr[i][j]</span></li>
+          <li><strong>3D:</strong> <span class="inline-code">[[[1,2],[3,4]],[[5,6],[7,8]]]</span> → access: <span class="inline-code">arr[i][j][k]</span></li>
+          <li><strong>Nested loops:</strong> Number of loops = number of dimensions.</li>
+          <li><strong>Memory:</strong> Outer stores references (addresses) to inner arrays.</li>
+          <li><strong>Dynamic lengths:</strong> Use <span class="inline-code">arr[i].length</span> for inner loop conditions.</li>
+        </ul>
+        <div class="code-demo">
+          // Creating 2D array dynamically
+          let rows = 3, cols = 4;
+          let matrix = [];
+          for (let i = 0; i < rows; i++) {
+              matrix[i] = [];
+              for (let j = 0; j < cols; j++) {
+                  matrix[i][j] = i * cols + j + 1;
+              }
+          }
+          console.log(matrix);
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Practice creating and traversing 2D and 3D arrays. Draw memory diagrams on paper. This skill is essential for data structures like matrices, grids, and real-world applications.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>1D:</strong> arr[i]<br>
+        • <strong>2D:</strong> arr[i][j] (nested loops)<br>
+        • <strong>3D:</strong> arr[i][j][k] (three loops)<br>
+        • <strong>Memory:</strong> Outer stores references to inner arrays.<br>
+        • <strong>Dynamic lengths:</strong> arr[i].length వాడండి.<br>
+        ప్రాక్టీస్ చేయండి. Matrices, grids వంటి data structures కి multi-dimensional arrays చాలా ముఖ్యం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Multi-dimensional arrays demystified. Next: Advanced array operations, shallow vs deep copy, and array destructuring!
+    </div>
+  </div>
+</div>
+</body>
+</html>

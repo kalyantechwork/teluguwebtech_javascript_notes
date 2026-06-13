@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Data Types Deep Dive | Number, BigInt, String, Boolean, Undefined | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f1f6fa;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .data-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+    .type-badge {
+      background: #e6f4ea;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #1d6f5c;
+      border: 1px solid #bdd9d0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📦 <span>JavaScript Data Types</span> | Number, BigInt, String, Boolean, Undefined</h1>
+    <div class="sub">🧠 Stack & Heap memory explained | Loosely typed nature | Range of Number, BigInt suffix 'n', typeof operator — By <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Memory recap: RAM, Stack, Heap -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 1. Memory Inside RAM: Stack & Heap</div>
+      <div class="eng-section">
+        <p>When any program (including JavaScript) executes, it resides inside the <strong>RAM</strong>. Internally, JavaScript automatically divides the RAM into two partitions: <strong>Stack</strong> and <strong>Heap</strong>. Stack stores simple values (primitives) and references, while Heap stores complex objects. Understanding this memory model makes you a next-level programmer.</p>
+        <div class="highlight-box">
+          ✅ Variables are like small boxes inside <strong>Stack memory</strong>. Each variable has a name (identifier) and stores a value (like 23, "hello", true).
+        </div>
+        <div class="code-demo">
+          // Variable declaration + assignment (syntax)
+          let age = 23;    // 'let' keyword creates variable in stack
+          console.log(age); // prints 23
+        </div>
+        <p>We will explore Stack and Heap in depth throughout the course. For now, remember: every variable lives in stack, and data types define how values are stored and converted to binary.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript program execute అయినప్పుడు అది RAM లోనే ఉంటుంది. JavaScript RAM ని రెండు భాగాలుగా విభజిస్తుంది: <strong>Stack</strong> మరియు <strong>Heap</strong>. Stack లో simple values (primitives) నిల్వ అవుతాయి. Variable అనేది stack లోని ఒక చిన్న box లాంటిది. ఉదా: <span class="inline-code">let age = 23;</span> — age అనే variable stack లో 23 ని store చేస్తుంది. ఈ memory view వలన data types ఎలా పనిచేస్తాయో స్పష్టమవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 2: Number data type (integers, floats, special values) -->
+    <div class="topic-card">
+      <div class="topic-title">🔢 2. Number Data Type (Integers, Floats, Infinity, NaN)</div>
+      <div class="eng-section">
+        <p><strong>Number</strong> in JavaScript covers both <strong>integers</strong> (whole numbers like 23, 2000) and <strong>floating-point numbers</strong> (decimals like 5.9, 68.2). There's no separate 'int' or 'float'. JavaScript uses a single Number type.</p>
+        <div class="code-demo">
+          let age = 23;          // integer
+          let height = 5.9;      // float (real number)
+          let weight = 68.2;
+          console.log(age, height, weight);
+        </div>
+        <p><strong>Special numeric values:</strong> <span class="inline-code">Infinity</span>, <span class="inline-code">-Infinity</span>, and <span class="inline-code">NaN</span> (Not a Number).</p>
+        <div class="code-demo">
+          let positiveInf = 1 / 0;        // Infinity
+          let negativeInf = -1 / 0;       // -Infinity
+          let notNumber = "hello" / 2;    // NaN
+          console.log(typeof positiveInf); // "number"
+        </div>
+        <p>Use <span class="inline-code">typeof</span> operator to check the data type: <span class="inline-code">typeof 42</span> → "number".</p>
+        <div class="highlight-box">
+          💡 JavaScript is <strong>loosely typed</strong> (dynamic): you don't declare type. The same variable can hold number, then string, etc. The engine decides the type automatically.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript లో <strong>Number</strong> data type integers (23, 2000) మరియు floating-point numbers (5.9, 68.2) రెండింటినీ కవర్ చేస్తుంది. ప్రత్యేకమైన int, float లేవు. Special numeric values: <span class="inline-code">Infinity</span> (1/0), <span class="inline-code">-Infinity</span>, <span class="inline-code">NaN</span> (Not a Number). <span class="inline-code">typeof</span> ఆపరేటర్ type ని తెలుసుకోవడానికి వాడతాం. JavaScript loosely typed language — variable ఏ type అయినా store చేసుకోగలదు.</p>
+      </div>
+    </div>
+
+    <!-- 3: Range of Number and BigInt -->
+    <div class="topic-card">
+      <div class="topic-title">📊 3. Range of Number & Introduction to BigInt</div>
+      <div class="eng-section">
+        <p>Every data type has a <strong>range</strong> (minimum to maximum value it can store). In JavaScript, the Number type can safely store integers up to <strong>2⁵³ - 1</strong> (approx 9 quadrillion). Beyond that, precision is lost.</p>
+        <div class="code-demo">
+          let maxNumber = 9007199254740991;   // 2⁵³ - 1
+          console.log(maxNumber);              // works fine
+          let beyondMax = 9007199254740992;    // loss of precision possible
+        </div>
+        <p>To store <strong>very large integers</strong> beyond this range, JavaScript provides <strong>BigInt</strong>. Append <span class="inline-code">n</span> at the end of an integer to create a BigInt.</p>
+        <div class="code-demo">
+          let hugeNumber = 123456789012345678901234567890n;  // BigInt
+          console.log(typeof hugeNumber);  // "bigint"
+          let another = 100n;
+          // arithmetic between two BigInts works
+          console.log(hugeNumber + another);
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>BigInt rules:</strong> Only for integers (no decimals). Cannot mix BigInt with regular Number in arithmetic operations (error). Use BigInt when you need arbitrarily large integers.
+        </div>
+        <p><strong>Suffix 'n'</strong> makes a number a BigInt. Example: <span class="inline-code">let big = 9999999999999999n;</span>. Never use decimal with BigInt (like 10.5n → error).</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Number data type range: <strong>2⁵³ - 1</strong> వరకు safe integers. దీనికి మించిన పెద్ద integers ని store చేయడానికి <strong>BigInt</strong> ఉపయోగిస్తాం. BigInt కోసం సంఖ్య చివర <span class="inline-code">n</span> suffix జోడించాలి. ఉదా: <span class="inline-code">let x = 9876543210987654321n;</span>. BigInt లో decimals పనిచేయవు. BigInt మరియు Number ని mix చేసి arithmetic చేయడం వలన error వస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 4: String and Boolean -->
+    <div class="topic-card">
+      <div class="topic-title">📝 4. String & Boolean Data Types</div>
+      <div class="eng-section">
+        <p><strong>String:</strong> A series of characters (text) enclosed in double quotes, single quotes, or backticks. Examples: <span class="inline-code">"Tap Academy"</span>, <span class="inline-code">'Kalyan'</span>, <span class="inline-code">`Hello`</span>.</p>
+        <div class="code-demo">
+          let institute = "Tap Academy";
+          console.log(institute);        // Tap Academy
+          console.log(typeof institute); // "string"
+        </div>
+        <p><strong>Boolean:</strong> Represents logical values — only <span class="inline-code">true</span> or <span class="inline-code">false</span>. Commonly used for conditions, flags (hasPassport, isLoggedIn).</p>
+        <div class="code-demo">
+          let hasPassport = true;
+          let isPlaced = false;
+          console.log(typeof hasPassport); // "boolean"
+        </div>
+        <p>Booleans are the result of comparisons: <span class="inline-code">10 > 5</span> → true, <span class="inline-code">3 === '3'</span> → false.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>String:</strong> అనేది characters యొక్క సరళి. ఉదా: <span class="inline-code">"నమస్కారం"</span>, <span class="inline-code">'Kalyan'</span>. <strong>Boolean:</strong> కేవలం true లేదా false విలువలను మాత్రమే సూచిస్తుంది. ఉదా: <span class="inline-code">let hasPassport = false;</span>. typeof boolean gives "boolean".</p>
+      </div>
+    </div>
+
+    <!-- 5: Undefined data type -->
+    <div class="topic-card">
+      <div class="topic-title">❓ 5. Undefined: Variable declared but no value assigned</div>
+      <div class="eng-section">
+        <p>When you declare a variable using <span class="inline-code">let</span> or <span class="inline-code">var</span> but <strong>do not assign a value</strong>, JavaScript automatically assigns the value <span class="inline-code">undefined</span>. Both its value and type are 'undefined'.</p>
+        <div class="code-demo">
+          let a;           // no assignment
+          console.log(a);  // undefined
+          console.log(typeof a); // "undefined"
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Important:</strong> Undefined means the variable exists in memory (stack) but hasn't been given a value yet. It's different from "not defined" (which throws an error).
+        </div>
+        <p>We will explore undefined deeper with the concept of <strong>hoisting</strong> in future classes.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఒక variable ని declare చేసి value assign చేయకపోతే, JavaScript దానికి <strong>undefined</strong> అనే value ని ఇస్తుంది. ఉదా: <span class="inline-code">let x; console.log(x);</span> → undefined. దాని type కూడా "undefined" అనే వస్తుంది. ఇది "not defined" error కంటే భిన్నం.</p>
+      </div>
+    </div>
+
+    <!-- 6: Practical demonstration with typeof, dynamic typing -->
+    <div class="topic-card">
+      <div class="topic-title">⚡ 6. typeof Operator & Loosely Typed Nature</div>
+      <div class="eng-section">
+        <p><strong>typeof</strong> operator returns the type of a variable or value. Since JavaScript is dynamically typed, the same variable can hold different types over time.</p>
+        <div class="code-demo">
+          let data = 100;
+          console.log(typeof data); // "number"
+          data = "Now I am a string";
+          console.log(typeof data); // "string"
+          data = true;
+          console.log(typeof data); // "boolean"
+        </div>
+        <p>This flexibility is powerful but also requires careful handling. Unlike strongly typed languages (Java, C++), you don't specify types like <span class="inline-code">int</span> or <span class="inline-code">float</span>. JavaScript handles conversion automatically.</p>
+        <div class="highlight-box">
+          ✅ <strong>Summary of data types covered:</strong> Number, BigInt, String, Boolean, Undefined. (Null and Symbol will be covered in object-oriented sections later.)
+        </div>
+        <p>Special numeric behaviors: <span class="inline-code">typeof NaN</span> → "number", <span class="inline-code">typeof Infinity</span> → "number".</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <span class="inline-code">typeof</span> operator variable యొక్క type ని తెలుపుతుంది. JavaScript dynamic typing వలన ఒకే variable లో number, string, boolean వంటి విభిన్న types ని store చేయవచ్చు. ఉదా: <span class="inline-code">let x = 42; x = "hello";</span> — type number నుండి string కి మారింది. ఇది loose typing యొక్క ప్రత్యేకత.</p>
+      </div>
+    </div>
+
+    <!-- 7: Extra note: Null and upcoming topics -->
+    <div class="topic-card">
+      <div class="topic-title">📌 7. What's Next? Null & More in Object-Oriented JavaScript</div>
+      <div class="eng-section">
+        <p>We have covered <strong>Number, BigInt, String, Boolean, Undefined</strong>. The remaining primitive types are <strong>Null</strong> and <strong>Symbol</strong>. Null represents "intentional absence of any object value". We will discuss Null and Symbol in detail when we explore objects and advanced JavaScript concepts.</p>
+        <div class="code-demo">
+          let empty = null;
+          console.log(typeof empty); // "object" (historical bug in JS)
+          // We'll clarify this later.
+        </div>
+        <p><strong>Course roadmap:</strong> After mastering data types, we will dive into operators, type coercion, conditionals, loops, functions, arrays, objects, and modern ES6+ features. Stay consistent and practice each concept in VS Code / Node.js.</p>
+        <div class="highlight-box">
+          🧑‍🏫 <strong>Kalyan's guarantee:</strong> This is the most in-depth JavaScript course you will ever experience. Every single concept will be explained with memory diagrams and real-world examples.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> మనం ఇప్పటివరకు Number, BigInt, String, Boolean, Undefined గురించి నేర్చుకున్నాం. మిగిలిన primitive types: <strong>Null</strong> మరియు <strong>Symbol</strong>. Null అంటే intentional గా ఖాళీ విలువను సూచిస్తుంది. వీటిని object-oriented JavaScript లో వివరంగా చూద్దాం. ఈ course పూర్తి చేస్తే మీరు JavaScript లో expert అవుతారు.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Building deep fundamentals: Memory, Data Types, and Loose Typing. Next class: Operators & Type Coercion.
+    </div>
+  </div>
+</div>
+</body>
+</html>

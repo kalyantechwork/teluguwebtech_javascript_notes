@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JSON (JavaScript Object Notation) | Parse & Stringify | Data Exchange Standard | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .analogy-box {
+      background: #fef9e3;
+      border-left: 5px solid #f5b042;
+      padding: 1rem;
+      border-radius: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📦 <span>JSON (JavaScript Object Notation)</span> | Universal Data Exchange Format</h1>
+    <div class="sub">🔧 JSON.parse() | JSON.stringify() | Key-value pairs | Communication between systems — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: The Problem - Different Systems, Different Formats -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. The Problem: Systems Speak Different Languages</div>
+      <div class="eng-section">
+        <div class="analogy-box">
+          📦 <strong>Shipping Analogy (1956):</strong> Before standardized containers, ships carried crates, barrels, sacks of different sizes. Unloading took days. Malcolm McLean introduced <strong>standardized metal containers</strong> — same size, same locking mechanisms. Revolutionized global trade.
+        </div>
+        <p><strong>Same problem in software:</strong> Amazon (e-commerce) and Razorpay (payment gateway) are different systems, built with different technologies. Without a standard format, they cannot communicate reliably.</p>
+        <div class="code-demo">
+          // ❌ Without standardization - ambiguous data
+          "NYC", 72, "partly cloudy", 45, "2025-01-15"
+          // What is 72? Temperature? What is 45? Humidity? No clarity!
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Solution: JSON (JavaScript Object Notation)</strong> — a universal, lightweight data-interchange format that all programming languages understand.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> వివిధ software systems (Amazon, Razorpay) వేర్వేరు technologies తో నిర్మించబడతాయి. Standard format లేకుండా అవి communicate చేసుకోలేవు. JSON అనేది universal, lightweight data-interchange format, అన్ని programming languages అర్థం చేసుకుంటాయి.</p>
+      </div>
+    </div>
+
+    <!-- 2: What is JSON? Syntax and Rules -->
+    <div class="topic-card">
+      <div class="topic-title">📝 2. What is JSON? Syntax & Rules</div>
+      <div class="eng-section">
+        <p><strong>JSON (JavaScript Object Notation)</strong> is a text format that looks like JavaScript objects. <strong>Key rules:</strong></p>
+        <ul style="margin-left: 1.8rem;">
+          <li>Data is in <strong>key: value</strong> pairs.</li>
+          <li>Keys must be <strong>enclosed in double quotes</strong> <span class="inline-code">" "</span>.</li>
+          <li>Values can be: string, number, boolean, array, object, or null.</li>
+          <li>JSON is <strong>language-independent</strong> — parsers exist for every language.</li>
+        </ul>
+        <div class="code-demo">
+          {
+            "location": "New York",
+            "temperature": 72,
+            "unit": "Fahrenheit",
+            "conditions": "partly cloudy",
+            "humidity": 45,
+            "lastUpdated": "2025-01-15T10:00:00Z"
+          }
+        </div>
+        <div class="highlight-box">
+          ✅ JSON ≠ JavaScript object. JSON is a <strong>string</strong> that follows the object notation rules. All keys in JSON MUST be double-quoted.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JSON అనేది JavaScript object లాగా కనిపించే text format. <strong>నియమాలు:</strong> Keys తప్పనిసరిగా double quotes లో ఉండాలి. Values: string, number, boolean, array, object, null. JSON ఒక <strong>string</strong>, JavaScript object కాదు.</p>
+      </div>
+    </div>
+
+    <!-- 3: JSON.parse() - Convert String to Object -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 3. JSON.parse() - Convert JSON String to JavaScript Object</div>
+      <div class="eng-section">
+        <p>When data is received from an API, it comes as a <strong>JSON string</strong>. To work with it in JavaScript, we <strong>parse</strong> it into a JavaScript object using <span class="inline-code">JSON.parse()</span>.</p>
+        <div class="code-demo">
+          // JSON string received from weather API
+          const weatherJSON = `{
+            "location": { "city": "San Francisco", "country": "USA" },
+            "current": { "temperature": 68, "feelsLike": 70, "humidity": 75, "condition": "sunny" },
+            "daily": [
+              { "day": "Monday", "high": 72, "low": 58 },
+              { "day": "Tuesday", "high": 74, "low": 60 }
+            ]
+          }`;
+
+          // Parse JSON string to JavaScript object
+          const weatherData = JSON.parse(weatherJSON);
+
+          // Access data like a normal object
+          console.log(weatherData.location.city);    // San Francisco
+          console.log(weatherData.current.temperature); // 68
+          console.log(weatherData.daily[0].high);   // 72
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>JSON.parse()</strong> takes a JSON string and returns a JavaScript object/array. The reverse is <strong>JSON.stringify()</strong>.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> API నుండి వచ్చే data JSON string గా ఉంటుంది. దాన్ని JavaScript object గా మార్చడానికి <span class="inline-code">JSON.parse()</span> వాడతాం. Object లోకి మార్చాక, normal object లాగా access చేయవచ్చు.</p>
+      </div>
+    </div>
+
+    <!-- 4: JSON.stringify() - Convert Object to JSON String -->
+    <div class="topic-card">
+      <div class="topic-title">📤 4. JSON.stringify() - Convert JavaScript Object to JSON String</div>
+      <div class="eng-section">
+        <p>When sending data to an API (e.g., POST request), we must convert our JavaScript object into a <strong>JSON string</strong> using <span class="inline-code">JSON.stringify()</span>.</p>
+        <div class="code-demo">
+          // JavaScript object to send
+          const response = {
+            success: true,
+            message: "Data received successfully"
+          };
+
+          // Convert to JSON string
+          const jsonString = JSON.stringify(response);
+          console.log(jsonString);
+          // Output: {"success":true,"message":"Data received successfully"}
+          
+          // Now jsonString can be sent over the network
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>JSON.stringify()</strong> converts any JavaScript value (object, array, primitive) into a JSON string. Keys are automatically double-quoted.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> API కి data పంపేటప్పుడు, JavaScript object ని <strong>JSON string</strong> గా మార్చాలి. దానికి <span class="inline-code">JSON.stringify()</span> వాడతాం. Keys automatically double-quoted అవుతాయి.</p>
+      </div>
+    </div>
+
+    <!-- 5: Real-World Example - Weather Widget -->
+    <div class="topic-card">
+      <div class="topic-title">🌤️ 5. Real-World Example: Weather Widget Communication</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Weather system sends this JSON string
+          const apiResponse = `{
+            "location": "Mumbai",
+            "temperature": 30,
+            "unit": "Celsius",
+            "humidity": 80,
+            "windSpeed": 12
+          }`;
+
+          // Parse and use in our app
+          const weather = JSON.parse(apiResponse);
+          
+          console.log(`Location: ${weather.location}`);
+          console.log(`Temperature: ${weather.temperature}°${weather.unit}`);
+          console.log(`Humidity: ${weather.humidity}%`);
+          
+          // Send acknowledgment back
+          const ack = { status: "received", timestamp: Date.now() };
+          const ackJSON = JSON.stringify(ack);
+          console.log("Sending back:", ackJSON);
+        </div>
+        <div class="highlight-box">
+          💡 This is exactly how your phone's weather app works — it requests data from a weather API, receives JSON, parses it, and displays the information.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Weather app API నుండి JSON string ని receive చేస్తుంది → <span class="inline-code">JSON.parse()</span> → JavaScript object → display. మన app నుండి acknowledgment ని <span class="inline-code">JSON.stringify()</span> తో JSON string గా మార్చి send చేస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 6: JSON vs JavaScript Object -->
+    <div class="topic-card">
+      <div class="topic-title">⚖️ 6. JSON vs JavaScript Object: Key Differences</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // JavaScript Object (no quotes on keys)
+          const jsObject = {
+            name: "Kalyan",
+            age: 30,
+            isInstructor: true
+          };
+
+          // JSON string (keys MUST be double-quoted)
+          const jsonString = `{
+            "name": "Kalyan",
+            "age": 30,
+            "isInstructor": true
+          }`;
+        </div>
+        <div class="highlight-box">
+          📌 <strong>Differences:</strong><br>
+          • JSON keys MUST be double-quoted. JavaScript object keys don't need quotes.<br>
+          • JSON is a <strong>string format</strong>. JavaScript object is an actual object in memory.<br>
+          • JSON cannot contain functions or undefined values. JavaScript objects can.<br>
+          • JSON uses <span class="inline-code">null</span>, <span class="inline-code">true</span>, <span class="inline-code">false</span> (lowercase).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JSON keys తప్పనిసరిగా double-quoted; JavaScript object keys quotes అవసరం లేదు. JSON ఒక <strong>string format</strong>; JavaScript object memory లో object. JSON functions/undefined ని support చేయదు.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: JSON Essentials</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>JSON</strong> = JavaScript Object Notation — a universal data exchange format.</li>
+          <li><strong>JSON.parse(string)</strong> → converts JSON string to JavaScript object.</li>
+          <li><strong>JSON.stringify(object)</strong> → converts JavaScript object to JSON string.</li>
+          <li>All programming languages have libraries to parse/generate JSON.</li>
+          <li>JSON is the backbone of <strong>APIs</strong> (REST, GraphQL) and web communication.</li>
+        </ul>
+        <div class="code-demo">
+          // Quick reference
+          const jsonString = '{"name":"Kalyan","age":30}';
+          const obj = JSON.parse(jsonString);
+          console.log(obj.name);  // Kalyan
+
+          const newJson = JSON.stringify({ course: "JavaScript" });
+          console.log(newJson);   // '{"course":"JavaScript"}'
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Practice parsing nested JSON and accessing deep properties. In the next class, we'll combine JSON with the <strong>fetch API</strong> to make real API calls.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • JSON = universal data exchange format.<br>
+        • <strong>JSON.parse()</strong> → JSON string → JavaScript object.<br>
+        • <strong>JSON.stringify()</strong> → JavaScript object → JSON string.<br>
+        • అన్ని programming languages JSON ని support చేస్తాయి.<br>
+        • APIs (REST, GraphQL) communication కి JSON backbone.<br>
+        తర్వాతి class: fetch API + JSON = real API calls.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — JSON demystified: parse, stringify, universal standard. Next: Fetch API and making real HTTP requests!
+    </div>
+  </div>
+</div>
+</body>
+</html>

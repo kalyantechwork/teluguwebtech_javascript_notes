@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Functions | Basics, 4 Types, Memory (Stack & Heap) | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .function-types {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .type-card {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 0.8rem;
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+      border: 1px solid #cbd5e1;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📦 <span>Functions in JavaScript</span> | Basics, 4 Types, Memory (Stack & Heap)</h1>
+    <div class="sub">🔧 function keyword | parameters | return value | function body | Node.js runtime | Stack vs Heap — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: What is a function? Structure -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. What is a Function? Structure & Syntax</div>
+      <div class="eng-section">
+        <p>A function is a reusable block of code that performs a specific task. It has four main parts:</p>
+        <ul style="margin-left: 1.8rem; margin-bottom: 1rem;">
+          <li><strong>Name</strong> — identifier to call the function</li>
+          <li><strong>Parameters (input)</strong> — values the function receives (optional)</li>
+          <li><strong>Body</strong> — the code that executes when the function is called</li>
+          <li><strong>Return value (output)</strong> — value sent back to the caller (optional)</li>
+        </ul>
+        <div class="code-demo">
+          function functionName(parameter1, parameter2) {
+              // function body: code that performs task
+              return output;  // optional
+          }
+        </div>
+        <div class="highlight-box">
+          ✅ In JavaScript, functions are defined using the <span class="inline-code">function</span> keyword.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఫంక్షన్ అంటే ఒక specific task ని perform చేసే reusable block of code. దీనికి నాలుగు భాగాలు ఉంటాయి: <strong>Name</strong>, <strong>Parameters (input)</strong>, <strong>Body</strong>, <strong>Return value (output)</strong>. JavaScript లో <span class="inline-code">function</span> keyword తో function ని define చేస్తారు.</p>
+      </div>
+    </div>
+
+    <!-- 2: Four types of functions -->
+    <div class="topic-card">
+      <div class="topic-title">🔢 2. Four Types of Functions (based on input/output)</div>
+      <div class="eng-section">
+        <div class="function-types">
+          <div class="type-card"><strong>Type 1</strong><br>No input<br>No output</div>
+          <div class="type-card"><strong>Type 2</strong><br>No input<br>Has output</div>
+          <div class="type-card"><strong>Type 3</strong><br>Has input<br>No output</div>
+          <div class="type-card"><strong>Type 4</strong><br>Has input<br>Has output</div>
+        </div>
+        <div class="code-demo">
+          // Type 1: No parameters, no return value
+          function greet() {
+              console.log("Hello, welcome!");
+          }
+
+          // Type 2: No parameters, returns value
+          function getPI() {
+              return 3.14159;
+          }
+
+          // Type 3: Takes parameter, no return
+          function showSquare(x) {
+              console.log(x * x);
+          }
+
+          // Type 4: Takes parameter, returns value
+          function square(x) {
+              return x * x;
+          }
+        </div>
+        <div class="highlight-box">
+          💡 Understanding these types helps you design functions appropriately for different scenarios.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఫంక్షన్లు input/output ఆధారంగా 4 రకాలు:<br>
+        1. No input, No output<br>
+        2. No input, Has output<br>
+        3. Has input, No output<br>
+        4. Has input, Has output<br>
+        ఇది తెలుసుకోవడం వలన సరైన function design చేయడానికి ఉపయోగపడుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: Why learn memory? Car analogy -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 3. Why Understand Memory? The Car Analogy</div>
+      <div class="eng-section">
+        <p>Many developers only learn how to <strong>use</strong> JavaScript, but the best developers understand <strong>how it works internally</strong> — especially memory management. Just like a person who knows both driving and car mechanics can fix breakdowns, a developer who understands memory can debug complex issues efficiently.</p>
+        <div class="highlight-box">
+          🔥 Programming is 99% debugging. Understanding memory = faster debugging = better developer.
+        </div>
+        <p>We will learn functions from a <strong>memory perspective</strong> — stack and heap — which is often ignored but crucial for mastering JavaScript.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> చాలామంది JavaScript ని <strong>use</strong> చేయడం మాత్రమే నేర్చుకుంటారు, కానీ <strong>internally ఎలా work చేస్తుందో</strong> తెలుసుకోవడం చాలా ముఖ్యం — ముఖ్యంగా memory management. Memory తెలిస్తే debugging చాలా easy అవుతుంది. మనం functions ని <strong>memory perspective</strong> (stack & heap) నుండి నేర్చుకుందాం.</p>
+      </div>
+    </div>
+
+    <!-- 4: Node.js Runtime, Stack, Heap -->
+    <div class="topic-card">
+      <div class="topic-title">💾 4. Memory Inside Node.js Runtime: Stack & Heap</div>
+      <div class="eng-section">
+        <p>When JavaScript runs outside the browser (using Node.js), it executes inside the <strong>Node.js runtime environment</strong>. This runtime has several memory segments. The two most important for beginners are:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Stack Memory</strong> — stores primitive values and function call information (execution context). Fast, fixed-size.</li>
+          <li><strong>Heap Memory</strong> — stores objects, arrays, functions (reference types). Dynamic, larger, slower.</li>
+        </ul>
+        <div class="code-demo">
+          // Example: Stack stores primitives, Heap stores objects
+          let age = 25;           // stored in Stack (primitive)
+          let user = { name: "Kalyan" };  // object stored in Heap, reference in Stack
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Key Insight:</strong> Every function call creates a new <strong>execution context</strong> in the stack. When the function returns, its context is popped off.
+        </div>
+        <p>We will explore event loop, callback queue, and asynchronous programming later. For now, focus on Stack and Heap — they are essential for understanding functions, scope, and closures.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Node.js runtime environment లో JavaScript execute అవుతుంది. దీనికి రెండు ముఖ్యమైన memory segments:<br>
+        • <strong>Stack Memory</strong> — primitives మరియు function call information ని store చేస్తుంది. Fast, fixed-size.<br>
+        • <strong>Heap Memory</strong> — objects, arrays, functions (reference types) store అవుతాయి. Dynamic, larger.<br>
+        ప్రతీ function call stack లో new execution context ని create చేస్తుంది. Function return అయిన తర్వాత ఆ context stack నుండి pop అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 5: Why functions? Reusability and modularity -->
+    <div class="topic-card">
+      <div class="topic-title">♻️ 5. Why Functions? Reusability & Modularity</div>
+      <div class="eng-section">
+        <p>Functions allow us to:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Reuse code</strong> — write once, use many times</li>
+          <li><strong>Modularize programs</strong> — break complex problems into smaller, manageable pieces</li>
+          <li><strong>Test and debug easily</strong> — isolate functionality</li>
+          <li><strong>Avoid code duplication</strong> — maintain single source of truth</li>
+        </ul>
+        <div class="code-demo">
+          // Without function: code duplication
+          console.log(5 * 5);
+          console.log(10 * 10);
+          console.log(15 * 15);
+
+          // With function: reusable
+          function printSquare(x) {
+              console.log(x * x);
+          }
+          printSquare(5);   // 25
+          printSquare(10);  // 100
+          printSquare(15);  // 225
+        </div>
+        <div class="highlight-box">
+          ✅ Functions are the building blocks of any JavaScript application. Mastering them unlocks advanced concepts like closures, callbacks, promises, and async/await.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఫంక్షన్ల వలన:<br>
+        • <strong>Reusability</strong> — ఒకసారి రాస్తే చాలు, ఎన్నిసార్లు అయినా use చేయవచ్చు.<br>
+        • <strong>Modularity</strong> — complex problems ని small pieces గా break చేయవచ్చు.<br>
+        • <strong>Debugging easy</strong> — ఒక్కో functionality ని isolate చేయవచ్చు.<br>
+        Functions అనేవి JavaScript applications కి building blocks. వీటిని బాగా నేర్చుకుంటే closures, callbacks, promises, async/await వంటి advanced concepts సులభమవుతాయి.</p>
+      </div>
+    </div>
+
+    <!-- 6: Function declaration vs function call -->
+    <div class="topic-card">
+      <div class="topic-title">⚡ 6. Function Declaration vs Function Call</div>
+      <div class="eng-section">
+        <p><strong>Declaration:</strong> Defining the function (code is not executed yet).<br>
+        <strong>Call / Invocation:</strong> Executing the function using its name followed by parentheses.</p>
+        <div class="code-demo">
+          // Declaration
+          function add(a, b) {
+              return a + b;
+          }
+
+          // Call (invocation)
+          let result = add(10, 20);
+          console.log(result);  // 30
+
+          // Multiple calls
+          console.log(add(5, 7));   // 12
+          console.log(add(100, 200)); // 300
+        </div>
+        <div class="highlight-box">
+          🔥 Without calling, a function's body never runs. Declaration only tells JavaScript "this function exists".
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Declaration:</strong> function ని define చేయడం (code execute అవ్వదు). <strong>Call / Invocation:</strong> function ని execute చేయడం (name తర్వాత parentheses ఉంచాలి). ఉదా: <span class="inline-code">add(10,20)</span>. Call చేయకపోతే function body ఎప్పటికీ execute అవ్వదు.</p>
+      </div>
+    </div>
+
+    <!-- 7: Roadmap - what's next? -->
+    <div class="topic-card">
+      <div class="topic-title">🗺️ 7. Roadmap: From Basics to Advanced Functions</div>
+      <div class="eng-section">
+        <p><strong>Basics (this class):</strong> Function structure, types, memory introduction.</p>
+        <p><strong>Upcoming topics in Functions:</strong></p>
+        <ul style="margin-left: 1.8rem;">
+          <li>Function scope & execution context (stack frames)</li>
+          <li>Parameters vs arguments</li>
+          <li>Default parameters, rest parameters</li>
+          <li>Return statement (multiple returns, early return)</li>
+          <li>Function expressions vs function declarations</li>
+          <li>Arrow functions (=>) — modern syntax</li>
+          <li>Higher-order functions, callbacks</li>
+          <li>Closures (one of the most important concepts)</li>
+          <li>Immediately Invoked Function Expressions (IIFE)</li>
+        </ul>
+        <div class="highlight-box">
+          🎯 <strong>Kalyan's Note:</strong> Functions are the heart of JavaScript. Spend time understanding them deeply. In the next class, we will write our first functions and analyze stack memory during function calls.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> తర్వాతి topics: Function scope, execution context, default parameters, arrow functions, higher-order functions, callbacks, closures, IIFE. ఫంక్షన్లు JavaScript కి heart. వీటిని లోతుగా నేర్చుకోండి. తర్వాతి class లో మనం first functions రాసి, stack memory ఎలా work చేస్తుందో చూద్దాం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Functions basics, 4 types, and memory (Stack/Heap). Next: Writing our first functions and understanding execution context!
+    </div>
+  </div>
+</div>
+</body>
+</html>

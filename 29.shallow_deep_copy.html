@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Shallow Copy vs Deep Copy in JavaScript | Spread, slice, structuredClone | Nested Arrays & Objects | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .warning-box {
+      background: #fee2e2;
+      border-left: 5px solid #dc2626;
+      padding: 1rem;
+      border-radius: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📑 <span>Shallow Copy vs Deep Copy</span> in JavaScript</h1>
+    <div class="sub">📦 Spread operator (...), slice(), structuredClone() | Nested arrays & objects | Memory references — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Creating a copy - spread and slice (shallow) -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Creating a Copy: spread (...) and slice()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let arr1 = [10, 20, 30, 40];
+
+          // Method 1: Spread operator (shallow copy)
+          let arr2 = [...arr1];
+
+          // Method 2: slice() method (shallow copy)
+          let arr3 = arr1.slice();
+
+          arr1.push(99);
+          console.log(arr1); // [10,20,30,40,99]
+          console.log(arr2); // [10,20,30,40] (unchanged)
+          console.log(arr3); // [10,20,30,40] (unchanged)
+        </div>
+        <div class="highlight-box">
+          ✅ Both <span class="inline-code">[...arr]</span> and <span class="inline-code">arr.slice()</span> create a <strong>shallow copy</strong>. For primitive values (numbers, strings), modifying the original does NOT affect the copy.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Array ని copy చేయడానికి రెండు మార్గాలు: spread operator (<span class="inline-code">[...arr]</span>) మరియు <span class="inline-code">slice()</span>. ఇవి <strong>shallow copy</strong> ని create చేస్తాయి. Primitive values (numbers, strings) విషయంలో, original ని modify చేస్తే copy మారదు.</p>
+      </div>
+    </div>
+
+    <!-- 2: Shallow Copy with Nested Arrays (Problem) -->
+    <div class="topic-card">
+      <div class="topic-title">⚠️ 2. The Problem: Shallow Copy with Nested Arrays</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let arr1 = [[10, 20], [30, 40]];
+          let arr2 = arr1.slice(); // or [...arr1]
+
+          // Modify nested array in original
+          arr1[0].push(99);
+
+          console.log(arr1); // [[10,20,99], [30,40]]
+          console.log(arr2); // [[10,20,99], [30,40]]  ← ALSO CHANGED!
+        </div>
+        <div class="warning-box">
+          ⚠️ <strong>Why?</strong> Shallow copy copies only the <strong>references</strong> (addresses) to inner arrays, not the inner arrays themselves. Both arr1[0] and arr2[0] point to the SAME inner array.
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Shallow Copy = only top-level properties are copied. Nested objects/arrays are shared by reference.</strong>
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Nested arrays లో shallow copy problem: Shallow copy inner arrays యొక్క <strong>references (addresses)</strong> ని మాత్రమే copy చేస్తుంది, arrays ని కాదు. కాబట్టి original nested array ని modify చేస్తే, copy లో కూడా అదే మార్పు కనిపిస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: Shallow Copy with Objects inside Array -->
+    <div class="topic-card">
+      <div class="topic-title">📦 3. Shallow Copy with Objects in Array</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let arr1 = [{ name: "Ann" }, { name: "Ben" }];
+          let arr2 = arr1.slice(); // shallow copy
+
+          // Modify object property in original
+          arr1[0].name = "Kalyan";
+
+          console.log(arr1); // [{ name: "Kalyan" }, { name: "Ben" }]
+          console.log(arr2); // [{ name: "Kalyan" }, { name: "Ben" }] ← ALSO CHANGED!
+        </div>
+        <div class="highlight-box">
+          💡 Same behavior: Objects inside arrays are also stored by reference. Shallow copy copies the references, so both arrays point to the same objects.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Objects కూడా arrays లాగే references ద్వారా store అవుతాయి. Shallow copy references ని copy చేస్తుంది, కాబట్టి original object ని modify చేస్తే copy లో కూడా మార్పు కనిపిస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 4: Deep Copy using structuredClone() -->
+    <div class="topic-card">
+      <div class="topic-title">✅ 4. Deep Copy using structuredClone()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let arr1 = [[10, 20], [30, 40]];
+          let arr2 = structuredClone(arr1); // Deep copy
+
+          arr1[0].push(99);
+
+          console.log(arr1); // [[10,20,99], [30,40]]
+          console.log(arr2); // [[10,20], [30,40]]  ← UNCHANGED! (true copy)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>structuredClone()</strong> creates a <strong>deep copy</strong> — it recursively copies all nested objects/arrays. The copy is completely independent.
+        </div>
+        <div class="code-demo">
+          // Deep copy with objects
+          let objArr = [{ name: "Ann" }, { name: "Ben" }];
+          let deepCopy = structuredClone(objArr);
+          objArr[0].name = "Kalyan";
+
+          console.log(objArr);    // [{ name: "Kalyan" }, { name: "Ben" }]
+          console.log(deepCopy);  // [{ name: "Ann" }, { name: "Ben" }] (unchanged)
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>structuredClone()</strong> <strong>deep copy</strong> ని create చేస్తుంది — ఇది అన్ని nested arrays/objects ని recursively copy చేస్తుంది. Copy పూర్తిగా independent గా ఉంటుంది. Original modify చేస్తే copy మారదు.</p>
+      </div>
+    </div>
+
+    <!-- 5: Memory Visualization -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 5. Memory Visualization: Shallow vs Deep Copy</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Shallow Copy (spread / slice)
+          let original = [[10, 20], [30, 40]];
+          let shallow = [...original];
+
+          // Memory:
+          // original → [ref1, ref2]   (stack)
+          // shallow  → [ref1, ref2]   (same references!)
+          // ref1 points to [10,20] in Heap
+          // ref2 points to [30,40] in Heap
+
+          // Deep Copy (structuredClone)
+          let deep = structuredClone(original);
+          // Memory:
+          // original → [ref1, ref2]
+          // deep     → [ref3, ref4]   (new references!)
+          // ref3 points to NEW [10,20] copy
+          // ref4 points to NEW [30,40] copy
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Key Insight:</strong> Shallow copy = copy references. Deep copy = create new copies of all nested structures.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Shallow copy:</strong> references మాత్రమే copy అవుతాయి. <strong>Deep copy:</strong> అన్ని nested structures యొక్క కొత్త copies create అవుతాయి, పూర్తి independence.</p>
+      </div>
+    </div>
+
+    <!-- 6: Summary Table -->
+    <div class="topic-card">
+      <div class="topic-title">📖 6. Summary: Shallow vs Deep Copy</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Shallow Copy methods:</strong> spread operator (<span class="inline-code">[...arr]</span>), <span class="inline-code">arr.slice()</span>, <span class="inline-code">Array.from(arr)</span>, <span class="inline-code">Object.assign([], arr)</span></li>
+          <li><strong>Deep Copy method:</strong> <span class="inline-code">structuredClone(arr)</span> (modern, recommended)</li>
+          <li><strong>When to use shallow copy:</strong> For flat arrays with primitive values only (numbers, strings, booleans).</li>
+          <li><strong>When to use deep copy:</strong> For nested arrays/objects where you need complete independence.</li>
+          <li><strong>Alternative deep copy (older):</strong> <span class="inline-code">JSON.parse(JSON.stringify(arr))</span> (has limitations: cannot copy functions, undefined, etc.)</li>
+        </ul>
+        <div class="code-demo">
+          // Quick reference
+          let flat = [1, 2, 3];
+          let flatCopy = [...flat];       // shallow, but fine (primitives)
+
+          let nested = [[1, 2], [3, 4]];
+          let nestedShallow = [...nested];    // PROBLEM: shares inner arrays
+          let nestedDeep = structuredClone(nested); // SOLUTION: independent copy
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Always understand your data structure. For nested arrays/objects, prefer <span class="inline-code">structuredClone()</span> to avoid accidental shared mutations.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Shallow Copy methods:</strong> spread, slice, Array.from — references copy అవుతాయి.<br>
+        • <strong>Deep Copy method:</strong> structuredClone() — నిజమైన independent copy.<br>
+        • <strong>Use shallow copy:</strong> flat arrays (primitives only).<br>
+        • <strong>Use deep copy:</strong> nested arrays/objects.<br>
+        • <strong>Alternate (old):</strong> JSON.parse(JSON.stringify()) — limitations ఉన్నాయి.<br>
+        Nested data కోసం <span class="inline-code">structuredClone()</span> ని వాడండి.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Shallow vs Deep Copy demystified with memory diagrams. Next: Advanced array techniques and functional programming patterns!
+    </div>
+  </div>
+</div>
+</body>
+</html>

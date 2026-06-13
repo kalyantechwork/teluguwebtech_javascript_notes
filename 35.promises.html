@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Promises Deep Dive | Promise Chaining | Microtask vs Macrotask | Event Loop | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .memory-visual {
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>⚡ <span>Promises in JavaScript</span> | Deep Dive + Chaining | Microtask vs Macrotask</h1>
+    <div class="sub">📦 Promise Object | Executor Function | resolve, reject | then, catch | Promise Chaining | Event Loop Priority — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Promise Basics - Object, State, Executor -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Promise Basics: Object, State, Executor Function</div>
+      <div class="eng-section">
+        <p>A <strong>Promise</strong> is an object representing the eventual completion (or failure) of an asynchronous operation. It has three states: <strong>pending</strong>, <strong>fulfilled</strong>, <strong>rejected</strong>.</p>
+        <div class="code-demo">
+          const pr = new Promise((resolve, reject) => {
+              // Executor function runs automatically when promise is created
+              console.log("Inside executor function");
+              // Async operation here
+          });
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Key point:</strong> The executor function executes <strong>immediately</strong> when the promise is created (synchronously), not later.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Promise</strong> అనేది asynchronous operation యొక్క eventual completion ని represent చేసే object. దీనికి మూడు states: <strong>pending</strong>, <strong>fulfilled</strong>, <strong>rejected</strong>. Executor function promise create అయిన వెంటనే <strong>immediate గా run అవుతుంది</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 2: resolve, reject and then, catch -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 2. resolve(), reject() and then(), catch()</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let promise = new Promise((resolve, reject) => {
+              let success = true;
+              if (success) {
+                  resolve("Data loaded successfully");
+              } else {
+                  reject("Error occurred");
+              }
+          });
+
+          promise
+              .then((result) => console.log("Success:", result))
+              .catch((error) => console.log("Error:", error));
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>resolve(value)</strong> → state becomes fulfilled → triggers <span class="inline-code">.then()</span> callback.<br>
+          ✅ <strong>reject(reason)</strong> → state becomes rejected → triggers <span class="inline-code">.catch()</span> callback.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>resolve(value)</strong> → fulfilled state → <span class="inline-code">.then()</span> callback execute అవుతుంది. <strong>reject(reason)</strong> → rejected state → <span class="inline-code">.catch()</span> callback execute అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: Async Operation inside Promise (setTimeout) -->
+    <div class="topic-card">
+      <div class="topic-title">⏳ 3. Async Operation inside Promise (setTimeout)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          const boilingWater = new Promise((resolve, reject) => {
+              console.log("Water started boiling");
+              setTimeout(() => {
+                  console.log("Water has been boiled");
+                  resolve("Promise fulfilled");
+              }, 3000);
+          });
+
+          boilingWater
+              .then(() => console.log("Promise fulfilled!"))
+              .catch(() => console.log("Promise failed"));
+        </div>
+        <div class="highlight-box">
+          🔥 The setTimeout callback is registered in Web API. When timer completes, callback goes to <strong>Callback Queue (Macrotask)</strong>. Then resolve puts the .then callback into <strong>Microtask Queue</strong>.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> setTimeout callback Web API లో register అవుతుంది. Timer complete అయిన తర్వాత callback <strong>Macrotask Queue</strong> లోకి వెళ్తుంది. resolve call అయిన తర్వాత <span class="inline-code">.then()</span> callback <strong>Microtask Queue</strong> లోకి వెళ్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 4: Microtask vs Macrotask Priority -->
+    <div class="topic-card">
+      <div class="topic-title">⚡ 4. Microtask Queue vs Macrotask Queue (Priority)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          setTimeout(() => console.log("Macrotask (setTimeout)"), 0);
+
+          Promise.resolve().then(() => console.log("Microtask (Promise)"));
+          
+          console.log("Synchronous code");
+          
+          // Output order:
+          // Synchronous code
+          // Microtask (Promise)
+          // Macrotask (setTimeout)
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Event Loop Priority:</strong> After each macrotask, the event loop empties the <strong>entire microtask queue</strong> before taking the next macrotask. Microtasks have higher priority.
+        </div>
+        <div class="memory-visual">
+          📦 Microtask Queue: Promise.then, catch, finally, queueMicrotask<br>
+          📦 Macrotask Queue: setTimeout, setInterval, I/O, UI rendering
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Event Loop priority: ప్రతీ macrotask తర్వాత, event loop <strong>microtask queue ని పూర్తిగా empty చేస్తుంది</strong>, ఆ తర్వాతే next macrotask తీసుకుంటుంది. Microtasks కు higher priority.</p>
+      </div>
+    </div>
+
+    <!-- 5: Promise Chaining (E-commerce Example) -->
+    <div class="topic-card">
+      <div class="topic-title">🔗 5. Promise Chaining (E-commerce Workflow)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          function stepOne() {
+              return new Promise((resolve, reject) => {
+                  console.log("Step 1 started");
+                  setTimeout(() => {
+                      console.log("Step 1 completed");
+                      resolve();
+                  }, 4000);
+              });
+          }
+
+          function stepTwo() {
+              return new Promise((resolve, reject) => {
+                  console.log("Step 2 started");
+                  setTimeout(() => {
+                      console.log("Step 2 completed");
+                      resolve();
+                  }, 3000);
+              });
+          }
+
+          function stepThree() {
+              return new Promise((resolve, reject) => {
+                  console.log("Step 3 started");
+                  setTimeout(() => {
+                      console.log("Step 3 completed");
+                      resolve();
+                  }, 2000);
+              });
+          }
+
+          function stepFour() {
+              return new Promise((resolve, reject) => {
+                  console.log("Step 4 started");
+                  setTimeout(() => {
+                      console.log("Step 4 completed");
+                      resolve();
+                  }, 1000);
+              });
+          }
+
+          // Promise Chaining
+          stepOne()
+              .then(() => stepTwo())
+              .then(() => stepThree())
+              .then(() => stepFour())
+              .then(() => console.log("All steps successful!"))
+              .catch(() => console.log("Promise failed at some step"));
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Promise chaining</strong> eliminates callback hell. Each step runs only after the previous step's promise resolves. Error propagates to single .catch().
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Promise chaining</strong> callback hell ని solve చేస్తుంది. ప్రతీ step మునుపటి step resolve అయిన తర్వాతే execute అవుతుంది. Error ఒకే .catch() కి propagate అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 6: Error Propagation in Chaining -->
+    <div class="topic-card">
+      <div class="topic-title">⚠️ 6. Error Propagation: One .catch() for All</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          stepOne()
+              .then(() => stepTwo())
+              .then(() => { throw new Error("Something went wrong in step 3"); })
+              .then(() => stepFour())
+              .catch((error) => console.log("Caught error:", error.message));
+              
+          // The chain stops at the rejected promise and jumps to .catch()
+        </div>
+        <div class="highlight-box">
+          🔥 Any <span class="inline-code">reject()</span> or thrown error inside a <span class="inline-code">.then()</span> will skip all subsequent <span class="inline-code">.then()</span> and go directly to the nearest <span class="inline-code">.catch()</span>.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> ఏ <span class="inline-code">.then()</span> లోనైనా reject() లేదా error వస్తే, తర్వాతి <span class="inline-code">.then()</span> లన్నీ skip అయ్యి, నేరుగా <span class="inline-code">.catch()</span> కి వెళ్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: Promises & Event Loop</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Promise</strong> = object with state (pending/fulfilled/rejected).</li>
+          <li>Executor function runs immediately; calls <span class="inline-code">resolve</span> (success) or <span class="inline-code">reject</span> (failure).</li>
+          <li><strong>.then()</strong> handles resolved value; <strong>.catch()</strong> handles rejection.</li>
+          <li><strong>Promise Chaining</strong> → sequential async operations without nesting.</li>
+          <li><strong>Microtask Queue</strong> (Promises) has higher priority than <strong>Macrotask Queue</strong> (setTimeout).</li>
+          <li>Event Loop: after each macrotask, it empties the microtask queue before next macrotask.</li>
+        </ul>
+        <div class="code-demo">
+          // Mental model
+          // 1. Create promise → executor runs → async operation (Web API)
+          // 2. On completion, resolve/reject
+          // 3. .then() callback → Microtask Queue
+          // 4. Event Loop prioritizes Microtask Queue
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Trace promise chains with setTimeout and different timers. Understand microtask vs macrotask ordering. This is essential for mastering async JavaScript.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • Promise = object (state: pending/fulfilled/rejected)<br>
+        • Executor function immediately runs; resolve/reject call చేస్తుంది.<br>
+        • .then() → success; .catch() → failure.<br>
+        • Promise Chaining → sequential async ops (no callback hell).<br>
+        • Microtask Queue (Promises) priority > Macrotask Queue (setTimeout).<br>
+        • Event Loop: ప్రతీ macrotask తర్వాత microtask queue ని empty చేస్తుంది.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Promises deep dive with memory, event loop priority, chaining. Next: Async/Await (syntactic sugar over promises)!
+    </div>
+  </div>
+</div>
+</body>
+</html>

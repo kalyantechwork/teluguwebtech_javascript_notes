@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>JavaScript Strings | Creation, String Interning, Immutability, Template Literals | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .immutable-note {
+      background: #fef9e3;
+      border-left: 5px solid #f5b042;
+      padding: 1rem;
+      border-radius: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📝 <span>Strings in JavaScript</span> | Creation, Interning, Immutability</h1>
+    <div class="sub">🔤 Double quotes, single quotes, backticks | String Pool | Template Literals | Case Sensitivity | new String() — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: What is a String? -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. What is a String?</div>
+      <div class="eng-section">
+        <p>A <strong>string</strong> is a <strong>sequence of characters</strong>. It can be a single character (e.g., 'J') or multiple characters (e.g., "JavaScript", "Tap Academy"). In JavaScript, both single characters and sequences are treated as strings.</p>
+        <div class="highlight-box">
+          ✅ <strong>Definition:</strong> String = sequence of characters.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>String</strong> అంటే <strong>characters యొక్క sequence</strong>. ఒకే character ('J') లేదా బహుళ characters ("JavaScript") రెండూ strings గానే పరిగణించబడతాయి.</p>
+      </div>
+    </div>
+
+    <!-- 2: Three Ways to Create Strings -->
+    <div class="topic-card">
+      <div class="topic-title">🛠️ 2. Three Ways to Create Strings in JavaScript</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // 1. Double quotes
+          let str1 = "JavaScript";
+
+          // 2. Single quotes
+          let str2 = 'Kalyan';
+
+          // 3. Backticks (Template literals) - allows variable interpolation
+          let name = "Kalyan";
+          let greeting = `Hi, ${name}!`;   // Template literal
+          console.log(greeting);            // Hi, Kalyan!
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Template literals (backticks)</strong> support multi-line strings and <span class="inline-code">${expression}</span> for embedding variables.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Strings ని మూడు విధాలుగా create చేయవచ్చు: double quotes (<span class="inline-code">"..."</span>), single quotes (<span class="inline-code">'...'</span>), backticks (<span class="inline-code">`...`</span>). Backticks (<strong>template literals</strong>) variables ని <span class="inline-code">${variable}</span> తో embed చేయడానికి ఉపయోగపడతాయి.</p>
+      </div>
+    </div>
+
+    <!-- 3: String Interning and Memory (String Pool) -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 3. String Interning & String Pool (Memory)</div>
+      <div class="eng-section">
+        <p>JavaScript uses <strong>string interning</strong>: for a given string value, only <strong>one unique copy</strong> is stored in the <strong>string pool</strong> (a special area in Heap). Multiple variables can reference the same string.</p>
+        <div class="code-demo">
+          let s1 = "JavaScript";
+          let s2 = "JavaScript";
+          let s3 = new String("JavaScript");
+
+          console.log(s1 === s2);  // true (same reference from string pool)
+          console.log(s1 === s3);  // false (s3 is an object, not primitive string)
+          console.log(typeof s1);  // "string"
+          console.log(typeof s3);  // "object"
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Benefits of Interning:</strong><br>
+          • Memory optimization (no duplicate strings)<br>
+          • Faster comparison (references are compared instead of characters)
+        </div>
+        <div class="immutable-note">
+          ⚠️ <strong>Case Sensitivity:</strong> "Java" and "java" are different strings because JavaScript is case-sensitive.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript <strong>string interning</strong> వాడుతుంది: ఒక string value కి <strong>string pool</strong> (Heap లో special region) లో <strong>ఒకే unique copy</strong> ఉంటుంది. బహుళ variables ఆ string నే reference చేయగలవు. ఇది memory ని ఆదా చేస్తుంది మరియు comparison ని faster చేస్తుంది. <strong>Case sensitivity:</strong> "Java" మరియు "java" వేర్వేరు strings.</p>
+      </div>
+    </div>
+
+    <!-- 4: String Immutability -->
+    <div class="topic-card">
+      <div class="topic-title">🔒 4. Strings are Immutable (Cannot Be Changed)</div>
+      <div class="eng-section">
+        <p><strong>Immutability</strong> means once a string is created, its characters cannot be changed. You can access characters using index (like arrays), but you cannot modify them.</p>
+        <div class="code-demo">
+          let str = "Hello";
+          console.log(str[0]);        // 'H' (access works)
+
+          // Attempt to change character (fails silently)
+          str[0] = 'J';
+          console.log(str);           // Still "Hello" (unchanged)
+          console.log(str[0]);        // Still 'H'
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Why Immutable?</strong> Because of string interning (shared references), changing one reference would affect others. To prevent bugs, strings are made immutable.
+        </div>
+        <div class="code-demo">
+          // To "change" a string, you must create a new one
+          let original = "Hello";
+          let modified = "J" + original.slice(1);  // "Jello"
+          console.log(original);  // "Hello" (unchanged)
+          console.log(modified);  // "Jello"
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Strings <strong>immutable</strong> (మార్చలేము). ఒకసారి string create అయిన తర్వాత, దాని characters ని మార్చలేము. Access చేయవచ్చు (<span class="inline-code">str[0]</span>) కానీ modify చేయలేము. ఇది string interning వలన shared references ని protect చేయడానికి.</p>
+      </div>
+    </div>
+
+    <!-- 5: Primitive Strings vs String Objects -->
+    <div class="topic-card">
+      <div class="topic-title">📦 5. Primitive Strings vs String Objects (new String())</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let primitive = "Hello";           // primitive string
+          let strObject = new String("Hello"); // String object
+
+          console.log(typeof primitive);     // "string"
+          console.log(typeof strObject);     // "object"
+
+          console.log(primitive === strObject); // false (different types)
+          console.log(primitive == strObject);  // true (value equality)
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Important:</strong> Always use primitive strings (<span class="inline-code">"..."</span> or <span class="inline-code">'...'</span>). <span class="inline-code">new String()</span> creates an object wrapper, which can cause unexpected behavior with <span class="inline-code">===</span>.
+        </div>
+        <p>Primitive strings are automatically converted to objects when you call methods like <span class="inline-code">.toUpperCase()</span>, then converted back.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Primitive strings (<span class="inline-code">"..."</span>) మరియు String objects (<span class="inline-code">new String()</span>) వేర్వేరు. <span class="inline-code">typeof</span> primitive → "string", object → "object". <span class="inline-code">===</span> తో compare చేస్తే false వస్తుంది (types different). ఎప్పుడూ primitive strings ని వాడండి.</p>
+      </div>
+    </div>
+
+    <!-- 6: Accessing Characters and Length -->
+    <div class="topic-card">
+      <div class="topic-title">🔍 6. Accessing Characters and length Property</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          let str = "JavaScript";
+
+          // Access characters using bracket notation (like array)
+          console.log(str[0]);     // 'J'
+          console.log(str[2]);     // 'v'
+          console.log(str[9]);     // 't'
+
+          // length property
+          console.log(str.length); // 10
+
+          // Last character
+          console.log(str[str.length - 1]); // 't'
+        </div>
+        <div class="highlight-box">
+          💡 Strings are zero-indexed. <span class="inline-code">str[0]</span> is first character, <span class="inline-code">str[str.length-1]</span> is last character.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Strings zero-indexed. <span class="inline-code">str[index]</span> తో characters ని access చేయవచ్చు. <span class="inline-code">str.length</span> తో length తెలుసుకోవచ్చు. చివరి character: <span class="inline-code">str[str.length-1]</span>.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: Strings Essentials</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Definition:</strong> Sequence of characters.</li>
+          <li><strong>Creation:</strong> <span class="inline-code">"double"</span>, <span class="inline-code">'single'</span>, <span class="inline-code">`backtick`</span> (template literals).</li>
+          <li><strong>String Interning:</strong> Unique string values stored once in string pool → memory efficient, faster comparison.</li>
+          <li><strong>Immutability:</strong> Strings cannot be changed. Any operation creates a new string.</li>
+          <li><strong>Case Sensitivity:</strong> "Hello" and "hello" are different.</li>
+          <li><strong>Access:</strong> <span class="inline-code">str[index]</span> (read-only), <span class="inline-code">str.length</span>.</li>
+          <li><strong>Primitive vs Object:</strong> Prefer primitive strings; <span class="inline-code">new String()</span> creates object wrapper.</li>
+        </ul>
+        <div class="code-demo">
+          // Quick recap
+          let s = "JavaScript";
+          console.log(s.length);        // 10
+          console.log(s[0]);            // 'J'
+          console.log(s.toUpperCase()); // "JAVASCRIPT" (new string)
+          console.log(s);               // "JavaScript" (unchanged, immutable)
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Understanding string interning and immutability is crucial. Next class: String methods (slice, substring, replace, split, etc.) and practical string manipulation.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Definition:</strong> characters sequence.<br>
+        • <strong>Creation:</strong> double quotes, single quotes, backticks.<br>
+        • <strong>String Interning:</strong> unique values string pool లో once store → memory efficient, faster comparison.<br>
+        • <strong>Immutability:</strong> strings మార్చలేము — ఎప్పుడూ new string return అవుతుంది.<br>
+        • <strong>Case sensitivity:</strong> "Hello" ≠ "hello".<br>
+        • <strong>Access:</strong> <span class="inline-code">str[index]</span>, <span class="inline-code">str.length</span>.<br>
+        • <strong>Primitive vs Object:</strong> primitive strings ని వాడండి.<br>
+        తర్వాతి class: String methods (slice, replace, split, etc.).</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Strings fundamentals: creation, interning, immutability, memory. Next: String methods and manipulations!
+    </div>
+  </div>
+</div>
+</body>
+</html>

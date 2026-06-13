@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Async/Await in JavaScript | Promises Made Clean | Error Handling with try/catch | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>⚡ <span>Async/Await</span> in JavaScript | Cleaner Promises</h1>
+    <div class="sub">📦 async keyword | await keyword | try/catch error handling | Promise chaining simplified — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Evolution - Callback Hell → Promises → Async/Await -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Evolution: Callback Hell → Promises → Async/Await</div>
+      <div class="eng-section">
+        <p>JavaScript started with <strong>callbacks</strong> (led to Callback Hell). Then <strong>Promises</strong> improved readability with .then() and .catch(). <strong>Async/Await</strong> is syntactic sugar over Promises — it makes asynchronous code look and behave more like synchronous code.</p>
+        <div class="code-demo">
+          // Promises (readable but still many .then())
+          fetchData()
+              .then(data => process(data))
+              .then(result => display(result))
+              .catch(error => handleError(error));
+
+          // Async/Await (even cleaner!)
+          async function run() {
+              try {
+                  let data = await fetchData();
+                  let result = await process(data);
+                  display(result);
+              } catch (error) {
+                  handleError(error);
+              }
+          }
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Async/Await does NOT replace Promises — it builds on top of them.</strong> Every async function returns a Promise.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> JavaScript: Callback Hell → Promises → Async/Await. Async/Await అనేది Promises పై syntactic sugar. ఇది asynchronous code ని synchronous code లాగా చదవడానికి వీలు కల్పిస్తుంది. ప్రతీ async function ఒక Promise ని return చేస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 2: Basic Syntax - async function and await -->
+    <div class="topic-card">
+      <div class="topic-title">📝 2. Basic Syntax: async function & await</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Function returning a Promise (using setTimeout)
+          function delayedTask() {
+              return new Promise((resolve) => {
+                  setTimeout(() => {
+                      console.log("Task completed");
+                      resolve("Success data");
+                  }, 2000);
+              });
+          }
+
+          // Async function using await
+          async function run() {
+              console.log("Start");
+              let result = await delayedTask();  // waits for promise to resolve
+              console.log("Result:", result);
+              console.log("End");
+          }
+
+          run();
+          // Output:
+          // Start
+          // (after 2 sec) Task completed
+          // Result: Success data
+          // End
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>await</strong> pauses the execution of the async function until the promise resolves/rejects. It does NOT block the main thread — other code can run.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>await</strong> async function యొక్క execution ని pause చేస్తుంది, promise resolve/reject అయ్యే వరకు. ఇది main thread ని block చేయదు — ఇతర code run అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: Converting .then() chain to Async/Await -->
+    <div class="topic-card">
+      <div class="topic-title">🔄 3. Converting .then() Chain to Async/Await</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          // Promise chain version
+          function stepOne() {
+              return new Promise(resolve => setTimeout(() => resolve("Step 1 done"), 1000));
+          }
+          function stepTwo() {
+              return new Promise(resolve => setTimeout(() => resolve("Step 2 done"), 1000));
+          }
+          function stepThree() {
+              return new Promise(resolve => setTimeout(() => resolve("Step 3 done"), 1000));
+          }
+
+          // .then() chain
+          stepOne()
+              .then(result => { console.log(result); return stepTwo(); })
+              .then(result => { console.log(result); return stepThree(); })
+              .then(result => console.log(result))
+              .catch(err => console.log("Error:", err));
+
+          // ✅ Async/Await version (much cleaner!)
+          async function executeSteps() {
+              try {
+                  let res1 = await stepOne();
+                  console.log(res1);
+                  let res2 = await stepTwo();
+                  console.log(res2);
+                  let res3 = await stepThree();
+                  console.log(res3);
+              } catch (error) {
+                  console.log("Error:", error);
+              }
+          }
+          executeSteps();
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Async/Await removes the need for multiple .then() callbacks — code becomes linear and easier to read.</strong>
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Async/Await వలన multiple .then() callbacks అవసరం లేదు. Code linear గా, చదవడానికి సులభంగా మారుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 4: Error Handling with try/catch -->
+    <div class="topic-card">
+      <div class="topic-title">⚠️ 4. Error Handling with try/catch</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          function mightFail(shouldSucceed) {
+              return new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                      if (shouldSucceed) {
+                          resolve("Success!");
+                      } else {
+                          reject("Failure occurred");
+                      }
+                  }, 1000);
+              });
+          }
+
+          async function handleAsync() {
+              try {
+                  let result = await mightFail(true);  // change to false to test error
+                  console.log("Result:", result);
+              } catch (error) {
+                  console.log("Caught error:", error);
+              }
+          }
+
+          handleAsync();
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>try/catch</strong> works exactly like synchronous code. Any rejected promise or thrown error inside the try block goes to catch.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>try/catch</strong> synchronous code లాగానే పనిచేస్తుంది. try block లో rejected promise లేదా thrown error వెంటనే catch కి వెళ్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 5: E-commerce Workflow with Async/Await -->
+    <div class="topic-card">
+      <div class="topic-title">🛒 5. Real Example: E-commerce Workflow (Async/Await)</div>
+      <div class="eng-section">
+        <div class="code-demo">
+          function addToCart() {
+              return new Promise(resolve => setTimeout(() => resolve("Added to cart"), 1000));
+          }
+          function proceedToCheckout() {
+              return new Promise(resolve => setTimeout(() => resolve("Checkout done"), 1000));
+          }
+          function makePayment() {
+              return new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                      let success = true;
+                      success ? resolve("Payment successful") : reject("Payment failed");
+                  }, 1000);
+              });
+          }
+
+          async function orderFlow() {
+              try {
+                  console.log("Starting order...");
+                  let cart = await addToCart();
+                  console.log(cart);
+                  let checkout = await proceedToCheckout();
+                  console.log(checkout);
+                  let payment = await makePayment();
+                  console.log(payment);
+                  console.log("Order completed!");
+              } catch (error) {
+                  console.log("Error in order:", error);
+              }
+          }
+
+          orderFlow();
+        </div>
+        <div class="highlight-box">
+          💡 This reads like synchronous code but runs asynchronously. Much easier to understand than promise chaining with multiple .then().
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> E-commerce workflow: addToCart → checkout → payment. Async/Await వలన code synchronous లాగా చదవడానికి వీలవుతుంది, కానీ అసలు execution asynchronous గా జరుగుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 6: Important - Top-level await (modern) -->
+    <div class="topic-card">
+      <div class="topic-title">📦 6. Top-level await (Modern JavaScript)</div>
+      <div class="eng-section">
+        <p>In modern JavaScript (ES2022+), you can use <span class="inline-code">await</span> at the top level of modules (not inside a function), without wrapping in an async function.</p>
+        <div class="code-demo">
+          // In a module (type="module"), this works:
+          let data = await fetchData();
+          console.log(data);
+        </div>
+        <div class="highlight-box">
+          🔥 However, in most environments, it's still recommended to wrap your code in an async function for compatibility and clarity.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Modern JavaScript (ES2022+) లో top-level await (module లో) నేరుగా వాడవచ్చు, async function లో wrap చేయనవసరం లేదు. అయినా compatibility కోసం async function వాడటం మంచిది.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary -->
+    <div class="topic-card">
+      <div class="topic-title">📖 7. Summary: Async/Await Essentials</div>
+      <div class="eng-section">
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>async</strong> keyword before a function → function always returns a Promise.</li>
+          <li><strong>await</strong> keyword pauses the async function until a Promise settles.</li>
+          <li>Use <strong>try/catch</strong> to handle errors (rejected promises).</li>
+          <li>Async/Await makes asynchronous code look synchronous → easier to read and maintain.</li>
+          <li>It is built on Promises — understanding Promises is still essential.</li>
+        </ul>
+        <div class="code-demo">
+          // Golden rule for async/await
+          async function myAsyncFunction() {
+              try {
+                  let result = await somePromise();
+                  console.log(result);
+              } catch (err) {
+                  console.error("Error:", err);
+              }
+          }
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Master Promises first, then use async/await for cleaner code. Practice converting .then() chains to async/await with try/catch.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>async</strong> → function ఎప్పుడూ Promise ని return చేస్తుంది.<br>
+        • <strong>await</strong> → async function ని pause చేస్తుంది, promise settle అయ్యే వరకు.<br>
+        • <strong>try/catch</strong> → error handling కోసం.<br>
+        • Async/Await → asynchronous code ని synchronous లాగా చదవడానికి.<br>
+        • ఇది Promises పై నిర్మించబడింది — Promises తెలుసుకోవడం ఇప్పటికీ ముఖ్యం.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Async/Await made simple. Next: Error Handling, fetch API, and building real-world async applications!
+    </div>
+  </div>
+</div>
+</body>
+</html>

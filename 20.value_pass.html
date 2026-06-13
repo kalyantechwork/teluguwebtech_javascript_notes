@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Pass by Value vs Pass by Reference in JavaScript | Primitives vs Objects | Kalyan's Tutorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: 'Segoe UI', 'Noto Sans', 'Roboto', system-ui, sans-serif;
+      line-height: 1.68;
+      color: #0a2f2a;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #0d3b35, #0f5e54);
+      padding: 2rem 2rem 1.8rem;
+      color: white;
+      border-bottom: 6px solid #f5b042;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .hero h1 span {
+      color: #facc15;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      opacity: 0.9;
+      border-left: 3px solid #f5b042;
+      padding-left: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .content {
+      padding: 2rem 2rem;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2.2rem;
+      border: 1px solid #e2edf2;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .topic-title {
+      background: #fbfefe;
+      padding: 1rem 2rem;
+      font-size: 1.65rem;
+      font-weight: 700;
+      border-left: 8px solid #f5b042;
+      color: #165a4f;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #e6edf2;
+    }
+
+    .eng-section, .tel-section {
+      padding: 1.2rem 2rem;
+    }
+
+    .tel-section {
+      background: #fffaf0;
+      border-top: 1px dashed #ffe0a3;
+      font-family: 'Noto Sans Telugu', 'Segoe UI', 'Gadugi', sans-serif;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .highlight-box {
+      background: #eef3fa;
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1rem 0;
+      border-left: 6px solid #f5b042;
+      font-weight: 500;
+    }
+
+    .code-demo {
+      background: #0f172a;
+      color: #facc15;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+
+    .inline-code {
+      background: #eef2fa;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #c7252e;
+    }
+
+    .compare-box {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    .compare-item {
+      flex: 1;
+      background: #f1f5f9;
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid #cbd5e1;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #e2edf2;
+    }
+
+    .footer-note {
+      text-align: right;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2edf2;
+      color: #2a6b5c;
+      font-style: italic;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 1rem; }
+      .topic-title { font-size: 1.35rem; padding: 0.8rem 1rem; }
+      .eng-section, .tel-section { padding: 1rem; }
+      .hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔄 <span>Pass by Value vs Pass by Reference</span> in JavaScript</h1>
+    <div class="sub">📦 Primitives (value copy) vs Objects (reference copy) | Stack & Heap Memory | Reference variables — by <strong>Kalyan (Telugu WebTech)</strong></div>
+  </div>
+  <div class="content">
+
+    <!-- 1: Pass by Value - Basic Example -->
+    <div class="topic-card">
+      <div class="topic-title">📌 1. Pass by Value (Primitives - Number, String, Boolean, etc.)</div>
+      <div class="eng-section">
+        <p>When you assign a <strong>primitive value</strong> (number, string, boolean, undefined, null) from one variable to another, JavaScript creates a <strong>copy</strong> of that value. This is called <strong>pass by value</strong>. The two variables are independent.</p>
+        <div class="code-demo">
+          let a = 100;
+          let b = a;    // Value 100 is COPIED to b
+
+          console.log(a, b);  // 100 100
+
+          b = 200;      // Changing b does NOT affect a
+          console.log(a, b);  // 100 200
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Analogy:</strong> Like making a photocopy of a document. Changes to the photocopy do NOT affect the original. Independent copies.
+        </div>
+        <p><strong>Primitive types in JavaScript:</strong> Number, String, Boolean, Undefined, Null, Symbol, BigInt.</p>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Primitive values</strong> (number, string, boolean, etc.) ని ఒక variable నుండి మరొక variable కి assign చేసినప్పుడు, JavaScript ఆ value యొక్క <strong>copy</strong> ని create చేస్తుంది. దీన్నే <strong>pass by value</strong> అంటారు. రెండు variables independent గా ఉంటాయి. ఒకదాన్ని మారిస్తే మరొకటి మారదు.</p>
+      </div>
+    </div>
+
+    <!-- 2: Pass by Reference - Objects -->
+    <div class="topic-card">
+      <div class="topic-title">📦 2. Pass by Reference (Objects - including Arrays, Functions)</div>
+      <div class="eng-section">
+        <p>When you assign an <strong>object</strong> from one variable to another, JavaScript copies the <strong>reference (memory address)</strong>, not the object itself. Both variables point to the <strong>same object</strong>. This is called <strong>pass by reference</strong>.</p>
+        <div class="code-demo">
+          let car1 = { name: "BMW", cost: 75.6, mileage: 8.9 };
+          let car2 = car1;   // Reference (address) is COPIED, not the object
+
+          console.log(car1.name);  // BMW
+          console.log(car2.name);  // BMW (same object)
+
+          car2.name = "Kia";       // Changing via car2 affects the same object
+          console.log(car1.name);  // Kia (changed!)
+          console.log(car2.name);  // Kia
+        </div>
+        <div class="highlight-box">
+          🔑 <strong>Key Insight:</strong> Both variables point to the <strong>same object in Heap memory</strong>. Modifying through either reference changes the single shared object.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Object</strong> ని ఒక variable నుండి మరొక variable కి assign చేసినప్పుడు, JavaScript <strong>reference (memory address)</strong> ని copy చేస్తుంది, object ని కాదు. రెండు variables <strong>ఒకే object</strong> ని point చేస్తాయి. దీన్నే <strong>pass by reference</strong> అంటారు. ఒక reference ద్వారా object ని మారిస్తే, మరొక reference ద్వారా కూడా ఆ మార్పు కనిపిస్తుంది.</p>
+      </div>
+    </div>
+
+    <!-- 3: Memory Visualization - Stack and Heap -->
+    <div class="topic-card">
+      <div class="topic-title">🧠 3. Memory Visualization: Stack and Heap</div>
+      <div class="eng-section">
+        <p>Understanding memory is key to mastering pass by value vs reference.</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Stack Memory:</strong> Stores primitive values and <strong>references</strong> (addresses) to objects. Fast, fixed-size.</li>
+          <li><strong>Heap Memory:</strong> Stores objects (including arrays and functions). Dynamic, larger.</li>
+        </ul>
+        <div class="code-demo">
+          let a = 100;           // 'a' in Stack stores value 100
+          let b = a;             // 'b' in Stack stores copy of value 100
+
+          let obj1 = { x: 10 };  // Object in Heap (address 0x1000), 'obj1' in Stack stores 0x1000
+          let obj2 = obj1;       // 'obj2' in Stack stores copy of address 0x1000 (same object!)
+        </div>
+        <div class="highlight-box">
+          🎯 <strong>Multiple references to same object:</strong> One object can have many references (like multiple keys to the same locker).
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Stack Memory:</strong> primitive values మరియు object addresses (references) ని store చేస్తుంది. <strong>Heap Memory:</strong> objects (arrays, functions) ని store చేస్తుంది. Object Heap లో ఒక్కసారి create అవుతుంది. Stack లో ఉన్న references (variables) ఆ address ని hold చేస్తాయి. ఒకే object ని ఎన్ని references అయినా point చేయవచ్చు.</p>
+      </div>
+    </div>
+
+    <!-- 4: Analogy - Lock and Keys -->
+    <div class="topic-card">
+      <div class="topic-title">🔑 4. Analogy: Locker and Multiple Keys</div>
+      <div class="eng-section">
+        <div class="compare-box">
+          <div class="compare-item">
+            <strong>Pass by Value (Primitives)</strong><br>
+            Like having two separate lockers.<br>
+            Each key opens its own locker.<br>
+            Changing one locker doesn't affect the other.
+          </div>
+          <div class="compare-item">
+            <strong>Pass by Reference (Objects)</strong><br>
+            Like having two keys to the SAME locker.<br>
+            Both keys open the same locker.<br>
+            Change inside using one key → other key sees the change.
+          </div>
+        </div>
+        <div class="highlight-box">
+          💡 <strong>Remember:</strong> For objects, the variable stores the <strong>address</strong> (key), not the object (locker) itself.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Pass by Value:</strong> రెండు వేర్వేరు lockers, రెండు వేర్వేరు keys. ఒక locker మారిస్తే మరొకటి మారదు.<br>
+        <strong>Pass by Reference:</strong> ఒకే locker కి రెండు keys. ఒక key తో locker లో change చేస్తే, రెండో key కి కూడా అదే change కనిపిస్తుంది. Objects విషయంలో variable లో object కాకుండా <strong>address (key)</strong> store అవుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 5: Common Confusion - Reassigning Reference -->
+    <div class="topic-card">
+      <div class="topic-title">⚠️ 5. Important: Reassigning a Reference Breaks the Link</div>
+      <div class="eng-section">
+        <p>If you <strong>reassign</strong> a variable to a new object, it now points to a different object. The other variable still points to the original object.</p>
+        <div class="code-demo">
+          let objA = { value: 10 };
+          let objB = objA;      // Both point to same object
+
+          objB = { value: 20 }; // objB now points to NEW object
+          console.log(objA.value); // 10 (unchanged)
+          console.log(objB.value); // 20
+        </div>
+        <div class="highlight-box">
+          🔥 <strong>Key distinction:</strong> Modifying a property (<span class="inline-code">obj.property = newValue</span>) affects the shared object. Reassigning the variable itself (<span class="inline-code">obj = newObject</span>) makes it point elsewhere without affecting other references.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> <strong>Property modification:</strong> <span class="inline-code">obj.name = "new"</span> → shared object మారుతుంది.<br>
+        <strong>Reassignment:</strong> <span class="inline-code">obj = newObject</span> → ఆ variable వేరే object ని point చేస్తుంది; ఇతర references ప్రభావితం కావు.</p>
+      </div>
+    </div>
+
+    <!-- 6: Function Parameters - Pass by Value for Primitives, Reference for Objects -->
+    <div class="topic-card">
+      <div class="topic-title">📞 6. Function Parameters: Same Rules Apply</div>
+      <div class="eng-section">
+        <p>When you pass a variable to a function:</p>
+        <ul style="margin-left: 1.8rem;">
+          <li><strong>Primitive:</strong> Pass by value (copy) → changes inside function don't affect outside variable.</li>
+          <li><strong>Object:</strong> Pass by reference (address copy) → changes to object properties affect the original object.</li>
+        </ul>
+        <div class="code-demo">
+          // Primitive - pass by value
+          function changePrimitive(x) {
+              x = 200;  // changes local copy only
+          }
+          let num = 100;
+          changePrimitive(num);
+          console.log(num); // 100 (unchanged)
+
+          // Object - pass by reference
+          function changeObject(obj) {
+              obj.name = "Modified";  // changes original object
+          }
+          let car = { name: "BMW" };
+          changeObject(car);
+          console.log(car.name); // "Modified" (changed!)
+        </div>
+        <div class="highlight-box">
+          ✅ <strong>Remember:</strong> For objects, the function receives a copy of the <strong>reference</strong> (address), so it can modify the original object.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు :</strong> Function కి argument పంపినప్పుడు:<br>
+        • <strong>Primitive:</strong> value copy పంపబడుతుంది → function లో change చేస్తే original మారదు.<br>
+        • <strong>Object:</strong> reference (address) copy పంపబడుతుంది → function లో object properties మారిస్తే original object మారుతుంది.</p>
+      </div>
+    </div>
+
+    <!-- 7: Summary Table -->
+    <div class="topic-card">
+      <div class="topic-title">📊 7. Summary: Pass by Value vs Pass by Reference</div>
+      <div class="eng-section">
+        <div class="compare-box">
+          <div class="compare-item">
+            <strong>✅ Pass by Value</strong><br>
+            • Works with: Primitives (Number, String, Boolean, etc.)<br>
+            • Copies the actual value<br>
+            • Independent copies<br>
+            • Changing one doesn't affect the other<br>
+            • Stored directly in Stack
+          </div>
+          <div class="compare-item">
+            <strong>🔄 Pass by Reference</strong><br>
+            • Works with: Objects (including Arrays, Functions)<br>
+            • Copies the reference (address)<br>
+            • Multiple references to same object<br>
+            • Changing via any reference affects the shared object<br>
+            • Object in Heap, reference in Stack
+          </div>
+        </div>
+        <div class="code-demo">
+          // Quick reference
+          let p = 10;
+          let q = p;     // Pass by value (copy)
+          q = 20;        // p is still 10
+
+          let objP = { val: 10 };
+          let objQ = objP;   // Pass by reference (address copy)
+          objQ.val = 20;     // objP.val also becomes 20
+        </div>
+        <div class="highlight-box">
+          🧠 <strong>Kalyan's Advice:</strong> Always visualize Stack (for references/values) and Heap (for objects). This mental model will save you hours of debugging.
+        </div>
+      </div>
+      <div class="tel-section">
+        <p>📌 <strong>తెలుగు సారాంశం :</strong><br>
+        • <strong>Pass by Value:</strong> Primitives (numbers, strings, booleans). Value copy. Independent. Stack లో store.<br>
+        • <strong>Pass by Reference:</strong> Objects, Arrays, Functions. Reference (address) copy. Shared object. Object Heap లో, reference Stack లో.<br>
+        • ఎప్పుడూ Stack మరియు Heap ని visualize చేసుకోండి — ఇది JavaScript debugging లో చాలా ఉపయోగపడుతుంది.</p>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      ✍️ <strong>Kalyan (Telugu WebTech)</strong> — Pass by Value vs Pass by Reference demystified. Next: Deep dive into Object methods, `this` keyword, and more!
+    </div>
+  </div>
+</div>
+</body>
+</html>
